@@ -4,5 +4,3 @@
 
 ### Definition of done
 Valmiiksi tehty tarkoittaa sitä, että vaatimus on analysoitu, suunniteltu, ohjelmoitu, testattu, testaus automatisoitu, dokumentoitu, integroitu muuhun ohjelmistoon.
-
-testcommit
