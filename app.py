@@ -4,5 +4,5 @@ app = Flask(__name__)
 
 
 @app.route("/frontpage", methods=["POST"])
-def front_page():
+def index():
     return render_template("frontpage.html", name=request.form["name"])
