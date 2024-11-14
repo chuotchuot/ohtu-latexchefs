@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Add new book reference
+{% endblock %}
+
+{% block body %}
+
+<h2>Add new book reference</h2>
+
+<form action="/add_book_reference" method="POST">
+    <p>Author(s):<br>
+        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)"></textarea>
+    </p>
+    <p>Title:<br>
+        <input type="text" name="title" placeholder="Enter title">
+    </p>
+    <p>Year of Publication:<br>
+        <input type="number" name="year" placeholder="Enter publication year">
+    </p>
+    <p>Publisher:<br>
+        <input type="text" name="publisher" placeholder="Enter publisher name">
+    </p>
+    <input type="submit" value="Submit">
+    <p>
+        <a href="/">Go to front page</a>
+    </p>
+    
+</form>
+
+{% endblock %}

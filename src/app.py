@@ -9,3 +9,7 @@ def index():
 @app.route("/selector", methods=["GET"])
 def render_selector():
     return render_template("selector.html")
+
+@app.route("/add_book_reference", methods=["POST"])
+def add_book_reference():
+    return redirect("/")
