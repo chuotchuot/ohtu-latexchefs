@@ -2,12 +2,13 @@
 Library  SeleniumLibrary
 
 *** Variables ***
-${SERVER}     localhost:5001
-${DELAY}      0.5 seconds
-${HOME_URL}   http://${SERVER}
-${RESET_URL}  http://${SERVER}/reset_db
-${BROWSER}    chrome
-${HEADLESS}   false
+${SERVER}        localhost:5001
+${DELAY}         0.5 seconds
+${HOME_URL}      http://${SERVER}
+${SELECTOR_URL}  http://${SERVER}/Selector
+${RESET_URL}     http://${SERVER}/reset_db
+${BROWSER}       chrome
+${HEADLESS}      false
 
 *** Keywords ***
 Open And Configure Browser
@@ -24,5 +25,14 @@ Open And Configure Browser
     END
     Open Browser  browser=${BROWSER}  options=${options}
 
-Reset Todos
-    Go To  ${RESET_URL}
+Front Page Should Be Open
+    Title Should Be  Front Page
+
+Selector Page Should Be Open
+    Title Should Be  Select reference type
+
+Go To Front Page
+    Go To  ${HOME_URL}
+
+Go To Selector Page
+    Go To  ${SELECTOR_URL}
