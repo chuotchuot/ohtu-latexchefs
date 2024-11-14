@@ -10,6 +10,13 @@ def index():
 def render_selector():
     return render_template("selector.html")
 
-@app.route("/add_book_reference", methods=["POST"])
+@app.route("/add_book_reference", methods=["GET", "POST"])
 def add_book_reference():
-    return redirect("/")
+    if request.method == "GET":
+        return render_template("new_book_reference.html")
+    if request.method == "POST":
+        title = request.form["title"]
+        year = request.form["year"]
+        publisher = request.form["publisher"]
+        authors = [author.strip() for author in request.form["authors"].split(";")]
+        return redirect("/")
