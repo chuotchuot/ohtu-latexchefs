@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "webcntr"
+name = "ohtu-latexchefs"
 version = "0.1.0"
 description = ""
-authors = [""]
+authors = ["Eero, Juho, Leevi, Lotta, Nuutti and Uyen"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
