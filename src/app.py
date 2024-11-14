@@ -1,6 +1,5 @@
-from flask import Flask
-from flask import render_template, request, url_for
-app = Flask(__name__)
+from flask import redirect, render_template, request, url_for
+from config import app, test_env
 
 
 @app.route("/")
