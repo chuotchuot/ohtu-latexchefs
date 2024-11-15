@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from config import app, test_env
+from repositories.reference_repository import add_reference
 
 
 @app.route("/")
@@ -15,8 +16,12 @@ def add_book_reference():
     if request.method == "GET":
         return render_template("new_book_reference.html")
     if request.method == "POST":
+        type = "Book"
         title = request.form["title"]
         year = request.form["year"]
         publisher = request.form["publisher"]
         authors = [author.strip() for author in request.form["authors"].split(";")]
+
+        add_reference(type, title, year, authors, publisher)
+        
         return redirect("/")
