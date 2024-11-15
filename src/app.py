@@ -11,6 +11,12 @@ def index():
 def render_selector():
     return render_template("selector.html")
 
+@app.route("/redirect", methods=["POST"])
+def redirect_to_reference():
+    reftype = request.form["reftype"]
+    return redirect(f"{reftype}")
+    
+
 @app.route("/add_book_reference", methods=["GET", "POST"])
 def add_book_reference():
     if request.method == "GET":

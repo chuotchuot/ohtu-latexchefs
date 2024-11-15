@@ -2,6 +2,9 @@
 <title>Select reference type</title>
 
 <p>
-    <input type="radio" name="reftype" value="1"> Book
-    <input type="radio" name="reftype" value="2"> Article
+    <form method="POST" action="/redirect">
+        <input type="radio" name="reftype" value="/add_book_reference"> Book
+        <input type="radio" name="reftype" value="2"> Article
+        <input type="submit" value="Submit">    
+    </form>
 <p>
