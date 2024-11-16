@@ -10,16 +10,16 @@ Add a new book reference | References
 
 <form action="/add_book_reference" method="POST">
     <p>Author(s):<br>
-        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)"></textarea>
+        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
     </p>
     <p>Title:<br>
-        <input type="text" name="title" placeholder="Enter title">
+        <input type="text" name="title" placeholder="Enter title" required>
     </p>
     <p>Year of Publication:<br>
-        <input type="number" name="year" placeholder="Enter publication year">
+        <input type="number" name="year" placeholder="Enter publication year" required>
     </p>
     <p>Publisher:<br>
-        <input type="text" name="publisher" placeholder="Enter publisher name">
+        <input type="text" name="publisher" placeholder="Enter publisher name" required>
     </p>
     <input type="submit" value="Submit">
     <p>
