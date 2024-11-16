@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<link rel="stylesheet" href="assets/main.css">
-<title>Front Page</title>
+{% extends "layout.html" %}
 
-<body>
-    <h2>Front Page</h2>
-    <a href="/selector">To selector</a>
-</body>
+{% block title %}
+Front Page | References
+{% endblock %}
 
+{% block body %}
+
+<h2>References</h2>
+
+<a href="/selector">Add a new reference</a>
+
+{% endblock %}

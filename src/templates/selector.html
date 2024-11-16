@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<title>Select reference type</title>
+{% extends "layout.html" %}
+
+{% block title %}
+Select reference type | References
+{% endblock %}
+
+{% block body %}
+
+<h2>Select reference type</h2>
 
 <p>
     <form method="POST" action="/redirect">
         <input type="radio" name="reftype" value="/add_book_reference"> Book
-        <input type="radio" name="reftype" value="2"> Article
+        <!-- <input type="radio" name="reftype" value="2"> Article -->
         <input type="submit" value="Submit">    
     </form>
-<p>
+</p>
+
+{% endblock %}
