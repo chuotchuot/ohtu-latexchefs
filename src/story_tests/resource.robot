@@ -26,10 +26,10 @@ Open And Configure Browser
     Open Browser  browser=${BROWSER}  options=${options}
 
 Front Page Should Be Open
-    Title Should Be  Front Page
+    Title Should Be  Front Page | References
 
 Selector Page Should Be Open
-    Title Should Be  Select reference type
+    Title Should Be  Select reference type | References
 
 Go To Front Page
     Go To  ${HOME_URL}
