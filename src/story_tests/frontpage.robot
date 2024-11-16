@@ -6,6 +6,7 @@ Test Setup      Reset Application And Go To Front Page
 
 *** Test Cases ***
 Click To Selector Link
+    Go To Front Page
     Click Link  Add a new reference
     Selector Page Should Be Open
 
