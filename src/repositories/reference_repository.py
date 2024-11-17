@@ -11,3 +11,8 @@ def add_reference(type, title, year, authors, publisher):
     sql = text("INSERT INTO reference (title, year, author, publisher, reference_type) VALUES (:title, :year, :author, :publisher, :reference_type)")
     db.session.execute(sql, {"title": title, "year": year, "author": author_str, "publisher": publisher, "reference_type": type})
     db.session.commit()
+
+def fetch_references():
+    fetch = db.session.execute(text("SELECT * FROM reference"))
+    fetched_references = fetch.fetchall()
+    return fetched_references

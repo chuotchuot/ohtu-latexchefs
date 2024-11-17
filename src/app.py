@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from config import app, test_env
-from repositories.reference_repository import add_reference
+from repositories.reference_repository import add_reference, fetch_references
 
 
 @app.route("/")
@@ -31,3 +31,8 @@ def add_book_reference():
         add_reference(type, title, year, authors, publisher)
         
         return redirect("/")
+
+@app.route("/list_of_references")
+def display_list_of_references():
+    references_data = fetch_references()
+    return render_template("list_of_references.html", references = references_data)

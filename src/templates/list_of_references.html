@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Add a new book reference | References
+{% endblock %}
+
+{% block body %}
+
+<h2>List of references</h2>
+
+{% if references %}
+{% for i in references %}
+    {{i}}<br>
+{% endfor %}
+{% else %}
+<p>No references found</p>
+{% endif %}
+
+<p>
+    <a href="/">Go to front page</a>
+</p>
+{% endblock %}
