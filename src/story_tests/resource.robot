@@ -43,3 +43,6 @@ Go To Selector Page
 
 Go To Add New Book Reference Page
     Go To  ${BOOK_REF_URL}
+
+Reset Database
+    Go To  ${RESET_URL}

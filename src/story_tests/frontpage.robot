@@ -13,4 +13,4 @@ Click To Selector Link
 *** Keywords ***
 Reset Application And Go To Front Page
     Go To Front Page
-    # Resetointia ei ole vielä implementoitu
+    Reset Database
