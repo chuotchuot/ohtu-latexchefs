@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+</head>
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -7,8 +11,10 @@ Front Page | References
 {% block body %}
 
 <h2>References</h2>
+<div class="buttons">
+    <a href="/selector" class="button">Add a new reference</a>
+    <br>
+    <a href="/list_of_references" class="button">View list of references</a>
+</div>
 
-<a href="/selector">Add a new reference</a>
-<br>
-<a href="/list_of_references">View list of references</a>
 {% endblock %}
