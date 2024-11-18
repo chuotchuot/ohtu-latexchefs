@@ -1,5 +1,5 @@
 import unittest
-from src.entities.reference import Reference
+from entities.reference import Reference
 
 class TestReference(unittest.TestCase):
 
