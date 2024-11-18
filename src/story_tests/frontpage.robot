@@ -12,5 +12,5 @@ Click To Selector Link
 
 *** Keywords ***
 Reset Application And Go To Front Page
-    Go To Front Page
     Reset Database
+    Go To Front Page

@@ -47,5 +47,5 @@ Clicking Go To Front Page Redirects To Front Page
 
 *** Keywords ***
 Reset Application And Go To Add New Book Reference Page
-    Go To Add New Book Reference Page
     Reset Database
+    Go To Add New Book Reference Page

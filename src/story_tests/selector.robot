@@ -16,5 +16,5 @@ Selector Redirects To Add New Book Reference
 
 *** Keywords ***
 Reset Application And Go To Selector Page
-    Go To Selector Page
     Reset Database
+    Go To Selector Page
