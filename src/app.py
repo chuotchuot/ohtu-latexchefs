@@ -1,7 +1,7 @@
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, jsonify
 from config import app, test_env
 from repositories.reference_repository import add_reference, fetch_references
-
+from db_helper import reset_db
 
 @app.route("/")
 def index():
@@ -36,3 +36,9 @@ def add_book_reference():
 def display_list_of_references():
     references_data = fetch_references()
     return render_template("list_of_references.html", references = references_data)
+
+if test_env:
+    @app.route("/reset_db")
+    def reset_database():
+        reset_db()
+        return jsonify({ 'message': "db reset" })
