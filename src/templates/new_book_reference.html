@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_book_reference.css') }}">
+</head>
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -22,10 +26,8 @@ Add a new book reference | References
         <input type="text" name="publisher" placeholder="Enter publisher name" required>
     </p>
     <input type="submit" value="Submit">
-    <p>
-        <a href="/">Go to front page</a>
-    </p>
-    
 </form>
+
+<a href="/">Go to front page</a>
 
 {% endblock %}
