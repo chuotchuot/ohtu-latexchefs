@@ -9,9 +9,12 @@ List of references | References
 <h2>List of references</h2>
 
 {% if references %}
+<span id="references">
 {% for i in references %}
-    {{i}}<br>
+    {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
+     <br>
 {% endfor %}
+</span>
 {% else %}
 <p>No references found</p>
 {% endif %}

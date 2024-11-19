@@ -13,6 +13,6 @@ def add_reference(type, title, year, authors, publisher):
     db.session.commit()
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT * FROM reference"))
+    fetch = db.session.execute(text("SELECT title, year, author, publisher, reference_type  FROM reference"))
     fetched_references = fetch.fetchall()
     return fetched_references
