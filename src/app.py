@@ -27,8 +27,10 @@ def add_book_reference():
         year = request.form["year"]
         publisher = request.form["publisher"]
         authors = [author.strip() for author in request.form["authors"].split(";")]
+        reference_key = request.form["reference_key"]
+        keywords = request.form["keywords"]
 
-        add_reference(type, title, year, authors, publisher)
+        add_reference(type, title, year, authors, publisher, reference_key, keywords)
         
         return redirect("/")
 
