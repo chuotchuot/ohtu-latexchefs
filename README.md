@@ -5,11 +5,12 @@
 [Backlog](https://helsinkifi-my.sharepoint.com/:x:/g/personal/janteero_ad_helsinki_fi/EZOTEPWAgVVJnm4PhNXM8-YB2JGW8DwOhZs6ALVS5rh3-A?e=fSjnbS)
 
 ### Definition of done
-Valmiiksi tehty tarkoittaa sitä, että vaatimus on analysoitu, suunniteltu, ohjelmoitu, testattu, testaus automatisoitu, dokumentoitu, integroitu muuhun ohjelmistoon.
+
+Requirements are considered done when they've been analyzed, planned, programmed, tested, testing automated, documented and integrated to rest of the software.
 
 ### Ohjelman käyttäminen
 
-Kloonaa repositorio laitteellesi
+Clone the repository to your local
 #### SSH
 ```
 git clone git@github.com:chuotchuot/ohtu-latexchefs.git 
@@ -18,21 +19,26 @@ git clone git@github.com:chuotchuot/ohtu-latexchefs.git
 ```
 git clone https://github.com/chuotchuot/ohtu-latexchefs.git
 ```
-Asenna tarvittavat riippuvuudet suorittamalla alla oleva komento paikallisen repositorion juuressa.
+Change directory to the root of the project and install dependencies
 ```
-poetry install 
+cd ohtu-latexchefs
+poetry install
 ```
-Luo .env -tiedosto seuraavilla tiedoilla kloonaamasi repositorion juureen paikallisesti
+Create .env -file with following specifications to the root of your local project.
 ```
-DATABASE_URL=postgresql://{Pyydä tietokannan tiedot kehittäjiltä} 
+DATABASE_URL=postgresql://{local database address} 
 TEST_ENV=true 
-SECRET_KEY={Luo henkilökohtainen salausavain} 
+SECRET_KEY={Create personal secret key} 
 ```
-Käynnistä virtuaaliympäristö seuraavalla komennolla
+Setup database on your local
+```
+python3 src/db_helper.py
+```
+Start virtual environment
 ```
 poetry shell 
 ```
-Käynnistä ohjelma suorittamalla alla oleva komento paikallisen repositorion juuressa.
+Run the application
 ```
 python3 src/index 
 ```
