@@ -8,7 +8,7 @@ def add_reference(type, title, year, authors, publisher, reference_key, keywords
 
     author_str = ", ".join(author for author in authors)
 
-    sql = text("INSERT INTO reference (title, year, author, publisher, reference_type) VALUES (:title, :year, :author, :publisher, :reference_type)")
+    sql = text("INSERT INTO reference (title, year, author, publisher, reference_type, reference_key, keywords) VALUES (:title, :year, :author, :publisher, :reference_type, :reference_key, :keywords)")
     db.session.execute(sql, {"title": title, "year": year, "author": author_str, "publisher": publisher, "reference_type": type, "reference_key": reference_key, "keywords": keywords})
     db.session.commit()
 
