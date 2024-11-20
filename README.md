@@ -8,7 +8,7 @@
 
 Requirements are considered done when they've been analyzed, planned, programmed, tested, testing automated, documented and integrated to rest of the software.
 
-### Ohjelman käyttäminen
+### Setting up and running the project locally
 
 Clone the repository to your local
 #### SSH
