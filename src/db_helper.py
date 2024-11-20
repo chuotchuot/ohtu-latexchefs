@@ -5,7 +5,7 @@ table_name = "reference"
 
 def table_exists(name):
     sql = text(
-        "SELECT EXISTS"
+        "SELECT EXISTS ("
         "   SELECT 1"
         "   FROM information_schema.tables"
         f"   WHERE table_name = '{name}'"
@@ -16,6 +16,7 @@ def table_exists(name):
     print(sql)
 
     result = db.session.execute(sql)
+    db.session.commit()
     return result.fetchall()[0][0]
 
 def setup_db():
@@ -35,7 +36,7 @@ def setup_db():
         "   publisher TEXT," 
         "   editor TEXT,"
         "   reference_type TEXT,"
-        "   reference_key TEXT"
+        "   reference_key TEXT,"
         "   keywords TEXT"
         ")"
         ))
