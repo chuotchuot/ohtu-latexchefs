@@ -13,7 +13,6 @@ def table_exists(name):
     )
     
     print(f"Checking if table {name} exists")
-    print(sql)
 
     result = db.session.execute(sql)
     db.session.commit()
