@@ -29,13 +29,13 @@ def setup_db():
     sql = (text(
         f"CREATE TABLE {table_name} ("
         "   id SERIAL PRIMARY KEY," 
-        "   title TEXT,"
-        "   author TEXT," 
-        "   year INT," 
+        "   title TEXT NOT NULL,"
+        "   author TEXT NOT NULL," 
+        "   year INT NOT NULL," 
         "   publisher TEXT," 
         "   editor TEXT,"
-        "   reference_type TEXT,"
-        "   reference_key TEXT,"
+        "   reference_type TEXT NOT NULL,"
+        "   reference_key TEXT NOT NULL,"
         "   keywords TEXT"
         ")"
         ))
