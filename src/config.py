@@ -13,8 +13,15 @@ app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
+# Class for remembering toggle status, maybe should be somewhere else
 class Toggle:
     def __init__(self):
         self.state = False
+    
+    def change_state(self):
+        self.state = not self.state
+
+    def get_state(self):
+        return self.state
 
 toggle = Toggle()

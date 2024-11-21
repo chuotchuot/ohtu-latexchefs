@@ -36,12 +36,13 @@ def add_book_reference():
 
 @app.route("/list_of_references")
 def display_list_of_references():
+    # Add if statement here to determine how reference data is fetched
     references_data = fetch_references()
-    return render_template("list_of_references.html", references=references_data, view=toggle.state)
+    return render_template("list_of_references.html", references=references_data, view=toggle.get_state())
 
 @app.route("/toggle_list", methods=["POST"])
 def toggle_list():
-    toggle.state = not toggle.state
+    toggle.change_state()
     return redirect("/list_of_references")
 
 if test_env:
