@@ -10,12 +10,12 @@ Empty Reference List Is Declared
     Page Should Contain    No references found
 
 Single Reference Is Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher
+    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Ref Key
     Go To List Of References Page
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
 Multiple References Are Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher
-    Submit Valid Filled Out Form    Other Authors    Other Title    1990    Other Publisher
+    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Ref Key
+    Submit Valid Filled Out Form    Other Authors    Other Title    1990    Other Publisher  Other Ref Key
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
     Page Should Contain    Other Title, Other Authors, 1990, Other Publisher
 
@@ -29,12 +29,13 @@ Reset Application And Go To List Of References Page
     Go To List Of References Page
 
 Submit Valid Filled Out Form 
-    [Arguments]  ${authors}  ${title}  ${year}  ${publisher}
+    [Arguments]  ${authors}  ${title}  ${year}  ${publisher}  ${reference_key}
     Go To Add New Book Reference Page
     Input Text  name=authors  ${authors}
     Input Text  name=title  ${title}
     Input Text  name=year  ${year}
     Input Text  name=publisher  ${publisher}
+    Input Text  name=reference_key  ${reference_key}
     Click Button  Submit
     Go To List Of References Page
     
