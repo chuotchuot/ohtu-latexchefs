@@ -14,10 +14,20 @@ List of references | References
 
 {% if references %}
 <span id="references">
+{% if view %}
+{% for i in references %}
+    title = {{i.title}}, <br>
+    author = {{i.author}}, <br>
+    year = {{i.year}}, <br>
+    publisher = {{i.publisher}} <br>
+     <br>
+{% endfor %}
+{% else %}
 {% for i in references %}
     {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
      <br>
 {% endfor %}
+{% endif %}
 </span>
 {% else %}
 <p>No references found</p>
@@ -26,4 +36,7 @@ List of references | References
 <p>
     <a href="/">Go to front page</a>
 </p>
+<form action="/toggle_list" method="POST">
+    <input type="submit" value="Toggle BibTeX format">
+</form>
 {% endblock %}

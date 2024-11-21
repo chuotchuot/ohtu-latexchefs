@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, jsonify
-from config import app, test_env
+from config import app, test_env, toggle
 from repositories.reference_repository import add_reference, fetch_references
 from db_helper import reset_db
 
@@ -37,7 +37,12 @@ def add_book_reference():
 @app.route("/list_of_references")
 def display_list_of_references():
     references_data = fetch_references()
-    return render_template("list_of_references.html", references = references_data)
+    return render_template("list_of_references.html", references=references_data, view=toggle.state)
+
+@app.route("/toggle_list", methods=["POST"])
+def toggle_list():
+    toggle.state = not toggle.state
+    return redirect("/list_of_references")
 
 if test_env:
     @app.route("/reset_db")
