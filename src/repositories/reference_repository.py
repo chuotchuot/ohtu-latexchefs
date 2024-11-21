@@ -16,3 +16,8 @@ def fetch_references():
     fetch = db.session.execute(text("SELECT title, year, author, publisher, reference_type  FROM reference"))
     fetched_references = fetch.fetchall()
     return fetched_references
+
+def delete_reference(id: int) -> None:
+    sql = text("DELETE FROM reference WHERE id = :id")
+    db.session.execute(sql, {"id": id})
+    db.session.commit()
