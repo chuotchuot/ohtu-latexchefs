@@ -15,9 +15,15 @@ def add_reference(type, title, year, authors, publisher, reference_key, keywords
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and special characters - and _.")
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT title, year, author, publisher, reference_type  FROM reference"))
+    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, reference_type FROM reference"))
     fetched_references = fetch.fetchall()
     return fetched_references
+
+def fetch_reference(id: int):
+    sql = text("SELECT id, title, year, author, publisher, reference_type FROM reference WHERE id = :id LIMIT 1")
+    fetch = db.session.execute(sql, {"id": id})
+    fetched_reference = fetch.fetchone()
+    return fetched_reference
 
 def delete_reference(id: int) -> None:
     sql = text("DELETE FROM reference WHERE id = :id")
