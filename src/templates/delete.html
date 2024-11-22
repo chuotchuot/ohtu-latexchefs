@@ -1,0 +1,25 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delete.css') }}">
+</head>
+
+{% extends "layout.html" %}
+
+{% block title %}
+Delete Reference | References
+{% endblock %}
+
+{% block body %}
+
+Are you sure you want to delete this reference?
+{{reference.title}}, {{reference.author}}, {{reference.year}}, {{reference.publisher}} 
+
+<div class="buttons">
+    <form action="/delete" method="POST">
+        <input type="hidden" name="id" value="{{reference.id}}">
+        <input type="hidden" name="confirmed" value="1">
+        <input type="submit" title="Yes" value="Yes">
+    </form>
+    <a href="/list_of_references" class="button">No</a>
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, jsonify
 from config import app, test_env
-from repositories.reference_repository import add_reference, fetch_references
+from repositories.reference_repository import add_reference, fetch_references, delete_reference, fetch_reference
 from db_helper import reset_db
 
 @app.route("/")
@@ -40,6 +40,17 @@ def display_list_of_references():
     if request.method == "POST":
         state = request.form["state"]
         return render_template("list_of_references.html", references=references_data, toggle=state)
+    
+@app.route("/delete", methods=["POST"])
+def delete():
+    id = request.form["id"]
+    confirmed: bool = request.form["confirmed"] == "1"
+    if(confirmed):
+        delete_reference(id)
+        return redirect("/list_of_references")
+    else:
+        reference = fetch_reference(id)
+        return render_template("delete.html", reference=reference)
 
 if test_env:
     @app.route("/reset_db")

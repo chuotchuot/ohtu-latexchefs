@@ -21,12 +21,22 @@ List of references | References
     author = {{i.author}}, <br>
     year = {{i.year}}, <br>
     publisher = {{i.publisher}} <br>
+    <form action="/delete" method="POST">
+        <input type="hidden" name="id" value="{{i.id}}">
+        <input type="hidden" name="confirmed" value="0">
+        <input type="submit" title="Delete" value="Delete">
+    </form>
     <!-- Placeholder ends here -->
      <br>
 {% endfor %}
 {% else %}
 {% for i in references %}
     {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
+    <form action="/delete" method="POST">
+        <input type="hidden" name="id" value="{{i.id}}">
+        <input type="hidden" name="confirmed" value="0">
+        <input type="submit" title="Delete" value="Delete">
+    </form>
      <br>
 {% endfor %}
 {% endif %}
