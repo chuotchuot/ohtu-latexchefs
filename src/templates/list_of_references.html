@@ -14,17 +14,17 @@ List of references | References
 
 {% if references %}
 <span id="references">
-<!-- Placeholder starts here -->
-{% if view %}
+{% if toggle == "on" %}
 {% for i in references %}
+    <!-- Placeholder starts here -->
     title = {{i.title}}, <br>
     author = {{i.author}}, <br>
     year = {{i.year}}, <br>
     publisher = {{i.publisher}} <br>
+    <!-- Placeholder ends here -->
      <br>
 {% endfor %}
 {% else %}
-<!-- Placeholder ends here -->
 {% for i in references %}
     {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
      <br>
@@ -38,7 +38,12 @@ List of references | References
 <p>
     <a href="/">Go to front page</a>
 </p>
-<form action="/toggle_list" method="POST">
+<form action="/list_of_references" method="POST">
+    {% if toggle == "on" %}
+    <input type="hidden" name="state" value="off">
+    {% else %}
+    <input type="hidden" name="state" value="on">
+    {% endif %}
     <input type="submit" value="Toggle BibTeX format">
 </form>
 {% endblock %}

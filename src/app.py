@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, jsonify
-from config import app, test_env, toggle
+from config import app, test_env
 from repositories.reference_repository import add_reference, fetch_references
 from db_helper import reset_db
 
@@ -7,15 +7,13 @@ from db_helper import reset_db
 def index():
     return render_template("index.html")
 
-@app.route("/selector", methods=["GET"])
+@app.route("/selector", methods=["GET", "POST"])
 def render_selector():
-    return render_template("selector.html")
-
-@app.route("/redirect", methods=["POST"])
-def redirect_to_reference():
-    reftype = request.form["reftype"]
-    return redirect(f"{reftype}")
-    
+    if request.method == "GET":
+        return render_template("selector.html")
+    if request.method == "POST":
+        reftype = request.form["reftype"]
+        return redirect(f"{reftype}")    
 
 @app.route("/add_book_reference", methods=["GET", "POST"])
 def add_book_reference():
@@ -34,16 +32,14 @@ def add_book_reference():
         
         return redirect("/")
 
-@app.route("/list_of_references")
+@app.route("/list_of_references", methods=["GET", "POST"])
 def display_list_of_references():
-    # Add if statement here to determine how reference data is fetched
     references_data = fetch_references()
-    return render_template("list_of_references.html", references=references_data, view=toggle.get_state())
-
-@app.route("/toggle_list", methods=["POST"])
-def toggle_list():
-    toggle.change_state()
-    return redirect("/list_of_references")
+    if request.method == "GET":
+        return render_template("list_of_references.html", references=references_data, toggle="off")
+    if request.method == "POST":
+        state = request.form["state"]
+        return render_template("list_of_references.html", references=references_data, toggle=state)
 
 if test_env:
     @app.route("/reset_db")
