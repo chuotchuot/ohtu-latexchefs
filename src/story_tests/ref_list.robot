@@ -10,12 +10,12 @@ Empty Reference List Is Declared
     Page Should Contain    No references found
 
 Single Reference Is Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Ref Key
+    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test-Ref-Key-1
     Go To List Of References Page
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
 Multiple References Are Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Ref Key
-    Submit Valid Filled Out Form    Other Authors    Other Title    1990    Other Publisher  Other Ref Key
+    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test-Ref-Key-1
+    Submit Valid Filled Out Form    Other Authors    Other Title    1990    Other Publisher  Test-Ref-Key-2
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
     Page Should Contain    Other Title, Other Authors, 1990, Other Publisher
 
