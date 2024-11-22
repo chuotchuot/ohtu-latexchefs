@@ -7,10 +7,12 @@ from sqlalchemy import text
 def add_reference(type, title, year, authors, publisher, reference_key, keywords):
 
     author_str = ", ".join(author for author in authors)
-
-    sql = text("INSERT INTO reference (title, year, author, publisher, reference_type, reference_key, keywords) VALUES (:title, :year, :author, :publisher, :reference_type, :reference_key, :keywords)")
-    db.session.execute(sql, {"title": title, "year": year, "author": author_str, "publisher": publisher, "reference_type": type, "reference_key": reference_key, "keywords": keywords})
-    db.session.commit()
+    try:
+        sql = text("INSERT INTO reference (title, year, author, publisher, reference_type, reference_key, keywords) VALUES (:title, :year, :author, :publisher, :reference_type, :reference_key, :keywords)")
+        db.session.execute(sql, {"title": title, "year": year, "author": author_str, "publisher": publisher, "reference_type": type, "reference_key": reference_key, "keywords": keywords})
+        db.session.commit()
+    except:
+        raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and special characters - and _.")
 
 def fetch_references():
     fetch = db.session.execute(text("SELECT title, year, author, publisher, reference_type  FROM reference"))
