@@ -14,14 +14,17 @@ List of references | References
 
 {% if references %}
 <span id="references">
-{% if toggle == "on" %}
 {% for i in references %}
     <!-- Placeholder starts here -->
     <div class="reference">
-        title = {{i.title}}, <br>
-        author = {{i.author}}, <br>
-        year = {{i.year}}, <br>
-        publisher = {{i.publisher}} <br>
+        {% if toggle == "on" %}
+            title = {{i.title}}, <br>
+            author = {{i.author}}, <br>
+            year = {{i.year}}, <br>
+            publisher = {{i.publisher}} <br>
+        {% else %}
+            {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
+        {% endif %}
         <form action="/edit" method="POST">
             <input type="hidden" name="id" value="{{i.id}}">
             <input type="hidden" name="confirmed" value="0">
@@ -30,30 +33,12 @@ List of references | References
         <form action="/delete" method="POST">
             <input type="hidden" name="id" value="{{i.id}}">
             <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="button" title="Delete" value="Delete">
+            <input type="submit" class="button delete" title="Delete" value="Delete">
         </form>
         <!-- Placeholder ends here -->
     </div>
     <br>
 {% endfor %}
-{% else %}
-{% for i in references %}
-    <div class="reference">
-        {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
-        <form action="/edit" method="POST">
-            <input type="hidden" name="id" value="{{i.id}}">
-            <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="button edit" title="Edit" value="Edit">
-        </form>
-        <form action="/delete" method="POST">
-            <input type="hidden" name="id" value="{{i.id}}">
-            <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="button delete" title="Delete" value="Delete">
-        </form>
-    </div>
-     <br>
-{% endfor %}
-{% endif %}
 </span>
 {% else %}
 <p>No references found</p>
