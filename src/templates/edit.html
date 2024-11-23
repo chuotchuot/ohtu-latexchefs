@@ -10,24 +10,26 @@ Edit Reference | References
 
 {% block body %}
 
+<h2>Edit Reference</h2>
+
 <form action="/edit" method="POST">
     <p>Author(s):<br>
-        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+        <textarea name="authors" rows="5" cols="30" class="inputwidth" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
     </p>
     <p>Title:<br>
-        <input type="text" name="title" value="{{reference.title}}" placeholder="Enter title" required>
+        <input type="text" name="title" class="inputwidth" value="{{reference.title}}" placeholder="Enter title" required>
     </p>
     <p>Year of Publication:<br>
-        <input type="number" name="year" value="{{reference.year}}" placeholder="Enter publication year" required>
+        <input type="number" name="year" class="inputwidth" value="{{reference.year}}" placeholder="Enter publication year" required>
     </p>
     <p>Publisher:<br>
-        <input type="text" name="publisher" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
+        <input type="text" name="publisher" class="inputwidth" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
     </p>
     <p>Reference key:<br>
-        <input type="text" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
+        <input type="text" class="inputwidth" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
     </p>
     <p>Keyword(s):<br>
-        <textarea rows="4" cols="30" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
+        <textarea rows="4" cols="30" class="inputwidth" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
     </p>
     <input type="hidden" name="id" value="{{reference.id}}">
     <input type="hidden" name="confirmed" value="1">
