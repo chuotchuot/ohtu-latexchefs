@@ -26,6 +26,11 @@ List of references | References
         <input type="hidden" name="confirmed" value="0">
         <input type="submit" title="Delete" value="Delete">
     </form>
+    <form action="/edit" method="POST">
+        <input type="hidden" name="id" value="{{i.id}}">
+        <input type="hidden" name="confirmed" value="0">
+        <input type="submit" title="Edit" value="Edit">
+    </form>
     <!-- Placeholder ends here -->
      <br>
 {% endfor %}
@@ -36,6 +41,11 @@ List of references | References
         <input type="hidden" name="id" value="{{i.id}}">
         <input type="hidden" name="confirmed" value="0">
         <input type="submit" title="Delete" value="Delete">
+    </form>
+    <form action="/edit" method="POST">
+        <input type="hidden" name="id" value="{{i.id}}">
+        <input type="hidden" name="confirmed" value="0">
+        <input type="submit" title="Edit" value="Edit">
     </form>
      <br>
 {% endfor %}

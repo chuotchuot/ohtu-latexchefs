@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/edit.css') }}">
+</head>
+
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Reference | References
+{% endblock %}
+
+{% block body %}
+
+<form action="/edit" method="POST">
+    <p>Author(s):<br>
+        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+    </p>
+    <p>Title:<br>
+        <input type="text" name="title" value="{{reference.title}}" placeholder="Enter title" required>
+    </p>
+    <p>Year of Publication:<br>
+        <input type="number" name="year" value="{{reference.year}}" placeholder="Enter publication year" required>
+    </p>
+    <p>Publisher:<br>
+        <input type="text" name="publisher" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
+    </p>
+    <p>Reference key:<br>
+        <input type="text" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
+    </p>
+    <p>Keyword(s):<br>
+        <textarea rows="4" cols="30" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
+    </p>
+    <input type="hidden" name="id" value="{{reference.id}}">
+    <input type="hidden" name="confirmed" value="1">
+    <div class="buttons">
+        <input type="submit" value="Confirm Changes">
+        <a href="/list_of_references" class="button">Discard Changes</a>
+    </div>
+    
+</form>
+
+{% endblock %}

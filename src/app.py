@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, jsonify
 from config import app, test_env
-from repositories.reference_repository import add_reference, fetch_references, delete_reference, fetch_reference
+from repositories.reference_repository import add_reference, fetch_references, delete_reference, fetch_reference, edit_reference
 from db_helper import reset_db
 
 @app.route("/")
@@ -41,6 +41,7 @@ def display_list_of_references():
         state = request.form["state"]
         return render_template("list_of_references.html", references=references_data, toggle=state)
     
+    
 @app.route("/delete", methods=["POST"])
 def delete():
     id = request.form["id"]
@@ -51,6 +52,25 @@ def delete():
     else:
         reference = fetch_reference(id)
         return render_template("delete.html", reference=reference)
+
+@app.route("/edit", methods=["POST"])
+def edit():
+    id = request.form["id"]
+    confirmed: bool = request.form["confirmed"] == "1"
+    if(confirmed):
+        title = request.form["title"]
+        year = request.form["year"]
+        publisher = request.form["publisher"]
+        authors = [author.strip() for author in request.form["authors"].split(";")]
+        reference_key = request.form["reference_key"]
+        keywords = request.form["keywords"]
+        
+        edit_reference(id, title, year, authors, publisher, reference_key, keywords)
+        return redirect("/list_of_references")
+    else:
+        reference = fetch_reference(id)
+        authors: str = ";".join(reference.author.split(", "))
+        return render_template("edit.html", reference=reference, authors=authors)
 
 if test_env:
     @app.route("/reset_db")
