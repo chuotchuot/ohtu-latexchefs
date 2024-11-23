@@ -17,36 +17,40 @@ List of references | References
 {% if toggle == "on" %}
 {% for i in references %}
     <!-- Placeholder starts here -->
-    title = {{i.title}}, <br>
-    author = {{i.author}}, <br>
-    year = {{i.year}}, <br>
-    publisher = {{i.publisher}} <br>
-    <form action="/delete" method="POST">
-        <input type="hidden" name="id" value="{{i.id}}">
-        <input type="hidden" name="confirmed" value="0">
-        <input type="submit" title="Delete" value="Delete">
-    </form>
-    <form action="/edit" method="POST">
-        <input type="hidden" name="id" value="{{i.id}}">
-        <input type="hidden" name="confirmed" value="0">
-        <input type="submit" title="Edit" value="Edit">
-    </form>
-    <!-- Placeholder ends here -->
-     <br>
+    <div class="reference">
+        title = {{i.title}}, <br>
+        author = {{i.author}}, <br>
+        year = {{i.year}}, <br>
+        publisher = {{i.publisher}} <br>
+        <form action="/edit" method="POST">
+            <input type="hidden" name="id" value="{{i.id}}">
+            <input type="hidden" name="confirmed" value="0">
+            <input type="submit" class="button" title="Edit" value="Edit">
+        </form>
+        <form action="/delete" method="POST">
+            <input type="hidden" name="id" value="{{i.id}}">
+            <input type="hidden" name="confirmed" value="0">
+            <input type="submit" class="button" title="Delete" value="Delete">
+        </form>
+        <!-- Placeholder ends here -->
+    </div>
+    <br>
 {% endfor %}
 {% else %}
 {% for i in references %}
-    {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
-    <form action="/delete" method="POST">
-        <input type="hidden" name="id" value="{{i.id}}">
-        <input type="hidden" name="confirmed" value="0">
-        <input type="submit" title="Delete" value="Delete">
-    </form>
-    <form action="/edit" method="POST">
-        <input type="hidden" name="id" value="{{i.id}}">
-        <input type="hidden" name="confirmed" value="0">
-        <input type="submit" title="Edit" value="Edit">
-    </form>
+    <div class="reference">
+        {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
+        <form action="/edit" method="POST">
+            <input type="hidden" name="id" value="{{i.id}}">
+            <input type="hidden" name="confirmed" value="0">
+            <input type="submit" class="button edit" title="Edit" value="Edit">
+        </form>
+        <form action="/delete" method="POST">
+            <input type="hidden" name="id" value="{{i.id}}">
+            <input type="hidden" name="confirmed" value="0">
+            <input type="submit" class="button delete" title="Delete" value="Delete">
+        </form>
+    </div>
      <br>
 {% endfor %}
 {% endif %}
@@ -64,6 +68,6 @@ List of references | References
     {% else %}
     <input type="hidden" name="state" value="on">
     {% endif %}
-    <input type="submit" value="Toggle BibTeX format">
+    <input type="submit" class="button" value="Toggle BibTeX format">
 </form>
 {% endblock %}
