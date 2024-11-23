@@ -1,1 +1,75 @@
-/* TODO
+h2{
+    padding: 0px 0px 0px 0px;
+    font-size: 30;
+    color: white;
+    width: 50%;
+    text-align: center;
+    margin: 0px;
+}
+
+h3{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 0px;
+    font-size: 20;
+    color: white;
+    font-weight: normal;
+    width: 50%;
+    text-align: center;
+}
+
+body {
+    background-color: #342e58;
+    display: flex;  
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 80%; 
+}
+
+form {
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+input[type="submit"] {
+    margin-right: 10px; 
+    padding: 12px 18px; 
+    text-decoration: none;
+    color: white; 
+    background-color: rgb(255, 80, 80); 
+    border: 2px solid rgb(44, 44, 44);
+    border-radius: 10px;
+    transition: transform 0.1s, background-color 0.1s;
+    font-size: 17;  
+}
+
+input[type="submit"]:hover{
+    background-color: rgb(230, 70, 70);
+    transform: scale(1.025);
+    cursor: pointer;
+}
+
+a{
+    padding: 12px 18px; 
+    text-decoration: none;
+    color: white; 
+    background-color: rgb(66, 66, 66); 
+    border: 2px solid rgb(44, 44, 44);
+    border-radius: 10px;
+    transition: transform 0.1s, background-color 0.1s;
+}
+
+a:hover{
+    background-color: rgb(55, 55, 55); 
+    transform: scale(1.025);
+    cursor: pointer;
+}
+
+
+.buttons {
+    display: flex;
+    font-size: 17;  
+    width: 50%;
+}
