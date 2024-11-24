@@ -8,7 +8,7 @@ Test Setup      Reset Application And Go To List Of References Page
 Empty Reference List Is Declared
     Page Should Contain    No references found
 
-Submitting Fully Filled Out Form Redirects To Front Page
+Add New Reference
     Go To Add New Book Reference Page
     Input Text  name=authors  Test Authors
     Input Text  name=title  Test Title
@@ -19,19 +19,19 @@ Submitting Fully Filled Out Form Redirects To Front Page
     Click Button    Submit
     Front Page Should Be Open
 
-Submit Edit Add New Author
+Edit Add New Author
     Click Button    Edit
     Input Text    name=authors    ;New Author
     Click Button  Confirm Changes
     Edit Should Succeed
 
-Submit Edited Year
+Edit Year
     Click Button    Edit
     Input Text    name=year    2005
     Click Button  Confirm Changes
     Edit Should Succeed
 
-Submit New Title
+Edit New Title
     Click Button    Edit
     Clear Element Text    name=title
     Input Text    name=title    NewTitle
