@@ -1,5 +1,5 @@
 h2{
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 10px 0px;
     font-size: 30;
     color: white;
     width: 50%;
@@ -9,7 +9,7 @@ h2{
 
 h3{
     padding-top: 2%;
-    padding-bottom: 2%;
+    padding-bottom: 3%;
     margin: 0px;
     font-size: 20;
     color: white;
@@ -19,7 +19,7 @@ h3{
 }
 
 body {
-    background-color: #342e58;
+    background-color: hsl(255 27 23);
     display: flex;  
     justify-content: center; 
     align-items: center;
@@ -33,40 +33,55 @@ form {
     font-family: Arial, sans-serif;
 }
 
-input[type="submit"] {
-    margin-right: 10px; 
-    padding: 12px 18px; 
-    text-decoration: none;
+.delete{
     color: white; 
-    background-color: rgb(255, 80, 80); 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
-    font-size: 17;  
+    border: 2px solid hsl(0 100 66); 
 }
 
-input[type="submit"]:hover{
-    background-color: rgb(230, 70, 70);
-    transform: scale(1.025);
-    cursor: pointer;
+.delete:hover{
+    background-color: hsl(0 100 66);
+    color: white;
 }
+
+.delete:active{
+    background-color: hsl(0 100 55);
+    color: white;
+}
+
 
 a{
-    padding: 12px 18px; 
-    text-decoration: none;
     color: white; 
-    background-color: rgb(66, 66, 66); 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
+    background-color: hsl(256 22 13); 
+    border: 2px solid hsl(256 0 70); 
 }
 
 a:hover{
-    background-color: rgb(55, 55, 55); 
+    background-color: hsl(256 0 70); 
+    color: white; 
+}
+
+a:active{
+    background-color: hsl(256 0 60); 
+    color: white; 
+}
+
+.button{
+    margin-right: 10px; 
+    padding: 12px 18px; 
+    text-decoration: none;
+    background-color: hsl(256 22 13); 
+    border-radius: 10px;
+    font-size: 17;  
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.button:hover{
     transform: scale(1.025);
     cursor: pointer;
 }
-
+.button:active{
+    transform: scale(0.975);
+}
 
 .buttons {
     display: flex;

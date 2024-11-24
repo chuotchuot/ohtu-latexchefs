@@ -14,27 +14,27 @@ Edit Reference | References
 
 <form action="/edit" method="POST">
     <p>Author(s):<br>
-        <textarea name="authors" rows="5" cols="30" class="inputwidth" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+        <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
     </p>
     <p>Title:<br>
-        <input type="text" name="title" class="inputwidth" value="{{reference.title}}" placeholder="Enter title" required>
+        <input type="text" name="title" class="inputfield" value="{{reference.title}}" placeholder="Enter title" required>
     </p>
     <p>Year of Publication:<br>
-        <input type="number" name="year" class="inputwidth" value="{{reference.year}}" placeholder="Enter publication year" required>
+        <input type="number" name="year" class="inputfield" value="{{reference.year}}" placeholder="Enter publication year" required>
     </p>
     <p>Publisher:<br>
-        <input type="text" name="publisher" class="inputwidth" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
+        <input type="text" name="publisher" class="inputfield" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
     </p>
     <p>Reference key:<br>
-        <input type="text" class="inputwidth" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
+        <input type="text" class="inputfield" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
     </p>
     <p>Keyword(s):<br>
-        <textarea rows="4" cols="30" class="inputwidth" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
+        <textarea rows="4" cols="30" class="inputfield" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
     </p>
     <input type="hidden" name="id" value="{{reference.id}}">
     <input type="hidden" name="confirmed" value="1">
     <div class="buttons">
-        <input type="submit" value="Confirm Changes">
+        <input type="submit" class="button" value="Confirm Changes">
         <a href="/list_of_references" class="button">Discard Changes</a>
     </div>
     
@@ -52,15 +52,14 @@ Edit Reference | References
         return true;
     });
     let inputField = document.querySelector('input[name="reference_key"]');
+    let originalColor = inputField.style.backgroundColor;
     inputField.addEventListener('input', function(event) {
         let refKey = event.target.value;
         if(!regex.test(refKey) && refKey != ""){
             inputField.style.backgroundColor = "rgb(255, 80, 80)"
-            inputField.style.color = "white"
         }
         else{
-            inputField.style.backgroundColor = "white"
-            inputField.style.color = "black"
+            inputField.style.backgroundColor = originalColor;
         }
     });
 </script>

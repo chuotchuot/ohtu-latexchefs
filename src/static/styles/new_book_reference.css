@@ -4,7 +4,7 @@ h2{
 }
 
 body {
-    background-color: #342e58;
+    background-color: hsl(255 27 23);
     display: flex;  
     justify-content: center; 
     align-items: center;
@@ -13,30 +13,70 @@ body {
     height: 80%; 
 }
 
-input[type="submit"] {
-    margin-right: 10px; 
-    padding: 10px 15px; 
-    text-decoration: none;
-    color: black; 
-    background-color: white; 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
+
+p{
+    margin: 0;
 }
 
 textarea{
     font-family: Arial, sans-serif;
+    resize: none;
+    field-sizing: content;
 }
 
 form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
     color: white;
     font-family: Arial, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    gap: 15px;
+    width: 50%;
 }
 
-input[type="submit"]:hover{
-    background-color: #e8e8e8;
+.inputfield{
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid rgb(255,255,255);
+    padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(30, 26, 41);
+}
+
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.button{
+    margin-right: 10px; 
+    padding: 10px 15px; 
+    text-decoration: none;
+    color: white; 
+    background-color: hsl(256 22 13); 
+    border: 1px solid hsl(256 22 95); 
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+.button:hover{
+    background-color: hsl(256 22 95); 
+    color: hsl(256 22 13); 
     transform: scale(1.025);
     cursor: pointer;
+}
+.button:active{
+    background-color: hsl(256 22 90); 
+    color: hsl(256 22 13); 
+    transform: scale(0.975);
 }
 
 a{
@@ -44,17 +84,4 @@ a{
     top: 0;
     left: 0; 
     margin: 10px 10px 10px 10px;
-    padding: 10px 15px; 
-    text-decoration: none;
-    color: black; 
-    background-color: white; 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
-}
-
-a:hover{
-    background-color: #e8e8e8;
-    transform: scale(1.025);
-    cursor: pointer;
 }

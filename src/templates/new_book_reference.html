@@ -14,27 +14,27 @@ Add a new book reference | References
 
 <form action="/add_book_reference" method="POST">
     <p>Author(s):<br>
-        <textarea name="authors" rows="5" cols="30" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
+        <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
     </p>
     <p>Title:<br>
-        <input type="text" name="title" placeholder="Enter title" required>
+        <input type="text" name="title" class="inputfield" placeholder="Enter title" required>
     </p>
     <p>Year of Publication:<br>
-        <input type="number" name="year" placeholder="Enter publication year" required>
+        <input type="number" name="year" class="inputfield" placeholder="Enter publication year" required>
     </p>
     <p>Publisher:<br>
-        <input type="text" name="publisher" placeholder="Enter publisher name" required>
+        <input type="text" name="publisher" class="inputfield" placeholder="Enter publisher name" required>
     </p>
     <p>Reference key:<br>
-        <input type="text" name="reference_key" placeholder="Enter reference key" required>
+        <input type="text" name="reference_key" class="inputfield" placeholder="Enter reference key" required>
     </p>
     <p>Keyword(s):<br>
-        <textarea rows="4" cols="30" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)"></textarea>
+        <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)"></textarea>
     </p>
-    <input type="submit" value="Submit">
+    <input type="submit" class="button" value="Submit">
 </form>
 
-<a href="/">Go to front page</a>
+<a class="button" href="/">Go to front page</a>
 
 <script>
     const regex = /^[a-zA-Z0-9\-._]*$/;
@@ -48,15 +48,14 @@ Add a new book reference | References
         return true;
     });
     let inputField = document.querySelector('input[name="reference_key"]');
+    let originalColor = inputField.style.backgroundColor;
     inputField.addEventListener('input', function(event) {
         let refKey = event.target.value;
         if(!regex.test(refKey) && refKey != ""){
             inputField.style.backgroundColor = "rgb(255, 80, 80)"
-            inputField.style.color = "white"
         }
         else{
-            inputField.style.backgroundColor = "white"
-            inputField.style.color = "black"
+            inputField.style.backgroundColor = originalColor;
         }
     });
 </script>

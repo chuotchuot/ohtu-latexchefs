@@ -33,7 +33,7 @@ List of references | References
         <form action="/delete" method="POST">
             <input type="hidden" name="id" value="{{i.id}}">
             <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="button delete" title="Delete" value="Delete">
+            <input type="submit" class="delete button" title="Delete" value="Delete">
         </form>
         <!-- Placeholder ends here -->
     </div>
@@ -45,7 +45,7 @@ List of references | References
 {% endif %}
 
 <p>
-    <a href="/">Go to front page</a>
+    <a href="/" class="button home">Go to front page</a>
 </p>
 <form action="/list_of_references" method="POST">
     {% if toggle == "on" %}

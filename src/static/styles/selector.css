@@ -4,7 +4,7 @@ h2{
 }
 
 body {
-    background-color: #342e58;
+    background-color: hsl(255 27 23);
     display: flex;  
     justify-content: center; 
     align-items: center;
@@ -13,23 +13,28 @@ body {
     height: 50%; 
 }
 
-input {
-    margin-right: 10px; 
-    padding: 10px 15px; 
-    text-decoration: none;
-    color: black; 
-    background-color: white; 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
-}
-
 form {
     color: white;
 }
 
-input:hover{
-    background-color: #e8e8e8;
+.button{
+    margin-right: 10px; 
+    padding: 10px 15px; 
+    text-decoration: none;
+    color: white; 
+    background-color: hsl(256 22 13); 
+    border: 1px solid hsl(256 22 95); 
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+.button:hover{
+    background-color: hsl(256 22 95); 
+    color: hsl(256 22 13); 
     transform: scale(1.025);
     cursor: pointer;
+}
+.button:active{
+    background-color: hsl(256 22 90); 
+    color: hsl(256 22 13); 
+    transform: scale(0.975);
 }

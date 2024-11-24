@@ -8,7 +8,7 @@ h2{
 }
 
 body {
-    background-color: #342e58;
+    background-color: hsl(255 27 23);
     display: flex;  
     justify-content: center; 
     align-items: center;
@@ -23,7 +23,18 @@ p{
 
 textarea{
     font-family: Arial, sans-serif;
-    width: 240px;
+    resize: none;
+    field-sizing: content;
+}
+
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 form {
@@ -38,43 +49,59 @@ form {
     gap: 15px;
     width: 50%;
 }
+.inputfield{
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid rgb(255,255,255);
+    padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(30, 26, 41);
+}
 
-input[type="submit"] {
+.button {
     margin-right: 10px; 
     padding: 10px 15px; 
     text-decoration: none;
-    color: black; 
-    background-color: rgb(100, 255, 100); 
-    border: 2px solid rgb(44, 44, 44);
+    color: white;
+    background-color: rgb(38, 38, 38); 
     border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
+    transition: transform 0.2s, background-color 0.2s ease;
     font-size: 15;  
 }
 
-.inputwidth{
-    width: 240px;
+.button:hover {
+    transform: scale(1.025);
+    cursor: pointer;
+}
+
+.button:active{
+    transform: scale(0.975);
+    cursor: pointer;
+}
+
+input[type="submit"]{
+    border: 2px solid hsl(120 70 50);
 }
 
 input[type="submit"]:hover{
-    background-color: rgb(90, 230, 90); 
-    transform: scale(1.025);
-    cursor: pointer;
+    background-color: hsl(120 70 50);
+}
+
+input[type="submit"]:active{
+    background-color: hsl(120 70 40);
 }
 
 a{
-    padding: 10px 15px; 
-    text-decoration: none;
-    color: white; 
-    background-color: rgb(255, 80, 80); 
-    border: 2px solid rgb(44, 44, 44);
-    border-radius: 10px;
-    transition: transform 0.1s, background-color 0.1s;
+    border: 2px solid hsl(0 100 66); 
 }
 
 a:hover{
-    background-color: rgb(230, 70, 70);
-    transform: scale(1.025);
-    cursor: pointer;
+    background-color: hsl(0 100 66);
+}
+
+a:active{
+    background-color: hsl(0 100 55);
 }
 
 .buttons {
