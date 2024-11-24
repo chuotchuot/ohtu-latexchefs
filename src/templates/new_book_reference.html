@@ -37,7 +37,7 @@ Add a new book reference | References
 <a href="/">Go to front page</a>
 
 <script>
-    const regex = /^[a-zA-Z0-9\-_]*$/;
+    const regex = /^[a-zA-Z0-9\-._]*$/;
     document.querySelector("body > form").addEventListener('submit', function(event) {
         let refKey = document.querySelector('input[name="reference_key"]').value;
         if(!regex.test(refKey)){
