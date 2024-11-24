@@ -36,4 +36,29 @@ Add a new book reference | References
 
 <a href="/">Go to front page</a>
 
+<script>
+    const regex = /^[a-zA-Z0-9\-_]*$/;
+    document.querySelector("body > form").addEventListener('submit', function(event) {
+        let refKey = document.querySelector('input[name="reference_key"]').value;
+        if(!regex.test(refKey)){
+            alert("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters '-' and '_' are allowed.");
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    });
+    let inputField = document.querySelector('input[name="reference_key"]');
+    inputField.addEventListener('input', function(event) {
+        let refKey = event.target.value;
+        if(!regex.test(refKey) && refKey != ""){
+            inputField.style.backgroundColor = "rgb(255, 80, 80)"
+            inputField.style.color = "white"
+        }
+        else{
+            inputField.style.backgroundColor = "white"
+            inputField.style.color = "black"
+        }
+    });
+</script>
+
 {% endblock %}
