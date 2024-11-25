@@ -6,17 +6,21 @@ from config import db
 
 def add_reference(ref_type, title, year, authors, publisher, reference_key, keywords):
     author_str = ", ".join(author for author in authors)
-    try:
-        sql = text("INSERT INTO reference (title, year, author, publisher, reference_type, "
-                   "reference_key, keywords) VALUES (:title, :year, :author, :publisher, "
-                   ":reference_type, :reference_key, :keywords)")
-        db.session.execute(sql, {"title": title, "year": year, "author": author_str,
-                                 "publisher": publisher, "reference_type": ref_type,
-                                 "reference_key": reference_key, "keywords": keywords})
-        db.session.commit()
-    except Exception as exc:
-        raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
+
+    if check_unique_reference_key(reference_key):
+        try:
+            sql = text("INSERT INTO reference (title, year, author, publisher, reference_type, "
+                       "reference_key, keywords) VALUES (:title, :year, :author, :publisher, "
+                       ":reference_type, :reference_key, :keywords)")
+            db.session.execute(sql, {"title": title, "year": year, "author": author_str,
+                                     "publisher": publisher, "reference_type": ref_type,
+                                     "reference_key": reference_key, "keywords": keywords})
+            db.session.commit()
+        except Exception as exc:
+            raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
                          "special characters - and _.") from exc
+    else:
+        raise ValueError("Reference key has to be unique. Try using another reference key")
 
 def fetch_references():
     fetch = db.session.execute(text("SELECT id, title, year, author, publisher, "
@@ -50,3 +54,14 @@ def edit_reference(ref_id: int, title: str, year: int, authors: list[str], publi
     except Exception as exc:
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
                          "special characters - and _.") from exc
+
+def check_unique_reference_key(reference_key):
+
+    sql = text("SELECT NOT EXISTS ("
+               "    SELECT 1 FROM reference"
+               "    WHERE reference_key = :reference_key"
+               ") AS exists")
+    result = db.session.execute(sql, {"reference_key":reference_key}).fetchone()
+    db.session.commit()
+
+    return result.exists
