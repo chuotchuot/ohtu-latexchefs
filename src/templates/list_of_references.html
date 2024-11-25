@@ -18,10 +18,25 @@ List of references | References
     <!-- Placeholder starts here -->
     <div class="reference">
         {% if toggle == "on" %}
-            title = {{i.title}}, <br>
-            author = {{i.author}}, <br>
-            year = {{i.year}}, <br>
-            publisher = {{i.publisher}} <br>
+            <!-- Copy button code from here -->
+            <div id="bibtex-{{ i.id }}">
+            <!-- to here -->
+                title = {{i.title}}, <br>
+                author = {{i.author}}, <br>
+                year = {{i.year}}, <br>
+                publisher = {{i.publisher}} <br>
+            <!-- Copy button code from here -->
+            </div>
+            <br/>
+            <button onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy text</button>
+            <script>
+                function copyToClipboard(elementId) {
+                    var copyText = document.getElementById(elementId).innerText;
+                    navigator.clipboard.writeText(copyText);
+                    alert("Copied the text:\n" + copyText)
+                }
+            </script>
+            <!-- to here -->
         {% else %}
             {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
         {% endif %}
