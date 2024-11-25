@@ -36,7 +36,7 @@ def setup_db():
         "   editor TEXT,"
         "   reference_type TEXT NOT NULL,"
         "   reference_key TEXT NOT NULL UNIQUE"
-        "       CONSTRAINT valid_ref_key CHECK (reference_key ~ '^[a-zA-Z0-9_.-]*$'),"
+        "       CONSTRAINT valid_ref_key CHECK (reference_key ~ '^[a-zA-Z0-9_-]*$'),"
         "   keywords TEXT"
         ")"
         ))
