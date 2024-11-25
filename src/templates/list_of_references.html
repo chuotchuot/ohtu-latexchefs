@@ -16,13 +16,11 @@ List of references | References
 <span id="references">
 {% for i in references %}
     <!-- Placeholder starts here -->
-    <div class="reference">
+    
         {% if toggle == "on" %}
-            title = {{i.title}}, <br>
-            author = {{i.author}}, <br>
-            year = {{i.year}}, <br>
-            publisher = {{i.publisher}} <br>
+            <pre>{{i}}</pre> <br>
         {% else %}
+        <div class="reference">
             {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
         {% endif %}
         <form action="/edit" method="POST">
