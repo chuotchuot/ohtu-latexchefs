@@ -60,8 +60,8 @@ def check_unique_reference_key(reference_key):
     sql = text("SELECT NOT EXISTS ("
                "    SELECT 1 FROM reference"
                "    WHERE reference_key = :reference_key"
-               ") AS exists")
+               ") AS unique")
     result = db.session.execute(sql, {"reference_key":reference_key}).fetchone()
     db.session.commit()
 
-    return result.exists
+    return result.unique
