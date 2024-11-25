@@ -39,6 +39,12 @@ Add New Book Reference Page Should Be Open
 List Of References Page Should Be Open
     Title Should Be  List of references | References
 
+Edit Reference Page Should Be Open
+    Title Should Be  Edit Reference | References
+
+Delete Reference Page Should Be Open
+    Title Should Be  Delete Reference | References
+
 Go To Front Page
     Go To  ${HOME_URL}
 

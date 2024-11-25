@@ -8,46 +8,22 @@ Test Setup      Reset Application And Go To List Of References Page
 Empty Reference List Is Declared
     Page Should Contain  No references found
 
-Edit Add New Author And Submit Form
+Delete Reference
     Add New Reference
     Click Link  View list of references
-    Click Button  Edit
-    Input Text  name=authors  New Author
-    Click Button  Confirm Changes
+    Click Button    Delete
+    Delete Reference Page Should Be Open
+    Click Button    Delete
     List Of References Page Should Be Open
+    Page Should Contain  No references found
 
-Edit Year And Submit Form
+Delete Reference And Cancel
     Add New Reference
     Click Link  View list of references
-    Click Button  Edit
-    Input Text  name=year  2005
-    Click Button  Confirm Changes
+    Click Button    Delete
+    Delete Reference Page Should Be Open
+    Click Link    Cancel
     List Of References Page Should Be Open
-
-Edit Add New Title And Submit Form
-    Add New Reference
-    Click Link  View list of references
-    Click Button  Edit
-    Clear Element Text  name=title
-    Input Text  name=title  NewTitle
-    Click Button  Confirm Changes
-    List Of References Page Should Be Open
-
-Discard Changes
-    Add New Reference
-    Click Link  View list of references
-    Click Button  Edit
-    Input Text  name=publisher  Wrong Publisher
-    Click Link  Discard Changes
-    List Of References Page Should Be Open
-
-Can't Submit Form When Title Empty
-    Add New Reference
-    Click Link  View list of references
-    Click Button  Edit
-    Clear Element Text  name=title
-    Click Button  Confirm Changes
-    Edit Reference Page Should Be Open
 
 *** Keywords ***
 Reset Application And Go To List of References Page
