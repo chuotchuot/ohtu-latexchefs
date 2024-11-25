@@ -18,7 +18,7 @@ def add_reference(ref_type, title, year, authors, publisher, reference_key, keyw
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
-                         "special characters - and _.") from exc
+                         "special characters '-', '_' or ':'.") from exc
     else:
         raise ValueError("Reference key has to be unique. Try using another reference key")
 
@@ -53,7 +53,7 @@ def edit_reference(ref_id: int, title: str, year: int, authors: list[str], publi
         db.session.commit()
     except Exception as exc:
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
-                         "special characters - and _.") from exc
+                         "special characters '-', '_' or ':'.") from exc
 
 def check_unique_reference_key(reference_key):
 
