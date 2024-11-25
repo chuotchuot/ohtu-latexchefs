@@ -50,6 +50,17 @@ def create_bibtex_string(kirja):
 
 
 
+def convert_to_bibtex(references):
+    converted = []
+    for i in references:
+        converted.append(
+            f"@{i.reference_type}" + "{" + ",\n" +
+            "author = {" + f"{i.author}" + "},\n" +
+            "year = {" + f"{i.year}" + "},\n" +
+            "publisher = {" + f"{i.publisher}" + "}"
+        )
+    return converted
+
 def fetch_reference(ref_id: int):
     sql = text("SELECT id, title, year, author, publisher, reference_type, reference_key, "
                "keywords FROM reference WHERE id = :id LIMIT 1")

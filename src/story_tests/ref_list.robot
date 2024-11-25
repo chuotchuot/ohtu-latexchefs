@@ -22,6 +22,7 @@ Multiple References Are Displayed
 Clicking Go to front page Goes To Front Page
     Click Link  Go to front page
     Front Page Should Be Open
+    
 *** Keywords ***
 
 Reset Application And Go To List Of References Page
