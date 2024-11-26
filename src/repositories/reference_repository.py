@@ -25,13 +25,13 @@ def add_reference(ref_type, title, year, authors, publisher, reference_key, keyw
         raise ValueError("Reference key has to be unique. Try using another reference key")
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT title, year, author, publisher, "
+    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, "
                                     "reference_type, reference_key, keywords FROM reference"))
     fetched_references = fetch.fetchall()
     
     bibtex_string_lista = []
     for i in fetched_references:
-        bibtex_string_lista.append(create_bibtex_string(i))
+        bibtex_string_lista.append({"id":i.id,"text":create_bibtex_string(i)})
 
     return fetched_references, bibtex_string_lista
 
