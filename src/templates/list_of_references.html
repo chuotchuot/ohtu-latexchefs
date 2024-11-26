@@ -22,7 +22,7 @@ List of references | References
 {{ i.text.strip() }}
     {% endfor %}
 </div>
-<button class="copy-button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
+<button class="copy-button button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
 <script>
     function copyAllReferences(elementId) {
         var allReferencesText = document.getElementById(elementId).innerText;
@@ -36,7 +36,7 @@ List of references | References
         feedback.style.position = "fixed";
         feedback.style.bottom = "25px";
         feedback.style.right = "25px";
-        feedback.style.backgroundColor = "hsl(220 22 30)";
+        feedback.style.backgroundColor = "hsl(256 22 13)";
         feedback.style.color = "white";
         feedback.style.padding = "8px 10px";
         feedback.style.borderRadius = "10px";
@@ -55,8 +55,8 @@ List of references | References
 <!-- to here -->
 
 {% for i in references %}
+    <div class="reference">
     <!-- Placeholder starts here -->
-    
         {% if toggle == "on" %}
         <!-- Copy button code from here -->
         <div id="bibtex-{{ i.id }}" class="bibtex-container">
@@ -65,7 +65,6 @@ List of references | References
         <!-- Copy button code from here -->
     </div>
     <br/>
-    <button class="copy-button" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy Reference</button>
     <script>
         function copyToClipboard(elementId) {
             var copyText = document.getElementById(elementId).innerText;
@@ -75,22 +74,24 @@ List of references | References
     </script>
     <!-- to here -->
         {% else %}
-        <div class="reference">
             {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}
         {% endif %}
-        <form action="/edit" method="POST">
-            <input type="hidden" name="id" value="{{i.id}}">
-            <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="button" title="Edit" value="Edit">
-        </form>
-        <form action="/delete" method="POST">
-            <input type="hidden" name="id" value="{{i.id}}">
-            <input type="hidden" name="confirmed" value="0">
-            <input type="submit" class="delete button" title="Delete" value="Delete">
-        </form>
+
+        <div class=" {{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
+            <button class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy</button>
+            <form action="/edit" method="POST">
+                <input type="hidden" name="id" value="{{i.id}}">
+                <input type="hidden" name="confirmed" value="0">
+                <input type="submit" class="button refButton" title="Edit" value="Edit">
+            </form>
+            <form action="/delete" method="POST">
+                <input type="hidden" name="id" value="{{i.id}}">
+                <input type="hidden" name="confirmed" value="0">
+                <input type="submit" class="delete button refButton" title="Delete" value="Delete">
+            </form>
+        </div>
         <!-- Placeholder ends here -->
     </div>
-    <br>
 {% endfor %}
 </span>
 {% else %}

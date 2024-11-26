@@ -15,12 +15,26 @@ h2{
     color: white;
 }
 
+pre{
+    padding: 0px;
+    margin: 0px;
+}
+
 .reference{
     display: flex;
     flex-direction: row;
     align-items: center; 
     vertical-align: middle;
-    text-align: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+
+#references{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    vertical-align: middle;
 }
 
 form{
@@ -28,15 +42,24 @@ form{
     padding: 0;
 }
 
-.button{
-    margin-left: 6px;
-    padding: 6px 9px;
-    text-decoration: none;
-    color: white;
-    background-color: hsl(256 22 13);
-    border: 1px solid hsl(256 22 95);
-    border-radius: 10px;
-    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    vertical-align: middle;
+    gap: 5px;
+}
+
+.buttonsBibtex{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    vertical-align: middle;
+    gap: 5px;
+}
+
+.refButton{
+    min-width: 55px;
 }
 
 .home{
@@ -46,6 +69,17 @@ form{
     margin: 10px 10px 10px 10px;
     padding: 10px 15px; 
 }
+
+.button{
+    padding: 6px 9px;
+    text-decoration: none;
+    color: white;
+    background-color: hsl(256 22 13);
+    border: 1px solid hsl(256 22 95);
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
 
 .button:hover{
     background-color: hsl(256 22 95);
@@ -73,25 +107,3 @@ form{
     color: white;
 }
 
-.copy-button{
-    margin-left: 6px;
-    padding: 6px 9px;
-    text-decoration: none;
-    color: white;
-    background-color: hsl(256 22 13);
-    border: 1px solid hsl(256 22 95);
-    border-radius: 10px;
-    transition: transform 0.2s, background-color 0.2s, color 0.2s;
-}
-
-.copy-button:hover{
-    background-color: hsl(256 22 95);
-    color: hsl(256 22 13);
-    transform: scale(1.025);
-    cursor: pointer;
-}
-.copy-button:active{
-    background-color: hsl(256 22 90);
-    color: hsl(256 22 13);
-    transform: scale(0.975);
-}
