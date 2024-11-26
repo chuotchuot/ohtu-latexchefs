@@ -7,7 +7,7 @@ from config import db
 #from entities.book import Book
 
 def add_reference(ref_type, title, year, authors, publisher, reference_key, keywords):
-    author_str = ", ".join(author for author in authors)
+    author_str = " and ".join(author for author in authors)
 
     if check_unique_reference_key(reference_key):
         try:
