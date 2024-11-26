@@ -42,11 +42,18 @@ def create_bibtex_string(kirja):
                 'year': str(kirja.year),
                 'ID': kirja.reference_key,
                 'keyword': kirja.keywords,
-                'ENTRYTYPE': kirja.reference_type,}#add publisher
+                'ENTRYTYPE': kirja.reference_type,
+                'publisher': kirja.publisher,}#add publisher
     bibdb.entries.append(temp)
     string = bibtexparser.dumps(bibdb)
     return string
 
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 def fetch_reference(ref_id: int):
     sql = text("SELECT id, title, year, author, publisher, reference_type, reference_key, "
                "keywords FROM reference WHERE id = :id LIMIT 1")
