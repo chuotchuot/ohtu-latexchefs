@@ -30,11 +30,11 @@ form{
 
 .button{
     margin-left: 6px;
-    padding: 6px 9px; 
+    padding: 6px 9px;
     text-decoration: none;
-    color: white; 
-    background-color: hsl(256 22 13); 
-    border: 1px solid hsl(256 22 95); 
+    color: white;
+    background-color: hsl(256 22 13);
+    border: 1px solid hsl(256 22 95);
     border-radius: 10px;
     transition: transform 0.2s, background-color 0.2s, color 0.2s;
 }
@@ -48,14 +48,14 @@ form{
 }
 
 .button:hover{
-    background-color: hsl(256 22 95); 
-    color: hsl(256 22 13); 
+    background-color: hsl(256 22 95);
+    color: hsl(256 22 13);
     transform: scale(1.025);
     cursor: pointer;
 }
 .button:active{
-    background-color: hsl(256 22 90); 
-    color: hsl(256 22 13); 
+    background-color: hsl(256 22 90);
+    color: hsl(256 22 13);
     transform: scale(0.975);
 }
 
@@ -71,4 +71,27 @@ form{
 .delete:active{
     background-color: hsl(0 100 55);
     color: white;
+}
+
+.copy-button{
+    margin-left: 6px;
+    padding: 6px 9px;
+    text-decoration: none;
+    color: white;
+    background-color: hsl(256 22 13);
+    border: 1px solid hsl(256 22 95);
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.copy-button:hover{
+    background-color: hsl(256 22 95);
+    color: hsl(256 22 13);
+    transform: scale(1.025);
+    cursor: pointer;
+}
+.copy-button:active{
+    background-color: hsl(256 22 90);
+    color: hsl(256 22 13);
+    transform: scale(0.975);
 }

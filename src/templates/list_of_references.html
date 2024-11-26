@@ -14,6 +14,46 @@ List of references | References
 
 {% if references %}
 <span id="references">
+
+<!-- Copy all references button from here -->
+{% if toggle == "on" %}
+<div id="all-references-in-bibtex" style="display: none; white-space: pre;">
+    {% for i in references %}
+{{ i.text.strip() }}
+    {% endfor %}
+</div>
+<button class="copy-button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
+<script>
+    function copyAllReferences(elementId) {
+        var allReferencesText = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(allReferencesText);
+        copyFeedbackMessage("All references copied to clipboard.");
+    }
+
+    function copyFeedbackMessage(message) {
+        const feedback = document.createElement("div");
+        feedback.innerText = message;
+        feedback.style.position = "fixed";
+        feedback.style.bottom = "25px";
+        feedback.style.right = "25px";
+        feedback.style.backgroundColor = "hsl(220 22 30)";
+        feedback.style.color = "white";
+        feedback.style.padding = "8px 10px";
+        feedback.style.borderRadius = "10px";
+        feedback.style.zIndex = "100";
+        feedback.style.transition = "opacity 0.3s";
+
+        document.body.appendChild(feedback);
+
+        setTimeout(() => {
+            feedback.style.opacity = "0";
+            setTimeout(() => feedback.remove(), 300);
+        }, 2000);
+    }
+</script>
+{% endif %}
+<!-- to here -->
+
 {% for i in references %}
     <!-- Placeholder starts here -->
     
@@ -25,12 +65,12 @@ List of references | References
         <!-- Copy button code from here -->
     </div>
     <br/>
-    <button onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy text</button>
+    <button class="copy-button" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy Reference</button>
     <script>
         function copyToClipboard(elementId) {
             var copyText = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(copyText);
-            alert("Copied the text:\n" + copyText)
+            copyFeedbackMessage("Reference copied to clipboard.");
         }
     </script>
     <!-- to here -->
