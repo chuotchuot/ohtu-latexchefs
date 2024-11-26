@@ -1,7 +1,7 @@
 from sqlalchemy import text
-from config import db
-import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
+import bibtexparser
+from config import db
 
 #from entities.reference import Reference
 #from entities.book import Book
@@ -28,7 +28,6 @@ def fetch_references():
     fetch = db.session.execute(text("SELECT id, title, year, author, publisher, "
                                     "reference_type, reference_key, keywords FROM reference"))
     fetched_references = fetch.fetchall()
-    
     bibtex_string_lista = []
     for i in fetched_references:
         bibtex_string_lista.append({"id":i.id,"text":create_bibtex_string(i)})

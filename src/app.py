@@ -37,12 +37,12 @@ def add_book_reference():
 
 @app.route("/list_of_references", methods=["GET", "POST"])
 def display_list_of_references():
-    references_data = fetch_references()
+    reference_data = fetch_references()
     if request.method == "GET" or request.form["state"] == "off" :
-        return render_template("list_of_references.html", references=references_data[0], toggle="off")
+        return render_template("list_of_references.html", references=reference_data[0],toggle="off")
     # if request.method == "POST":
     state = request.form["state"]
-    return render_template("list_of_references.html", references=references_data[1], toggle=state)
+    return render_template("list_of_references.html", references=reference_data[1], toggle=state)
 
 
 @app.route("/delete", methods=["POST"])
