@@ -62,20 +62,17 @@ def delete_reference(ref_id: int) -> None:
 def edit_reference(ref_id: int, title: str, year: int, authors: list[str], publisher: str,
                    reference_key: str, keywords: str) -> None:
     author_str = ", ".join(author for author in authors)
-    if check_unique_reference_key(reference_key):
-        try:
-            sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
-                    "publisher = :publisher, reference_key = :reference_key, "
-                    "keywords = :keywords WHERE id = :id")
-            db.session.execute(sql, {"title": title, "year": year, "author": author_str,
-                                    "publisher": publisher, "reference_key": reference_key,
-                                    "keywords": keywords, "id": ref_id})
-            db.session.commit()
-        except Exception as exc:
-            raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
-                            "special characters '-', '_' or ':'.") from exc
-    else:
-        raise ValueError("Reference key has to be unique. Try using another reference key")
+    try:
+        sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
+                   "publisher = :publisher, reference_key = :reference_key, "
+                   "keywords = :keywords WHERE id = :id")
+        db.session.execute(sql, {"title": title, "year": year, "author": author_str,
+                                 "publisher": publisher, "reference_key": reference_key,
+                                 "keywords": keywords, "id": ref_id})
+        db.session.commit()
+    except Exception as exc:
+        raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
+                         "special characters '-', '_' or ':'.") from exc
 
 def check_unique_reference_key(reference_key):
 
