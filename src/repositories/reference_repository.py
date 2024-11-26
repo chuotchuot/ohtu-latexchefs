@@ -48,12 +48,6 @@ def create_bibtex_string(kirja):
     string = bibtexparser.dumps(bibdb)
     return string
 
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
 def fetch_reference(ref_id: int):
     sql = text("SELECT id, title, year, author, publisher, reference_type, reference_key, "
                "keywords FROM reference WHERE id = :id LIMIT 1")
