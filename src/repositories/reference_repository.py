@@ -1,5 +1,7 @@
 from sqlalchemy import text
 from config import db
+import bibtexparser
+from bibtexparser.bibdatabase import BibDatabase
 
 #from entities.reference import Reference
 #from entities.book import Book
@@ -23,10 +25,31 @@ def add_reference(ref_type, title, year, authors, publisher, reference_key, keyw
         raise ValueError("Reference key has to be unique. Try using another reference key")
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, "
+    fetch = db.session.execute(text("SELECT title, year, author, publisher, "
                                     "reference_type, reference_key, keywords FROM reference"))
     fetched_references = fetch.fetchall()
-    return fetched_references
+    
+    bibtex_string_lista = []
+    for i in fetched_references:
+        bibtex_string_lista.append(create_bibtex_string(i))
+
+    return fetched_references, bibtex_string_lista
+
+def create_bibtex_string(kirja):
+    bibdb = BibDatabase()
+    bibdb.entries = []
+    temp = {    'author': kirja.author,
+                'title': kirja.title,
+                'year': str(kirja.year),
+                'ID': kirja.reference_key,
+                'keyword': kirja.keywords,
+                'ENTRYTYPE': kirja.reference_type,}#add publisher
+    bibdb.entries.append(temp)
+    string = bibtexparser.dumps(bibdb)
+    return string
+
+
+
 
 def fetch_reference(ref_id: int):
     sql = text("SELECT id, title, year, author, publisher, reference_type, reference_key, "
