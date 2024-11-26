@@ -41,11 +41,11 @@ Edit Reference | References
 </form>
 
 <script>
-    const regex = /^[a-zA-Z0-9\-._]*$/;
+    const regex = /^[a-zA-Z0-9\-:_]*$/;
     document.querySelector("body > form").addEventListener('submit', function(event) {
         let refKey = document.querySelector('input[name="reference_key"]').value;
         if(!regex.test(refKey)){
-            alert("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters '-' and '_' are allowed.");
+            alert("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters ':', '-' and '_' are allowed.");
             event.preventDefault();
             return false;
         }
