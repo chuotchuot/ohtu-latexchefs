@@ -19,17 +19,17 @@ Multiple References Are Displayed
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
     Page Should Contain    Other Title, Other Authors, 1990, Other Publisher
 
-Reference Are Viewable In BibTeX
+Single Reference Is Viewable In BibTeX
     Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test-Ref-Key-1
     Toggle BibTeX format
-    Page Should Contain    @Book{Test-Ref-Key-1,\n author = {Test Authors},\n keyword = {},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2000}\n}
+    Page Should Contain    @Book{Test-Ref-Key-1,\n author = {Test Authors},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2000}\n}
 
 Multiple Refernces Are Viewable In BibTeX
     Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test-Ref-Key-1
     Submit Valid Filled Out Form    Other Authors    Other Title    1990    Other Publisher  Test-Ref-Key-2
     Toggle BibTeX format
-    Page Should Contain    @Book{Test-Ref-Key-1,\n author = {Test Authors},\n keyword = {},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2000}\n}
-    Page Should Contain    @Book{Test-Ref-Key-2,\n author = {Other Authors},\n keyword = {},\n publisher = {Other Publisher},\n title = {Other Title},\n year = {1990}\n}
+    Page Should Contain    @Book{Test-Ref-Key-1,\n author = {Test Authors},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2000}\n}
+    Page Should Contain    @Book{Test-Ref-Key-2,\n author = {Other Authors},\n publisher = {Other Publisher},\n title = {Other Title},\n year = {1990}\n}
 
 Clicking Go to front page Goes To Front Page
     Click Link  Go to front page

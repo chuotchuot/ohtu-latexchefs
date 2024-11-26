@@ -37,13 +37,15 @@ def fetch_references():
 def create_bibtex_string(kirja):
     bibdb = BibDatabase()
     bibdb.entries = []
-    temp = {    'author': kirja.author,
-                'title': kirja.title,
+    temp = {    'title': kirja.title,
+                'author': kirja.author,
+                'publisher': kirja.publisher,
                 'year': str(kirja.year),
                 'ID': kirja.reference_key,
-                'keyword': kirja.keywords,
                 'ENTRYTYPE': kirja.reference_type,
-                'publisher': kirja.publisher,}#add publisher
+                }
+    if kirja.keywords:
+        temp['keyword'] = kirja.keywords
     bibdb.entries.append(temp)
     string = bibtexparser.dumps(bibdb)
     return string
