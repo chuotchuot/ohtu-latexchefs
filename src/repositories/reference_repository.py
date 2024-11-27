@@ -64,7 +64,7 @@ def delete_reference(ref_id: int) -> None:
 
 def edit_reference(ref_id: int, title: str, year: int, authors: list[str], publisher: str,
                    reference_key: str, keywords: str) -> None:
-    author_str = ", ".join(author for author in authors)
+    author_str = " and ".join(author for author in authors)
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
                    "publisher = :publisher, reference_key = :reference_key, "
