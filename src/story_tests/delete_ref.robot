@@ -36,6 +36,7 @@ Add New Reference
     Input Text  name=title  Test Title
     Input Text  name=year  2000
     Input Text  name=publisher  Test Publisher
+    Input Text  name=editor  Test Editor
     Input Text  name=reference_key  TestRefKey12-_
     Input text  name=keywords  Test Keywords
     Click Button    Submit

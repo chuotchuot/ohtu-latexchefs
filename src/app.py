@@ -23,15 +23,16 @@ def add_book_reference():
     if request.method == "GET":
         return render_template("new_book_reference.html")
     # if request.method == "POST":
-    ref_type = "Book"
+    ref_type = "book"
     title = request.form["title"]
     year = request.form["year"]
     publisher = request.form["publisher"]
+    editor = request.form["editor"]
     authors = [author.strip() for author in request.form["authors"].split(";")]
     reference_key = request.form["reference_key"]
     keywords = request.form["keywords"]
 
-    add_reference(ref_type, title, year, authors, publisher, reference_key, keywords)
+    add_reference(ref_type, title, year, authors, publisher, editor, reference_key, keywords)
 
     return redirect("/")
 
@@ -64,11 +65,12 @@ def edit():
         title = request.form["title"]
         year = request.form["year"]
         publisher = request.form["publisher"]
+        editor = request.form["editor"]
         authors = [author.strip() for author in request.form["authors"].split(";")]
         reference_key = request.form["reference_key"]
         keywords = request.form["keywords"]
 
-        edit_reference(ref_id, title, year, authors, publisher, reference_key, keywords)
+        edit_reference(ref_id, title, year, authors, publisher, editor, reference_key, keywords)
         return redirect("/list_of_references")
     #else:
     reference = fetch_reference(ref_id)

@@ -5,13 +5,9 @@ Suite Teardown  Close Browser
 Test Setup      Reset Application And Go To Selector Page
 
 *** Test Cases ***
-Selector Does Not Redirect If Reference Type Not Chosen
-    Click Button  Submit
-    Selector Page Should Be Open 
 
 Selector Redirects To Add New Book Reference
-    Click Element  xpath://input[@type="radio" and @value="/add_book_reference"]
-    Click Button  Submit
+    Click Link  Book
     Add New Book Reference Page Should Be Open
 
 Clicking Go to front page Goes To Front Page

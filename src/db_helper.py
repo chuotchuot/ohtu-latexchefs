@@ -28,16 +28,21 @@ def setup_db():
     print(f"Creating table {TABLE_NAME}")
     sql = (text(
         f"CREATE TABLE {TABLE_NAME} ("
-        "   id SERIAL PRIMARY KEY," 
+        "   id SERIAL PRIMARY KEY,"
         "   title TEXT NOT NULL,"
-        "   author TEXT NOT NULL," 
-        "   year INT NOT NULL," 
-        "   publisher TEXT," 
+        "   author TEXT NOT NULL,"
+        "   year INT NOT NULL,"
+        "   publisher TEXT,"
         "   editor TEXT,"
+        "   journal TEXT,"
+        "   page TEXT,"
         "   reference_type TEXT NOT NULL,"
         "   reference_key TEXT NOT NULL UNIQUE"
         "       CONSTRAINT valid_ref_key CHECK (reference_key ~ '^[a-zA-Z0-9_:-]*$'),"
-        "   keywords TEXT"
+        "   keywords TEXT,"
+        "   CONSTRAINT type_constraint CHECK"
+        "   ((reference_type = 'book' AND publisher IS NOT NULL AND editor IS NOT NULL)"
+        "   OR (reference_type = 'article' AND journal IS NOT NULL))"
         ")"
         ))
     db.session.execute(sql)
