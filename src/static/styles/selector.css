@@ -39,9 +39,15 @@ form {
     transform: scale(0.975);
 }
 
-a{
+.frontpage {
     position: absolute;
     top: 0;
     left: 0; 
     margin: 10px 10px 10px 10px;
+}
+
+.reftype {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
 }

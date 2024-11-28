@@ -13,13 +13,18 @@ Select reference type | References
 <h2>Select reference type</h2>
 
 <p>
-    <form method="POST" action="/selector">
-        <input type="radio" name="reftype" value="/add_book_reference" required title="Please select one"> Book
-        <!-- <input type="radio" name="reftype" value="2"> Article -->
-        <input type="submit" class="button" value="Submit">    
-    </form>
+    <a class="button reftype" href={{url_for("add_book_reference") }}> Book </a>
+</p>
+<p>
+    <a class="button reftype" href={{url_for("add_book_reference") }}> Article </a>
+</p>
+<p>   
+    <a class="button reftype" href={{url_for("add_book_reference") }}> Inbook </a>
+</p>
+<p>
+    <a class="button reftype" href={{url_for("add_book_reference") }}> Miscallenous </a>
 </p>
 
-<a class="button" href="/">Go to front page</a>
+<a class="button frontpage" href="/">Go to front page</a>
 
 {% endblock %}
