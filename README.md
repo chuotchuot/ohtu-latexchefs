@@ -40,5 +40,9 @@ poetry shell
 ```
 Run the application
 ```
-python3 src/index 
+invoke start 
+```
+Run tests while application is running
+```
+invoke test
 ```
