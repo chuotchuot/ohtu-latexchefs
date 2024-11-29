@@ -37,6 +37,8 @@ def setup_db():
         "   journal TEXT,"
         "   booktitle TEXT,"
         "   page TEXT,"
+        "   howpublished TEXT,"
+        "   note TEXT,"
         "   reference_type TEXT NOT NULL,"
         "   reference_key TEXT NOT NULL UNIQUE"
         "       CONSTRAINT valid_ref_key CHECK (reference_key ~ '^[a-zA-Z0-9_:-]*$'),"
@@ -44,7 +46,8 @@ def setup_db():
         "   CONSTRAINT type_constraint CHECK"
         "   ((reference_type = 'book' AND publisher IS NOT NULL AND editor IS NOT NULL)"
         "   OR (reference_type = 'article' AND journal IS NOT NULL)"
-        "   OR (reference_type = 'inbook' AND publisher IS NOT NULL and booktitle IS NOT NULL))"
+        "   OR (reference_type = 'inbook' AND publisher IS NOT NULL and booktitle IS NOT NULL)"
+        "   OR (reference_type = 'misc' AND howpublished IS NOT NULL))"
         ")"
         ))
     db.session.execute(sql)
