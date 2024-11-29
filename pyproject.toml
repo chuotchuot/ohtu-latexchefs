@@ -16,6 +16,7 @@ getenv = "^0.2.0"
 psycopg2-binary = "^2.9.10"
 requests = "^2.32.3"
 bibtexparser = "^1.4.2"
+invoke = "^2.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
