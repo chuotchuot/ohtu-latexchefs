@@ -30,7 +30,7 @@ def add_book_reference():
     editor = request.form["editor"]
     authors = [author.strip() for author in request.form["authors"].split(";")]
     reference_key = request.form["reference_key"]
-    keywords = request.form["keywords"]
+    keywords = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
     add_reference(ref_type, title, year, authors, publisher, editor, reference_key, keywords)
 

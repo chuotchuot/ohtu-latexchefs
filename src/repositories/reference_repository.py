@@ -9,6 +9,7 @@ from config import db
 def add_reference(reference_type: str, title: str, year: int, authors: str, publisher: str,
                   editor:str , reference_key: str, keywords: str):
     author_str = " and ".join(author for author in authors)
+    keywords_str = ", ".join(keyword for keyword in keywords)
 
     if check_unique_reference_key(reference_key):
         try:
@@ -18,7 +19,7 @@ def add_reference(reference_type: str, title: str, year: int, authors: str, publ
             db.session.execute(sql, {"title": title, "year": year, "author": author_str,
                                      "publisher": publisher, "editor": editor,
                                      "reference_type": reference_type,
-                                     "reference_key": reference_key, "keywords": keywords})
+                                     "reference_key": reference_key, "keywords": keywords_str})
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
