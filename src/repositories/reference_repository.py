@@ -6,28 +6,43 @@ from config import db
 #from entities.reference import Reference
 #from entities.book import Book
 
-def add_reference(reference_type: str, title: str, year: int, authors: str, publisher: str,
-                  editors:str , reference_key: str, keywords: str):
-    author_str = " and ".join(author for author in authors)
-    keywords_str = ", ".join(keyword for keyword in keywords)
-    editors_str = " and ".join(editor for editor in editors)
+def add_reference(inputs):
+    author_str = " and ".join(author for author in inputs["authors"])
+    keywords_str = ", ".join(keyword for keyword in inputs["keywords"])
+    editors_str = " and ".join(editor for editor in inputs["editors"])
 
 
-    if check_unique_reference_key(reference_key):
+    if check_unique_reference_key(inputs["ref_key"]):
         try:
-            sql = text("INSERT INTO reference (title, year, author, publisher, editor, "
+            sql = text("INSERT INTO reference (title, year, author, publisher, editor, booktitle, "
                        "reference_type, reference_key, keywords) VALUES (:title, :year, "
-                       ":author, :publisher, :editor, :reference_type, :reference_key, :keywords)")
-            db.session.execute(sql, {"title": title, "year": year, "author": author_str,
-                                     "publisher": publisher, "editor": editors_str,
-                                     "reference_type": reference_type,
-                                     "reference_key": reference_key, "keywords": keywords_str})
+                       ":author, :publisher, :editor, :booktitle, :reference_type, "
+                       ":reference_key, :keywords)")
+            db.session.execute(sql, {"title": inputs["title"], "year": inputs["year"],
+                                     "author": author_str,
+                                     "publisher": inputs["publisher"], "editor": editors_str,
+                                     "booktitle": inputs["booktitle"], 
+                                     "reference_type": inputs["ref_type"],
+                                     "reference_key": inputs["ref_key"], "keywords": keywords_str})
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
                          "special characters '-', '_' or ':'.") from exc
     else:
         raise ValueError("Reference key has to be unique. Try using another reference key")
+
+def create_input_dictionary():
+    inputs = {}
+    inputs["ref_type"] = ""
+    inputs["title"] = ""
+    inputs["year"] = ""
+    inputs["authors"] = ""
+    inputs["publisher"] = ""
+    inputs["editors"] = ""
+    inputs["booktitle"] = ""
+    inputs["ref_key"] = ""
+    inputs["keywords"] = ""
+    return inputs
 
 def fetch_references():
     fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, "

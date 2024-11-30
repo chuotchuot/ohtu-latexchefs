@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, jsonify
 from config import app, test_env
 from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
-    fetch_reference, edit_reference
+    fetch_reference, edit_reference, create_input_dictionary
     )
 from db_helper import reset_db
 
@@ -23,16 +23,17 @@ def add_book_reference():
     if request.method == "GET":
         return render_template("new_book_reference.html")
     # if request.method == "POST":
-    ref_type = "book"
-    title = request.form["title"]
-    year = request.form["year"]
-    publisher = request.form["publisher"]
-    editor = [editor.strip() for editor in request.form["editor"].split(";")]
-    authors = [author.strip() for author in request.form["authors"].split(";")]
-    reference_key = request.form["reference_key"]
-    keywords = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+    inputs = create_input_dictionary()
+    inputs["ref_type"] = "book"
+    inputs["title"] = request.form["title"]
+    inputs["year"] = request.form["year"]
+    inputs["publisher"] = request.form["publisher"]
+    inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
+    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+    inputs["ref_key"] = request.form["reference_key"]
+    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
-    add_reference(ref_type, title, year, authors, publisher, editor, reference_key, keywords)
+    add_reference(inputs)
 
     return redirect("/")
 
@@ -41,17 +42,18 @@ def add_inbook_reference():
     if request.method == "GET":
         return render_template("new_inbook_reference.html")
     # if request.method == "POST":
-    ref_type = "inbook"
-    title = request.form["title"]
-    # booktitle = request.form["booktitle"]
-    year = request.form["year"]
-    publisher = request.form["publisher"]
-    editor = [editor.strip() for editor in request.form["editors"].split(";")]
-    authors = [author.strip() for author in request.form["authors"].split(";")]
-    reference_key = request.form["reference_key"]
-    keywords = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+    inputs = create_input_dictionary()
+    inputs["ref_type"] = "inbook"
+    inputs["title"] = request.form["title"]
+    inputs["booktitle"] = request.form["booktitle"]
+    inputs["year"] = request.form["year"]
+    inputs["publisher"] = request.form["publisher"]
+    inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
+    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+    inputs["ref_key"] = request.form["reference_key"]
+    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
-    add_reference(ref_type, title, year, authors, publisher, editor, reference_key, keywords)
+    add_reference(inputs)
 
     return redirect("/")
 
