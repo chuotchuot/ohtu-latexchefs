@@ -46,7 +46,9 @@ List of references | References
         {% endif %}
 
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
+            {% if toggle == "on" %}
             <button class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy</button>
+            {% endif %}
             <form action="/edit" method="POST">
                 <input type="hidden" name="id" value="{{i.id}}">
                 <input type="hidden" name="confirmed" value="0">
