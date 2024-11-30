@@ -7,9 +7,11 @@ from config import db
 #from entities.book import Book
 
 def add_reference(reference_type: str, title: str, year: int, authors: str, publisher: str,
-                  editor:str , reference_key: str, keywords: str):
+                  editors:str , reference_key: str, keywords: str):
     author_str = " and ".join(author for author in authors)
     keywords_str = ", ".join(keyword for keyword in keywords)
+    editors_str = " and ".join(editor for editor in editors)
+
 
     if check_unique_reference_key(reference_key):
         try:
@@ -17,7 +19,7 @@ def add_reference(reference_type: str, title: str, year: int, authors: str, publ
                        "reference_type, reference_key, keywords) VALUES (:title, :year, "
                        ":author, :publisher, :editor, :reference_type, :reference_key, :keywords)")
             db.session.execute(sql, {"title": title, "year": year, "author": author_str,
-                                     "publisher": publisher, "editor": editor,
+                                     "publisher": publisher, "editor": editors_str,
                                      "reference_type": reference_type,
                                      "reference_key": reference_key, "keywords": keywords_str})
             db.session.commit()
