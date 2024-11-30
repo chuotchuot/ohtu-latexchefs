@@ -20,6 +20,7 @@ Delete Reference
 Delete Reference And Cancel
     Add New Reference
     Click Link  View list of references
+    Wait Until Element Is Visible  class:button  10s
     Click Button    Delete
     Delete Reference Page Should Be Open
     Click Link    Cancel
