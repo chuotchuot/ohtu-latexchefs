@@ -15,8 +15,10 @@ def add_reference(inputs):
     if check_unique_reference_key(inputs["ref_key"]):
         try:
             sql = text("INSERT INTO reference (title, year, author, publisher, editor, booktitle, "
-                       "reference_type, reference_key, keywords) VALUES (:title, :year, "
+                       "reference_type, journal, volume, page, number, month, note, "
+                       "reference_key, keywords) VALUES (:title, :year, "
                        ":author, :publisher, :editor, :booktitle, :reference_type, "
+                       ":journal, :volume, :page, :number, :month, :note, "
                        ":reference_key, :keywords)")
             db.session.execute(sql, {"title": inputs["title"],
                                      "year": inputs["year"],
@@ -25,6 +27,13 @@ def add_reference(inputs):
                                      "editor": editors_str,
                                      "booktitle": inputs["booktitle"],
                                      "reference_type": inputs["ref_type"],
+                                     "journal": inputs["journal"],
+                                     "volume": inputs["volume"],
+                                     "page": inputs["page"],
+                                     "number": inputs["number"],
+                                     "month": inputs["month"],
+                                     "note": inputs["note"],
+
                                      "reference_key": inputs["ref_key"], 
                                      "keywords": keywords_str})
             db.session.commit()
@@ -43,6 +52,12 @@ def create_input_dictionary():
     inputs["publisher"] = ""
     inputs["editors"] = ""
     inputs["booktitle"] = ""
+    inputs["journal"] = ""
+    inputs["volume"] = ""
+    inputs["page"] = ""
+    inputs["number"] = ""
+    inputs["month"] = ""
+    inputs["note"] = ""
     inputs["ref_key"] = ""
     inputs["keywords"] = ""
     return inputs
