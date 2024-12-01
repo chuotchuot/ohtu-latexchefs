@@ -1,0 +1,72 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_misc_reference.css') }}">
+</head>
+
+{% extends "layout.html" %}
+
+{% block title %}
+Add a new miscellaneous reference | References
+{% endblock %}
+
+{% block body %}
+
+<h2>Add a new miscellaneous reference</h2>
+
+<form action="/add_misc_reference" method="POST">
+    <p>Author(s):<br>
+        <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)"></textarea>
+    </p>
+    <p>Title:<br>
+        <input type="text" name="title" class="inputfield" placeholder="(Optional) Enter title">
+    </p>
+    <p>How Published:<br>
+        <input type="text" name="how_published" class="inputfield" placeholder="(Optional) Enter how published">
+    </p>
+    <p>Month of Publication:<br>
+        <input type="number" name="month" class="inputfield" placeholder="(Optional) Enter publication month">
+    </p>
+    <p>Year of Publication:<br>
+        <input type="number" name="year" class="inputfield" placeholder="(Optional) Enter publication year">
+    </p>
+    <p>Note:<br>
+        <input type="text" name="note" class="inputfield" placeholder="(Optional) Enter note">
+    </p>
+    <p>Annote:<br>
+        <input type="text" name="annote" class="inputfield" placeholder="(Optional) Enter annote">
+    </p>
+    <p>Reference key:<br>
+        <input type="text" name="reference_key" class="inputfield" placeholder="Enter a unique reference key" required>
+    </p>
+    <p>Keyword(s):<br>
+        <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by semicolons (;)"></textarea>
+    </p>
+    <input type="submit" class="button" value="Submit">
+</form>
+
+<a class="button" href="/">Go to front page</a>
+
+<script>
+    const regex = /^[a-zA-Z0-9\-:_]*$/;
+    document.querySelector("body > form").addEventListener('submit', function(event) {
+        let refKey = document.querySelector('input[name="reference_key"]').value;
+        if(!regex.test(refKey)){
+            alert("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters ':', '-' and '_' are allowed.");
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    });
+    let inputField = document.querySelector('input[name="reference_key"]');
+    let originalColor = inputField.style.backgroundColor;
+    inputField.addEventListener('input', function(event) {
+        let refKey = event.target.value;
+        if(!regex.test(refKey) && refKey != ""){
+            inputField.style.backgroundColor = "rgb(255, 80, 80)"
+        }
+        else{
+            inputField.style.backgroundColor = originalColor;
+        }
+    });
+</script>
+
+{% endblock %}

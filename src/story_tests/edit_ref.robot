@@ -8,38 +8,46 @@ Test Setup      Reset Application And Go To List Of References Page
 Empty Reference List Is Declared
     Page Should Contain  No references found
 
-Edit Add New Author And Submit Form
+Edit Book Reference Add New Author And Submit Form
     Add New Reference
     Click Link  View list of references
+    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher, Test Editor
     Click Button  Edit
     Input Text  name=authors  New Author
     Click Button  Confirm Changes
     List Of References Page Should Be Open
+    Page Should Contain    Test Title, New Author, 2000, Test Publisher, Test Editor
 
-Edit Year And Submit Form
+Edit Book Reference Year And Submit Form
     Add New Reference
     Click Link  View list of references
+    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher, Test Editor
     Click Button  Edit
     Input Text  name=year  2005
     Click Button  Confirm Changes
     List Of References Page Should Be Open
+    Page Should Contain    Test Title, Test Authors, 2005, Test Publisher, Test Editor
 
-Edit Add New Title And Submit Form
+Edit Book Reference Add New Title And Submit Form
     Add New Reference
     Click Link  View list of references
+    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher, Test Editor
     Click Button  Edit
     Clear Element Text  name=title
-    Input Text  name=title  NewTitle
+    Input Text  name=title  New Title
     Click Button  Confirm Changes
     List Of References Page Should Be Open
+    Page Should Contain    New Title, Test Authors, 2000, Test Publisher, Test Editor
 
 Discard Changes
     Add New Reference
     Click Link  View list of references
+    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher, Test Editor
     Click Button  Edit
     Input Text  name=publisher  Wrong Publisher
     Click Link  Discard Changes
     List Of References Page Should Be Open
+    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher, Test Editor
 
 Can't Submit Form When Title Empty
     Add New Reference
