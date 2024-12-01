@@ -18,12 +18,15 @@ def add_reference(inputs):
                        "reference_type, reference_key, keywords) VALUES (:title, :year, "
                        ":author, :publisher, :editor, :booktitle, :reference_type, "
                        ":reference_key, :keywords)")
-            db.session.execute(sql, {"title": inputs["title"], "year": inputs["year"],
+            db.session.execute(sql, {"title": inputs["title"],
+                                     "year": inputs["year"],
                                      "author": author_str,
-                                     "publisher": inputs["publisher"], "editor": editors_str,
-                                     "booktitle": inputs["booktitle"], 
+                                     "publisher": inputs["publisher"],
+                                     "editor": editors_str,
+                                     "booktitle": inputs["booktitle"],
                                      "reference_type": inputs["ref_type"],
-                                     "reference_key": inputs["ref_key"], "keywords": keywords_str})
+                                     "reference_key": inputs["ref_key"], 
+                                     "keywords": keywords_str})
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
@@ -83,22 +86,30 @@ def delete_reference(ref_id: int) -> None:
     db.session.execute(sql, {"id": ref_id})
     db.session.commit()
 
-def edit_reference(ref_id: int, title: str, year: int, authors: list[str], publisher: str,
-                   editor: str, reference_key: str, keywords: str) -> None:
-    author_str = " and ".join(author for author in authors)
+def edit_reference(ref_id: int, inputs: dict) -> None:
+    author_str = " and ".join(author for author in inputs["authors"])
+    keywords_str = ", ".join(keyword for keyword in inputs["keywords"])
+    editors_str = " and ".join(editor for editor in inputs["editors"])
+
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
-                   "publisher = :publisher, editor = :editor, "
-                   "reference_key = :reference_key, "
-                   "keywords = :keywords WHERE id = :id")
-        db.session.execute(sql, {"title": title, "year": year, "author": author_str,
-                                 "publisher": publisher, "editor": editor,
-                                 "reference_key": reference_key,
-                                 "keywords": keywords, "id": ref_id})
+                "publisher = :publisher, editor = :editor, booktitle = :booktitle, "
+                "reference_key = :reference_key, "
+                "keywords = :keywords WHERE id = :id")
+        db.session.execute(sql, {"title": inputs["title"],
+                                "year": inputs["year"],
+                                "author": author_str,
+                                "publisher": inputs["publisher"],
+                                "editor": editors_str,
+                                "booktitle": inputs["booktitle"],
+                                "reference_type": inputs["ref_type"],
+                                "reference_key": inputs["ref_key"],
+                                "keywords": keywords_str,
+                                "id": ref_id})
         db.session.commit()
     except Exception as exc:
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
-                         "special characters '-', '_' or ':'.") from exc
+                        "special characters '-', '_' or ':'.") from exc
 
 def check_unique_reference_key(reference_key):
 

@@ -83,15 +83,17 @@ def edit():
     ref_id = request.form["id"]
     confirmed: bool = request.form["confirmed"] == "1"
     if confirmed:
-        title = request.form["title"]
-        year = request.form["year"]
-        publisher = request.form["publisher"]
-        editor = request.form["editor"]
-        authors = [author.strip() for author in request.form["authors"].split(";")]
-        reference_key = request.form["reference_key"]
-        keywords = request.form["keywords"]
+        inputs = create_input_dictionary()
+        inputs["ref_type"] = "book"
+        inputs["title"] = request.form["title"]
+        inputs["year"] = request.form["year"]
+        inputs["publisher"] = request.form["publisher"]
+        inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
+        inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+        inputs["ref_key"] = request.form["reference_key"]
+        inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
-        edit_reference(ref_id, title, year, authors, publisher, editor, reference_key, keywords)
+        edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
     #else:
     reference = fetch_reference(ref_id)
