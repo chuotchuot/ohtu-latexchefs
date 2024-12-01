@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run db_helper.py
-        run: python src/db_helper.py       
+        run: poetry run python src/db_helper.py       
       - name: Run unit tests
         run: poetry run pytest src/unit_tests
       - name: Setup chromedriver
