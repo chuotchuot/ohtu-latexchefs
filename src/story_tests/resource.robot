@@ -10,7 +10,7 @@ ${RESET_URL}     http://${SERVER}/reset_db
 ${BOOK_REF_URL}  http://${SERVER}/add_book_reference
 ${REF_LIST_URL}  http://${SERVER}/list_of_references
 ${BROWSER}       chrome
-${HEADLESS}      false
+${HEADLESS}      true
 
 *** Keywords ***
 Open And Configure Browser
