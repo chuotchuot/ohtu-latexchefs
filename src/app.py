@@ -57,6 +57,29 @@ def add_inbook_reference():
 
     return redirect("/")
 
+@app.route("/add_article_reference", methods=["GET", "POST"])
+def add_article_reference():
+    if request.method == "GET":
+        return render_template("new_article_reference.html")
+    # if request.method == "POST":
+    inputs = create_input_dictionary()
+    inputs["ref_type"] = "article"
+    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+    inputs["journal"] = request.form["journal"]
+    inputs["year"] = request.form["year"]
+    inputs["volume"] = request.form["volume"]
+    inputs["number"] = request.form["number"]
+    inputs["page"] = request.form["pages"]
+    inputs["month"] = request.form["month"]
+    inputs["note"] = request.form["note"]
+
+    inputs["ref_key"] = request.form["reference_key"]
+    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+
+    add_reference(inputs)
+
+    return redirect("/")
+
 @app.route("/list_of_references", methods=["GET", "POST"])
 def display_list_of_references():
     reference_data = fetch_references()

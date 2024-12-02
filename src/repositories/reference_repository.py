@@ -15,8 +15,10 @@ def add_reference(inputs):
     if check_unique_reference_key(inputs["ref_key"]):
         try:
             sql = text("INSERT INTO reference (title, year, author, publisher, editor, booktitle, "
-                       "reference_type, reference_key, keywords) VALUES (:title, :year, "
+                       "reference_type, journal, volume, page, number, month, note, "
+                       "reference_key, keywords) VALUES (:title, :year, "
                        ":author, :publisher, :editor, :booktitle, :reference_type, "
+                       ":journal, :volume, :page, :number, :month, :note, "
                        ":reference_key, :keywords)")
             db.session.execute(sql, {"title": inputs["title"],
                                      "year": inputs["year"],
@@ -25,6 +27,13 @@ def add_reference(inputs):
                                      "editor": editors_str,
                                      "booktitle": inputs["booktitle"],
                                      "reference_type": inputs["ref_type"],
+                                     "journal": inputs["journal"],
+                                     "volume": inputs["volume"],
+                                     "page": inputs["page"],
+                                     "number": inputs["number"],
+                                     "month": inputs["month"],
+                                     "note": inputs["note"],
+
                                      "reference_key": inputs["ref_key"], 
                                      "keywords": keywords_str})
             db.session.commit()
@@ -43,40 +52,78 @@ def create_input_dictionary():
     inputs["publisher"] = ""
     inputs["editors"] = ""
     inputs["booktitle"] = ""
+    inputs["journal"] = ""
+    inputs["volume"] = ""
+    inputs["page"] = ""
+    inputs["number"] = ""
+    inputs["month"] = ""
+    inputs["note"] = ""
     inputs["ref_key"] = ""
     inputs["keywords"] = ""
     return inputs
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, "
-                                    "reference_type, reference_key, keywords FROM reference"))
+    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, journal, "
+                                    "booktitle, page, volume, number, month, howpublished, "
+                                    "note, reference_type, reference_key, keywords FROM reference"))
     fetched_references = fetch.fetchall()
-    bibtex_string_lista = []
+    bibtex_string_list = []
+    readable_string_list = []
     for i in fetched_references:
-        bibtex_string_lista.append({"id":i.id,"text":create_bibtex_string(i)})
+        bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
+        readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
 
-    return fetched_references, bibtex_string_lista
+    return readable_string_list, bibtex_string_list
 
-def create_bibtex_string(kirja):
+def create_bibtex_instance(current_reference):
+    bibtex_dict = {
+        "ENTRYTYPE" : str(current_reference.reference_type),
+        "ID"        : str(current_reference.reference_key)
+    }
+    reference_values = ["title","author","year","publisher","editor",
+                        "journal","booktitle","page","volume","number",
+                        "month","howpublished","note","keywords"]
+    for value in reference_values:
+        if getattr(current_reference, value):
+            bibtex_dict[value] = str(getattr(current_reference, value))
+
+    return bibtex_dict
+
+def create_bibtex_string(current_reference):
     bibdb = BibDatabase()
     bibdb.entries = []
-    temp = {    'title': kirja.title,
-                'author': kirja.author,
-                'publisher': kirja.publisher,
-                'editor': kirja.editor,
-                'year': str(kirja.year),
-                'ID': kirja.reference_key,
-                'ENTRYTYPE': kirja.reference_type,
-                }
-    if kirja.keywords:
-        temp['keyword'] = kirja.keywords
-    bibdb.entries.append(temp)
+    bibdb.entries.append(create_bibtex_instance(current_reference))
     string = bibtexparser.dumps(bibdb)
     return string
 
+def create_readable_string(reference):
+    temp = {    'title': reference.title,
+                'author': reference.author,
+                'year': str(reference.year),
+                'publisher': reference.publisher,
+                'editor': reference.editor,
+                'booktitle': reference.booktitle,
+                'journal': reference.journal,
+                'volume': reference.volume,
+                'page': reference.page,
+                'number': reference.number,
+                'month': reference.month,
+                'note': reference.note,
+                }
+    string = ""
+    for i in temp.values():
+        if i and string == "":
+            string += i
+        elif i:
+            string += f", {i}"
+    return string
+
+
 def fetch_reference(ref_id: int):
-    sql = text("SELECT id, title, year, author, publisher, editor, reference_type, "
-               "reference_key, keywords FROM reference WHERE id = :id LIMIT 1")
+    sql = text("SELECT id, title, year, author, publisher, editor, journal, "
+               "booktitle, page, volume, number, month, howpublished, "
+               "note, reference_type, reference_key, keywords "
+               "FROM reference WHERE id = :id LIMIT 1")
     fetch = db.session.execute(sql, {"id": ref_id})
     fetched_reference = fetch.fetchone()
     return fetched_reference

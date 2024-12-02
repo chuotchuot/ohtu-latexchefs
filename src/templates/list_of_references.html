@@ -29,7 +29,6 @@ List of references | References
 
 {% for i in references %}
     <div class="reference">
-    <!-- Placeholder starts here -->
         {% if toggle == "on" %}
         <!-- Copy button code from here -->
         <div id="bibtex-{{ i.id }}" class="bibtex-container">
@@ -41,7 +40,7 @@ List of references | References
     <!-- to here -->
         {% else %}
         <div id="bibtex-{{ i.id }}">
-            {{i.title}}, {{i.author}}, {{i.year}}, {{i.publisher}}, {{i.editor}}
+            {{i.text}}
         </div>
         {% endif %}
 
@@ -60,7 +59,6 @@ List of references | References
                 <input type="submit" class="delete button refButton" title="Delete" value="Delete">
             </form>
         </div>
-        <!-- Placeholder ends here -->
     </div>
 {% endfor %}
 </span>
