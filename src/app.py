@@ -1,3 +1,4 @@
+from io import BytesIO
 from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from repositories.reference_repository import (
@@ -6,7 +7,6 @@ from repositories.reference_repository import (
     create_bibtex_string
     )
 from db_helper import reset_db
-from io import BytesIO
 
 @app.route("/")
 def index():
@@ -125,22 +125,21 @@ def edit():
     authors: str = ";".join(reference.author.split(", "))
     return render_template("edit.html", reference=reference, authors=authors)
 
-@app.route("/download/<int:refId>.bib", methods=["GET"])
-def downloadReference(refId: int):
-    reference = fetch_reference(refId)
-    if(reference == None):
+@app.route("/download/<int:ref_id>.bib", methods=["GET"])
+def download_reference(ref_id: int):
+    reference = fetch_reference(ref_id)
+    if reference is None:
         redirect("/")
-    bibTex: str = create_bibtex_string(reference)
-    return send_file(BytesIO(bibTex.encode()), download_name=f"reference.bib")
+    bibtex: str = create_bibtex_string(reference)
+    return send_file(BytesIO(bibtex.encode()), download_name="reference.bib")
 
 @app.route("/download/allreferences.bib", methods=["GET"])
-def downloadReferences():
+def download_references():
     references = fetch_references()
-    bibTex: str = ""
+    bibtex: str = ""
     for reference in references[1]:
-        bibTex += f"{reference['text']}\n"
-    return send_file(BytesIO(bibTex.encode()), download_name=f"allreferences.bib")
-    
+        bibtex += f"{reference['text']}\n"
+    return send_file(BytesIO(bibtex.encode()), download_name="allreferences.bib")
 
 if test_env:
     @app.route("/reset_db")
