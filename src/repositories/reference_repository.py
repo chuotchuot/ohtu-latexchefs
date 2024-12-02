@@ -63,14 +63,17 @@ def create_input_dictionary():
     return inputs
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, "
-                                    "reference_type, reference_key, keywords FROM reference"))
+    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, journal, "
+                                    "booktitle, page, volume, number, month, howpublished, "
+                                    "note, reference_type, reference_key, keywords FROM reference"))
     fetched_references = fetch.fetchall()
-    bibtex_string_lista = []
+    bibtex_string_list = []
+    readable_string_list = []
     for i in fetched_references:
-        bibtex_string_lista.append({"id":i.id,"text":create_bibtex_string(i)})
+        bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
+        readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
 
-    return fetched_references, bibtex_string_lista
+    return readable_string_list, bibtex_string_list
 
 def create_bibtex_string(kirja):
     bibdb = BibDatabase()
@@ -89,9 +92,34 @@ def create_bibtex_string(kirja):
     string = bibtexparser.dumps(bibdb)
     return string
 
+def create_readable_string(reference):
+    temp = {    'title': reference.title,
+                'author': reference.author,
+                'year': str(reference.year),
+                'publisher': reference.publisher,
+                'editor': reference.editor,
+                'booktitle': reference.booktitle,
+                'journal': reference.journal,
+                'volume': reference.volume,
+                'page': reference.page,
+                'number': reference.number,
+                'month': reference.month,
+                'note': reference.note,
+                }
+    string = ""
+    for i in temp.values():
+        if i and string == "":
+            string += i
+        elif i:
+            string += f", {i}"
+    return string
+
+
 def fetch_reference(ref_id: int):
-    sql = text("SELECT id, title, year, author, publisher, editor, reference_type, "
-               "reference_key, keywords FROM reference WHERE id = :id LIMIT 1")
+    sql = text("SELECT id, title, year, author, publisher, editor, journal, "
+               "booktitle, page, volume, number, month, howpublished, "
+               "note, reference_type, reference_key, keywords "
+               "FROM reference WHERE id = :id LIMIT 1")
     fetch = db.session.execute(sql, {"id": ref_id})
     fetched_reference = fetch.fetchone()
     return fetched_reference
