@@ -75,20 +75,24 @@ def fetch_references():
 
     return readable_string_list, bibtex_string_list
 
-def create_bibtex_string(kirja):
+def create_bibtex_instance(current_reference):
+    bibtex_dict = {
+        "ENTRYTYPE" : str(current_reference.reference_type),
+        "ID"        : str(current_reference.reference_key)
+    }
+    reference_values = ["title","author","year","publisher","editor",
+                        "journal","booktitle","page","volume","number",
+                        "month","howpublished","note","keywords"]
+    for value in reference_values:
+        if getattr(current_reference, value):
+            bibtex_dict[value] = str(getattr(current_reference, value))
+
+    return bibtex_dict
+
+def create_bibtex_string(current_reference):
     bibdb = BibDatabase()
     bibdb.entries = []
-    temp = {    'title': kirja.title,
-                'author': kirja.author,
-                'publisher': kirja.publisher,
-                'editor': kirja.editor,
-                'year': str(kirja.year),
-                'ID': kirja.reference_key,
-                'ENTRYTYPE': kirja.reference_type,
-                }
-    if kirja.keywords:
-        temp['keyword'] = kirja.keywords
-    bibdb.entries.append(temp)
+    bibdb.entries.append(create_bibtex_instance(current_reference))
     string = bibtexparser.dumps(bibdb)
     return string
 
