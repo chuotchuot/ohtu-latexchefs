@@ -1,15 +1,15 @@
 name: CI
 
 env:
-  DATABASE_URL: ${{ secrets.db_url }}
+  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/postgres"
   TEST_ENV: true
   SECRET_KEY: ${{ secrets.sekret }}
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   build:
@@ -37,7 +37,9 @@ jobs:
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
-        run: poetry install        
+        run: poetry install
+      - name: Run db_helper.py
+        run: poetry run python src/db_helper.py       
       - name: Run unit tests
         run: poetry run pytest src/unit_tests
       - name: Setup chromedriver

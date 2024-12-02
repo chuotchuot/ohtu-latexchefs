@@ -28,21 +28,27 @@ Open And Configure Browser
     Open Browser  browser=${BROWSER}  options=${options}
 
 Front Page Should Be Open
+    Wait Until Page Contains  Front Page | References
     Title Should Be  Front Page | References
 
 Selector Page Should Be Open
+    Wait Until Page Contains  Select reference type | References
     Title Should Be  Select reference type | References
 
 Add New Book Reference Page Should Be Open
+    Wait Until Page Contains  Add a new book reference | References
     Title Should Be  Add a new book reference | References
 
 List Of References Page Should Be Open
+    Wait Until Page Contains  List of references | References
     Title Should Be  List of references | References
 
 Edit Reference Page Should Be Open
+    Wait Until Page Contains  Edit Reference | References
     Title Should Be  Edit Reference | References
 
 Delete Reference Page Should Be Open
+    Wait Until Page Contains  Delete Reference | References
     Title Should Be  Delete Reference | References
 
 Go To Front Page
