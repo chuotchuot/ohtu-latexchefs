@@ -86,7 +86,18 @@ def create_bibtex_instance(current_reference):
     for value in reference_values:
         if getattr(current_reference, value):
             bibtex_dict[value] = str(getattr(current_reference, value))
+    #print(bibtex_dict["author"])
+    bibtex_dict = bibtex_seperate_multiple(bibtex_dict)
+    return bibtex_dict
 
+def bibtex_seperate_multiple(bibtex_dict):
+    if "author" in bibtex_dict:
+        bibtex_dict["author"] = bibtex_dict["author"].replace(" and "," and \n          ")
+        #menee rikki jos authorina " and "
+    if "keywords" in bibtex_dict:
+        bibtex_dict["keywords"] = bibtex_dict["keywords"].replace(", ",",\n             " )
+        #menee rikki jos keywordina ", "
+        #vois muuttaa databasee ettei voi mennä rikki
     return bibtex_dict
 
 def create_bibtex_string(current_reference):
