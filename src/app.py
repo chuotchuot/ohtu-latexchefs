@@ -1,10 +1,12 @@
-from flask import redirect, render_template, request, jsonify
+from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
-    fetch_reference, edit_reference, create_input_dictionary
+    fetch_reference, edit_reference, create_input_dictionary,
+    create_bibtex_string
     )
 from db_helper import reset_db
+from io import BytesIO
 
 @app.route("/")
 def index():
@@ -122,6 +124,23 @@ def edit():
     reference = fetch_reference(ref_id)
     authors: str = ";".join(reference.author.split(", "))
     return render_template("edit.html", reference=reference, authors=authors)
+
+@app.route("/download/<int:refId>.bib", methods=["GET"])
+def downloadReference(refId: int):
+    reference = fetch_reference(refId)
+    if(reference == None):
+        redirect("/")
+    bibTex: str = create_bibtex_string(reference)
+    return send_file(BytesIO(bibTex.encode()), download_name=f"reference.bib")
+
+@app.route("/download/allreferences.bib", methods=["GET"])
+def downloadReferences():
+    references = fetch_references()
+    bibTex: str = ""
+    for reference in references[1]:
+        bibTex += f"{reference['text']}\n"
+    return send_file(BytesIO(bibTex.encode()), download_name=f"allreferences.bib")
+    
 
 if test_env:
     @app.route("/reset_db")

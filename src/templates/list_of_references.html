@@ -23,7 +23,11 @@ List of references | References
 {{ i.text.strip() }}
     {% endfor %}
 </div>
-<button class="copy-button button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
+<div class="topButtons">
+    <button class="button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
+    <a href="/download/allreferences.bib" class="button" download="allreferences.bib">Download All References</a>
+</div>
+
 {% endif %}
 <!-- to here -->
 
@@ -46,6 +50,7 @@ List of references | References
 
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
+            <a href="/download/{{i.id}}.bib" class="button refbutton" download="reference.bib">Download</a>
             <button class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy</button>
             {% endif %}
             <form action="/edit" method="POST">
