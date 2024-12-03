@@ -179,7 +179,7 @@ def download_reference(ref_id: int):
     if reference is None:
         redirect("/")
     bibtex: str = create_bibtex_string(reference)
-    return send_file(BytesIO(bibtex.encode()), download_name="reference.bib")
+    return send_file(BytesIO(bibtex.encode()), download_name=f"{reference.reference_key}.bib")
 
 @app.route("/download/allreferences.bib", methods=["GET"])
 def download_references():
