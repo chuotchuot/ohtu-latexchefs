@@ -82,6 +82,27 @@ def add_article_reference():
 
     return redirect("/")
 
+@app.route("/add_misc_reference", methods=["GET", "POST"])
+def add_misc_reference(self):
+    if request.method == "GET":
+        return render_template("new_misc_reference.html")
+    # if request.method == "POST":
+    inputs = create_input_dictionary()
+    inputs["ref_type"] ="miscellaneous"
+    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+    inputs["title"] = request.form["title"]
+    inputs["how_published"] = request.form["how_published"]
+    inputs["month"] = request.form["month"]
+    inputs["year"] = request.form["year"]
+    inputs["note"] = request.form["note"]
+    inputs["annote"] = request.form["annote"]
+    inputs["ref_key"] = request.form["reference_key"]
+    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+
+    add_reference(inputs)
+
+    return redirect("/")
+
 @app.route("/list_of_references", methods=["GET", "POST"])
 def display_list_of_references():
     reference_data = fetch_references()
@@ -133,6 +154,18 @@ def edit():
             inputs["ref_key"] = request.form["reference_key"]
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
+            
+        elif ref_type == "miscellaneous":
+            inputs["ref_type"] ="miscellaneous"
+            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+            inputs["title"] = request.form["title"]
+            inputs["how_published"] = request.form["how_published"]
+            inputs["month"] = request.form["month"]
+            inputs["year"] = request.form["year"]
+            inputs["note"] = request.form["note"]
+            inputs["annote"] = request.form["annote"]
+            inputs["ref_key"] = request.form["reference_key"]
+            inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
         edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
