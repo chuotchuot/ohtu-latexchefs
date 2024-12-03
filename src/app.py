@@ -107,16 +107,31 @@ def delete():
 def edit():
     ref_id = request.form["id"]
     confirmed: bool = request.form["confirmed"] == "1"
+    reference = fetch_reference(ref_id)
     if confirmed:
+        ref_type = reference.reference_type
         inputs = create_input_dictionary()
-        inputs["ref_type"] = "book"
-        inputs["title"] = request.form["title"]
-        inputs["year"] = request.form["year"]
-        inputs["publisher"] = request.form["publisher"]
-        inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
-        inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-        inputs["ref_key"] = request.form["reference_key"]
-        inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+
+        if ref_type == "book":
+            inputs["ref_type"] = "book"
+            inputs["title"] = request.form["title"]
+            inputs["year"] = request.form["year"]
+            inputs["publisher"] = request.form["publisher"]
+            inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
+            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+            inputs["ref_key"] = request.form["reference_key"]
+            inputs["keywords"] = [keyword.strip() for
+                                  keyword in request.form["keywords"].split(";")]
+        elif ref_type == "inbook":
+            inputs["title"] = request.form["title"]
+            inputs["booktitle"] = request.form["booktitle"]
+            inputs["year"] = request.form["year"]
+            inputs["publisher"] = request.form["publisher"]
+            inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
+            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+            inputs["ref_key"] = request.form["reference_key"]
+            inputs["keywords"] = [keyword.strip() for
+                                  keyword in request.form["keywords"].split(";")]
 
         edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
