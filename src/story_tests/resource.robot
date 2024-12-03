@@ -3,16 +3,17 @@ Library  SeleniumLibrary
 Library  OperatingSystem
 
 *** Variables ***
-${SERVER}        localhost:5001
-${DELAY}         0.5 seconds
-${HOME_URL}      http://${SERVER}
-${SELECTOR_URL}  http://${SERVER}/selector
-${RESET_URL}     http://${SERVER}/reset_db
-${BOOK_REF_URL}  http://${SERVER}/add_book_reference
-${MISC_REF_URL}  http://${SERVER}/add_misc_reference
-${REF_LIST_URL}  http://${SERVER}/list_of_references
-${BROWSER}       chrome
-${HEADLESS}      false
+${SERVER}            localhost:5001
+${DELAY}             0.5 seconds
+${HOME_URL}          http://${SERVER}
+${SELECTOR_URL}      http://${SERVER}/selector
+${RESET_URL}         http://${SERVER}/reset_db
+${BOOK_REF_URL}      http://${SERVER}/add_book_reference
+${INBOOK_REF_URL}    http://${SERVER}/add_inbook_reference
+${MISC_REF_URL}      http://${SERVER}/add_misc_reference
+${REF_LIST_URL}      http://${SERVER}/list_of_references
+${BROWSER}           chrome
+${HEADLESS}          false
 
 *** Keywords ***
 Open And Configure Browser
@@ -71,6 +72,9 @@ Go To Add New Misc Reference Page
 
 Go To List Of References Page
     Go To  ${REF_LIST_URL}
+
+Go To Add New Inbook Reference Page
+    Go To  ${INBOOK_REF_URL}
 
 Reset Database
     Go To  ${RESET_URL}
