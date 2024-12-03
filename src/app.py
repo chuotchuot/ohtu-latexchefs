@@ -91,11 +91,10 @@ def add_misc_reference():
     inputs["ref_type"] ="miscellaneous"
     inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
     inputs["title"] = request.form["title"]
-    inputs["how_published"] = request.form["how_published"]
+    inputs["howpublished"] = request.form["howpublished"]
     inputs["month"] = request.form["month"]
     inputs["year"] = request.form["year"]
     inputs["note"] = request.form["note"]
-    inputs["annote"] = request.form["annote"]
     inputs["ref_key"] = request.form["reference_key"]
     inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
 
@@ -159,11 +158,10 @@ def edit():
             inputs["ref_type"] ="miscellaneous"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["title"] = request.form["title"]
-            inputs["how_published"] = request.form["how_published"]
+            inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
             inputs["note"] = request.form["note"]
-            inputs["annote"] = request.form["annote"]
             inputs["ref_key"] = request.form["reference_key"]
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
