@@ -123,6 +123,7 @@ def edit():
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
         elif ref_type == "inbook":
+            inputs["ref_type"] = "inbook"
             inputs["title"] = request.form["title"]
             inputs["booktitle"] = request.form["booktitle"]
             inputs["year"] = request.form["year"]
