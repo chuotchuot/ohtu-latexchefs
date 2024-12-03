@@ -48,7 +48,7 @@ Edit Reference | References
     <p>Editor:<br>
         <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)">{{reference.editor}}</textarea>
     </p>
-    {% if reference.reference_type == "miscellaneous" %}
+    {% elif reference.reference_type == "miscellaneous" %}
     <p>Author(s):<br>
         <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)"></textarea>
     </p>
