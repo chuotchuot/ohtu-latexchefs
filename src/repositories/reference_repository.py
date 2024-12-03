@@ -154,8 +154,8 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
 
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
-                "publisher = :publisher, editor = :editor, booktitle = :booktitle, "
-                "reference_key = :reference_key, "
+                "publisher = :publisher, editor = :editor, booktitle = :booktitle, month = :month, "
+                "howpublished = :howpublished, note = :note, reference_key = :reference_key, "
                 "keywords = :keywords WHERE id = :id")
         db.session.execute(sql, {"title": inputs["title"],
                                 "year": inputs["year"],
@@ -163,6 +163,9 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
                                 "publisher": inputs["publisher"],
                                 "editor": editors_str,
                                 "booktitle": inputs["booktitle"],
+                                "month": inputs["month"],
+                                "howpublished": inputs["howpublished"],
+                                "note": inputs["note"],
                                 "reference_type": inputs["ref_type"],
                                 "reference_key": inputs["ref_key"],
                                 "keywords": keywords_str,
