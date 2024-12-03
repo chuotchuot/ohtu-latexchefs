@@ -165,7 +165,7 @@ def edit():
             inputs["note"] = request.form["note"]
             inputs["annote"] = request.form["annote"]
             inputs["ref_key"] = request.form["reference_key"]
-            inputs["keywords"] = [keyword.strip() for 
+            inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
 
         edit_reference(ref_id, inputs)
