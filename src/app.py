@@ -88,7 +88,7 @@ def add_misc_reference():
         return render_template("new_misc_reference.html")
     # if request.method == "POST":
     inputs = create_input_dictionary()
-    inputs["ref_type"] ="miscellaneous"
+    inputs["ref_type"] = "misc"
     inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
     inputs["title"] = request.form["title"]
     inputs["howpublished"] = request.form["howpublished"]
@@ -154,8 +154,8 @@ def edit():
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
 
-        elif ref_type == "miscellaneous":
-            inputs["ref_type"] ="miscellaneous"
+        elif ref_type == "misc":
+            inputs["ref_type"] ="misc"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["title"] = request.form["title"]
             inputs["howpublished"] = request.form["howpublished"]
