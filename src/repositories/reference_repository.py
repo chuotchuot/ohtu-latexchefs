@@ -32,8 +32,8 @@ def add_reference(inputs):
                                      "page": inputs["page"],
                                      "number": inputs["number"],
                                      "month": inputs["month"],
-                                     "note": inputs["note"],
                                      "howpublished": inputs["howpublished"],
+                                     "note": inputs["note"],
 
                                      "reference_key": inputs["ref_key"], 
                                      "keywords": keywords_str})
