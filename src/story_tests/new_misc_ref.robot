@@ -38,6 +38,12 @@ Can't Submit Form When Reference Key Empty
     Click Button  Submit
     Add New Misc Reference Page Should Be Open
 
+#Submits Correctly Filled Out Form And Redirects To Front Page
+#    Input Text  name=title  Test Title
+#    Input Text  name=howpublished  Test Way Of Publishing
+#    Input Text  name=reference_key  Test-Ref-Key-3
+#    Click Button  Submit
+#    Front Page Should Be Open
 Clicking Go To Front Page Redirects To Front Page
     Click Link  Go to front page
     Front Page Should Be Open
