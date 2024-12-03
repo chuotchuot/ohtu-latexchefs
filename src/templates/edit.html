@@ -48,7 +48,7 @@ Edit Reference | References
     <p>Editor:<br>
         <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)">{{reference.editor}}</textarea>
     </p>
-    {% elif reference.reference_type == "miscellaneous" %}
+    {% elif reference.reference_type == "misc" %}
     <p>Author(s):<br>
         <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)"></textarea>
     </p>
@@ -59,10 +59,10 @@ Edit Reference | References
         <input type="text" name="howpublished" class="inputfield" placeholder="Enter how published" required>
     </p>
     <p>Month of Publication:<br>
-        <input type="number" name="month" class="inputfield" placeholder="(Optional) Enter publication month">
+        <input type="text" name="month" class="inputfield" placeholder="(Optional) Enter publication month">
     </p>
     <p>Year of Publication:<br>
-        <input type="number" name="year" class="inputfield" placeholder="(Optional) Enter publication year">
+        <input type="text" name="year" class="inputfield" placeholder="(Optional) Enter publication year">
     </p>
     <p>Note:<br>
         <input type="text" name="note" class="inputfield" placeholder="(Optional) Enter note">
