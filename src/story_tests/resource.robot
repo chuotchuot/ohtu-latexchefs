@@ -46,6 +46,10 @@ Add New Misc Reference Page Should Be Open
     Wait Until Page Contains  Add a new miscellaneous reference | References
     Title Should Be  Add a new miscellaneous reference | References
 
+Add New Inbook Reference Page Should Be Open
+    Wait Until Page Contains  Add a new inbook reference | References
+    Title Should Be  Add a new inbook reference | References
+
 List Of References Page Should Be Open
     Wait Until Page Contains  List of references | References
     Title Should Be  List of references | References
