@@ -43,14 +43,14 @@ Edit Book Reference Add New Title And Submit Form
 Edit Misc Reference And Submit Form
     Add New Misc Reference
     Click Link  View list of references
-    Page Should Contain   Test Title, Test Published
+    Page Should Contain   Test Title, Test Authors, Test Published
     Click Button    Edit
     Input Text    name=title    New Title
     Input Text    name=howpublished    New Publishing Way
     Input Text    name=year    2000
     Click Button  Confirm Changes
     List Of References Page Should Be Open
-    Page Should Contain    New Title, 2000, New Publishing Way
+    Page Should Contain    New Title, Test Authors, 2000, New Publishing Way
 
 Edit Inbook Reference And Submit Form
     Add New Inbook Reference
@@ -99,6 +99,7 @@ Add New Book Reference
 
 Add New Misc Reference
     Go To Add New Misc Reference Page
+    Input Text  name=authors  Test Authors
     Input Text  name=title  Test Title
     Input Text    name=howpublished    Test Published
     Input Text  name=reference_key  TestRefKey12-_
