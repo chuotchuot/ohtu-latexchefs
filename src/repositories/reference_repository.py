@@ -77,6 +77,12 @@ def fetch_references():
 
     return readable_string_list, bibtex_string_list
 
+def fetch_reference_keys():
+    fetch = db.session.execute(text("SELECT reference_key FROM reference"))
+    fetched_keys = fetch.scalars().all()
+    return fetched_keys
+
+
 def create_bibtex_instance(current_reference):
     bibtex_dict = {
         "ENTRYTYPE" : str(current_reference.reference_type),
