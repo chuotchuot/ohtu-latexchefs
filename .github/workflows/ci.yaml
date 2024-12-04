@@ -52,7 +52,7 @@ jobs:
         run: bash run_robot_tests.sh
       - name: Pylint
         run: poetry run pylint src
-       - name: Run coverage tests
+      - name: Run coverage tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
         run: poetry run coverage xml    
