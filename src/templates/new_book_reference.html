@@ -1,5 +1,6 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_book_reference.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_book_reference.css') }}">'
+    <script src="{{url_for('static', filename='scripts/warning.js')}}"></script>
 </head>
 
 {% extends "layout.html" %}
@@ -41,13 +42,22 @@ Add a new book reference | References
 
 <script>
     const regex = /^[a-zA-Z0-9\-:_]*$/;
+    let originalRefKey = document.querySelector('input[name="reference_key"]').value;
+    const referenceKeys = {{ ref_keys | tojson }} //ignore the error
+
     document.querySelector("body > form").addEventListener('submit', function(event) {
         let refKey = document.querySelector('input[name="reference_key"]').value;
         if(!regex.test(refKey)){
-            alert("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters ':', '-' and '_' are allowed.");
+            showWarning("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters ':', '-' and '_' are allowed.");
             event.preventDefault();
             return false;
         }
+        else if(originalRefKey != refKey && referenceKeys.includes(refKey)){
+            showWarning("Reference key already used! Please choose a different one.");
+            event.preventDefault();
+            return false;
+        }
+
         return true;
     });
     let inputField = document.querySelector('input[name="reference_key"]');

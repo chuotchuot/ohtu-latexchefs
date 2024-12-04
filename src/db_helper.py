@@ -31,7 +31,7 @@ def setup_db():
         "   id SERIAL PRIMARY KEY,"
         "   title TEXT NOT NULL,"
         "   author TEXT,"
-        "   year INT,"
+        "   year TEXT,"
         "   publisher TEXT,"
         "   editor TEXT,"
         "   journal TEXT,"

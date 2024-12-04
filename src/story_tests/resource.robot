@@ -1,7 +1,9 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  OperatingSystem
 
 *** Variables ***
+<<<<<<< HEAD
 ${SERVER}        localhost:5001
 ${DELAY}         0.5 seconds
 ${HOME_URL}      http://${SERVER}
@@ -12,6 +14,19 @@ ${MISC_REF_URL}  http://${SERVER}/add_misc_reference
 ${REF_LIST_URL}  http://${SERVER}/list_of_references
 ${BROWSER}       chrome
 ${HEADLESS}      false
+=======
+${SERVER}            localhost:5001
+${DELAY}             0.5 seconds
+${HOME_URL}          http://${SERVER}
+${SELECTOR_URL}      http://${SERVER}/selector
+${RESET_URL}         http://${SERVER}/reset_db
+${BOOK_REF_URL}      http://${SERVER}/add_book_reference
+${INBOOK_REF_URL}    http://${SERVER}/add_inbook_reference
+${MISC_REF_URL}      http://${SERVER}/add_misc_reference
+${REF_LIST_URL}      http://${SERVER}/list_of_references
+${BROWSER}           chrome
+${HEADLESS}          false
+>>>>>>> main
 
 *** Keywords ***
 Open And Configure Browser
@@ -21,7 +36,7 @@ Open And Configure Browser
         ${options}  Evaluate  sys.modules['selenium.webdriver'].FirefoxOptions()  sys
     END
     IF  $HEADLESS == 'true'
-        Set Selenium Speed  0
+        Set Selenium Speed  0.1
         Call Method  ${options}  add_argument  --headless
     ELSE
         Set Selenium Speed  ${DELAY}
@@ -43,6 +58,10 @@ Add New Book Reference Page Should Be Open
 Add New Misc Reference Page Should Be Open
     Wait Until Page Contains  Add a new miscellaneous reference | References
     Title Should Be  Add a new miscellaneous reference | References
+
+Add New Inbook Reference Page Should Be Open
+    Wait Until Page Contains  Add a new inbook reference | References
+    Title Should Be  Add a new inbook reference | References
 
 List Of References Page Should Be Open
     Wait Until Page Contains  List of references | References
@@ -70,6 +89,9 @@ Go To Add New Misc Reference Page
 
 Go To List Of References Page
     Go To  ${REF_LIST_URL}
+
+Go To Add New Inbook Reference Page
+    Go To  ${INBOOK_REF_URL}
 
 Reset Database
     Go To  ${RESET_URL}

@@ -32,6 +32,7 @@ def add_reference(inputs):
                                      "page": inputs["page"],
                                      "number": inputs["number"],
                                      "month": inputs["month"],
+                                     "howpublished": inputs["howpublished"],
                                      "note": inputs["note"],
                                      "howpublished": inputs["howpublished"],
 
@@ -76,6 +77,12 @@ def fetch_references():
         readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
 
     return readable_string_list, bibtex_string_list
+
+def fetch_reference_keys():
+    fetch = db.session.execute(text("SELECT reference_key FROM reference"))
+    fetched_keys = fetch.scalars().all()
+    return fetched_keys
+
 
 def create_bibtex_instance(current_reference):
     bibtex_dict = {
@@ -154,8 +161,8 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
 
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
-                "publisher = :publisher, editor = :editor, booktitle = :booktitle, "
-                "reference_key = :reference_key, "
+                "publisher = :publisher, editor = :editor, booktitle = :booktitle, month = :month, "
+                "howpublished = :howpublished, note = :note, reference_key = :reference_key, "
                 "keywords = :keywords WHERE id = :id")
         db.session.execute(sql, {"title": inputs["title"],
                                 "year": inputs["year"],
@@ -163,6 +170,9 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
                                 "publisher": inputs["publisher"],
                                 "editor": editors_str,
                                 "booktitle": inputs["booktitle"],
+                                "month": inputs["month"],
+                                "howpublished": inputs["howpublished"],
+                                "note": inputs["note"],
                                 "reference_type": inputs["ref_type"],
                                 "reference_key": inputs["ref_key"],
                                 "keywords": keywords_str,
