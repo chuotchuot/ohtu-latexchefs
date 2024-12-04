@@ -2,7 +2,7 @@
 
 [![GHA workflow badge](https://github.com/chuotchuot/ohtu-latexchefs/workflows/CI/badge.svg)](https://github.com/chuotchuot/ohtu-latexchefs/actions)
 
-[Backlog](https://helsinkifi-my.sharepoint.com/:x:/g/personal/janteero_ad_helsinki_fi/EZOTEPWAgVVJnm4PhNXM8-YB2JGW8DwOhZs6ALVS5rh3-A?e=fSjnbS)
+[Backlog](https://helsinkifi-my.sharepoint.com/:x:/g/personal/janteero_ad_helsinki_fi/EZOTEPWAgVVJnm4PhNXM8-YB2JGW8DwOhZs6ALVS5rh3-A)
 
 ### Definition of done
 
