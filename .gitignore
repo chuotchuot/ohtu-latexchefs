@@ -8,3 +8,5 @@ report.html
 *.png
 *.xml
 *.sql
+.coverage
+htmlcov

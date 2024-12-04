@@ -66,6 +66,7 @@ def add_article_reference():
     # if request.method == "POST":
     inputs = create_input_dictionary()
     inputs["ref_type"] = "article"
+    inputs["title"] = request.form["title"]
     inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
     inputs["journal"] = request.form["journal"]
     inputs["year"] = request.form["year"]
@@ -139,9 +140,7 @@ def edit():
             inputs["publisher"] = request.form["publisher"]
             inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["ref_key"] = request.form["reference_key"]
-            inputs["keywords"] = [keyword.strip() for
-                                  keyword in request.form["keywords"].split(";")]
+
         elif ref_type == "inbook":
             inputs["ref_type"] = "inbook"
             inputs["title"] = request.form["title"]
@@ -150,28 +149,40 @@ def edit():
             inputs["publisher"] = request.form["publisher"]
             inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["ref_key"] = request.form["reference_key"]
-            inputs["keywords"] = [keyword.strip() for
-                                  keyword in request.form["keywords"].split(";")]
 
         elif ref_type == "misc":
-            inputs["ref_type"] ="misc"
+            inputs["ref_type"] = "misc"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["title"] = request.form["title"]
             inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
             inputs["note"] = request.form["note"]
-            inputs["ref_key"] = request.form["reference_key"]
-            inputs["keywords"] = [keyword.strip() for
-                                  keyword in request.form["keywords"].split(";")]
+
+        elif ref_type == "article":
+            inputs["ref_type"] = "article"
+            inputs["title"] = request.form["title"]
+            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+            inputs["journal"] = request.form["journal"]
+            inputs["year"] = request.form["year"]
+            inputs["volume"] = request.form["volume"]
+            inputs["number"] = request.form["number"]
+            inputs["page"] = request.form["pages"]
+            inputs["month"] = request.form["month"]
+            inputs["note"] = request.form["note"]
+
+        inputs["ref_key"] = request.form["reference_key"]
+        inputs["keywords"] = [keyword.strip() for
+                                keyword in request.form["keywords"].split(";")]
+
 
         edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
     #else:
     reference = fetch_reference(ref_id)
-    authors: str = ";".join(reference.author.split(", "))
-    return render_template("edit.html", reference=reference, authors=authors)
+    authors: str = ";".join(reference.author.split(" and "))
+    editors: str = ";".join(reference.editor.split(" and "))
+    return render_template("edit.html", reference=reference, authors=authors, editors=editors)
 
 @app.route("/download/<int:ref_id>.bib", methods=["GET"])
 def download_reference(ref_id: int):
