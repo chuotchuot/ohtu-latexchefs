@@ -3,18 +3,6 @@ Library  SeleniumLibrary
 Library  OperatingSystem
 
 *** Variables ***
-<<<<<<< HEAD
-${SERVER}        localhost:5001
-${DELAY}         0.5 seconds
-${HOME_URL}      http://${SERVER}
-${SELECTOR_URL}  http://${SERVER}/selector
-${RESET_URL}     http://${SERVER}/reset_db
-${BOOK_REF_URL}  http://${SERVER}/add_book_reference
-${MISC_REF_URL}  http://${SERVER}/add_misc_reference
-${REF_LIST_URL}  http://${SERVER}/list_of_references
-${BROWSER}       chrome
-${HEADLESS}      false
-=======
 ${SERVER}            localhost:5001
 ${DELAY}             0.5 seconds
 ${HOME_URL}          http://${SERVER}
@@ -26,7 +14,6 @@ ${MISC_REF_URL}      http://${SERVER}/add_misc_reference
 ${REF_LIST_URL}      http://${SERVER}/list_of_references
 ${BROWSER}           chrome
 ${HEADLESS}          false
->>>>>>> main
 
 *** Keywords ***
 Open And Configure Browser

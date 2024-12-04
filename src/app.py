@@ -135,7 +135,6 @@ def edit():
 
         if ref_type == "book":
             inputs["ref_type"] = "book"
-            inputs["title"] = request.form["title"]
             inputs["year"] = request.form["year"]
             inputs["publisher"] = request.form["publisher"]
             inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
@@ -143,7 +142,6 @@ def edit():
 
         elif ref_type == "inbook":
             inputs["ref_type"] = "inbook"
-            inputs["title"] = request.form["title"]
             inputs["booktitle"] = request.form["booktitle"]
             inputs["year"] = request.form["year"]
             inputs["publisher"] = request.form["publisher"]
@@ -153,7 +151,6 @@ def edit():
         elif ref_type == "misc":
             inputs["ref_type"] = "misc"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["title"] = request.form["title"]
             inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
@@ -161,7 +158,6 @@ def edit():
 
         elif ref_type == "article":
             inputs["ref_type"] = "article"
-            inputs["title"] = request.form["title"]
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["journal"] = request.form["journal"]
             inputs["year"] = request.form["year"]
@@ -171,15 +167,9 @@ def edit():
             inputs["month"] = request.form["month"]
             inputs["note"] = request.form["note"]
 
-        inputs["ref_key"] = request.form["reference_key"]
-        inputs["keywords"] = [keyword.strip() for
-                                keyword in request.form["keywords"].split(";")]
-
-
         elif ref_type == "miscellaneous":
             inputs["ref_type"] ="miscellaneous"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["title"] = request.form["title"]
             inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
@@ -187,6 +177,11 @@ def edit():
             inputs["ref_key"] = request.form["reference_key"]
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
+
+        inputs["title"] = request.form["title"]
+        inputs["ref_key"] = request.form["reference_key"]
+        inputs["keywords"] = [keyword.strip() for
+                                keyword in request.form["keywords"].split(";")]
 
         edit_reference(ref_id, inputs)
         return redirect("/list_of_references")

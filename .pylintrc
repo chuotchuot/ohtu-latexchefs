@@ -15,6 +15,9 @@ disable=missing-module-docstring,
 max-nested-blocks=2
 
 [DESIGN]
-max-positional-arguments=10
-max-args=10
+max-positional-arguments=20
+max-args=20
+max-locals=20
+max-attributes=20
+max-statements=60
 min-public-methods=1
