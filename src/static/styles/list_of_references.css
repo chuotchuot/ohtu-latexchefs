@@ -33,7 +33,7 @@ pre{
 #references{
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: left; 
     vertical-align: middle;
 }
 
@@ -60,6 +60,14 @@ form{
 
 .refButton{
     min-width: 55px;
+}
+
+.topButtons{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    vertical-align: middle;
 }
 
 .home{

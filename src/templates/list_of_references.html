@@ -33,21 +33,6 @@ List of references | References
 
 {% for i in references %}
     <div class="reference">
-        {% if toggle == "on" %}
-        <!-- Copy button code from here -->
-        <div id="bibtex-{{ i.id }}" class="bibtex-container">
-            <!-- to here -->
-        <pre>{{i.text}}</pre>
-        <!-- Copy button code from here -->
-    </div>
-    <br/>
-    <!-- to here -->
-        {% else %}
-        <div id="bibtex-{{ i.id }}">
-            {{i.text}}
-        </div>
-        {% endif %}
-
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
             <a href="/download/{{i.id}}.bib" class="button refbutton" download="reference.bib">Download</a>
@@ -64,6 +49,20 @@ List of references | References
                 <input type="submit" class="delete button refButton" title="Delete" value="Delete">
             </form>
         </div>
+        {% if toggle == "on" %}
+        <!-- Copy button code from here -->
+        <div id="bibtex-{{ i.id }}" class="bibtex-container">
+            <!-- to here -->
+        <pre>{{i.text}}</pre>
+        <!-- Copy button code from here -->
+    </div>
+    <br/>
+    <!-- to here -->
+        {% else %}
+        <div id="bibtex-{{ i.id }}">
+            {{i.text}}
+        </div>
+        {% endif %}
     </div>
 {% endfor %}
 </span>
