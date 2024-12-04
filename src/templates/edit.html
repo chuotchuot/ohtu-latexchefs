@@ -51,7 +51,7 @@ Edit Reference | References
         </p>
     {% elif reference.reference_type == "misc" %}
         <p>Author(s):<br>
-            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)">{{authors}}</textarea>
+            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)" required>{{authors}} </textarea>
         </p>
         <p>Title:<br>
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
