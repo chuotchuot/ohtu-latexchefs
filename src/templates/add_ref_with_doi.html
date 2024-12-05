@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_book_reference.css') }}">
+    <script src="{{url_for('static', filename='scripts/warning.js')}}"></script>
+</head>
+
+{% extends "layout.html" %}
+
+{% block title %}
+Add a reference with DOI | References
+{% endblock %}
+
+{% block body %}
+
+<h2>Add a reference with DOI</h2>
+
+<form action="/add_reference_with_doi" method="POST">
+    <p>Enter DOI:<br>
+        <input type="text" name="doi" class="inputfield" placeholder="Enter DOI" required>
+    </p>
+    <input type="submit" class="button" value="Submit">
+</form>
+
+<a class="button" href="/">Go to front page</a>
+
+
+{% endblock %}

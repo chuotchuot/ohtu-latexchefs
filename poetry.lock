@@ -376,6 +376,22 @@ graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
 
 [[package]]
+name = "doi2bib"
+version = "0.4.0"
+description = "Generate a bibtex given a doi"
+optional = false
+python-versions = "*"
+files = [
+    {file = "doi2bib-0.4.0-py2-none-any.whl", hash = "sha256:4a2e2a14df4cff1f6cf2c1de4fda3545f6f6f76ef7f331ae81a582472042cb67"},
+    {file = "doi2bib-0.4.0-py3-none-any.whl", hash = "sha256:09401f766b1533c6d17d428ba26c65433009478f1b8d67a2b7f32871e9e8f90d"},
+]
+
+[package.dependencies]
+bibtexparser = "*"
+future = "*"
+requests = "*"
+
+[[package]]
 name = "exceptiongroup"
 version = "1.2.2"
 description = "Backport of PEP 654 (exception groups)"
@@ -425,6 +441,17 @@ files = [
 [package.dependencies]
 flask = ">=2.2.5"
 sqlalchemy = ">=2.0.16"
+
+[[package]]
+name = "future"
+version = "1.0.0"
+description = "Clean single-source support for Python 3 and 2"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "future-1.0.0-py3-none-any.whl", hash = "sha256:929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216"},
+    {file = "future-1.0.0.tar.gz", hash = "sha256:bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05"},
+]
 
 [[package]]
 name = "getenv"
@@ -1261,4 +1288,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "e102c61692052e9739674d7a72446f6733c909c4f80047fb658d5d7e1b586306"
+content-hash = "a21fd248560030eaf1ecfeea3ca081fe209b070593a6c4a762a3acdab4153967"

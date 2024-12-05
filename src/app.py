@@ -4,7 +4,8 @@ from config import app, test_env
 from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
     fetch_reference, edit_reference, create_input_dictionary,
-    fetch_reference_keys, create_bibtex_string
+    fetch_reference_keys, create_bibtex_string,
+    get_ref_info_with_doi
     )
 from db_helper import reset_db
 
@@ -98,6 +99,36 @@ def add_misc_reference():
     inputs["note"] = request.form["note"]
     inputs["ref_key"] = request.form["reference_key"]
     inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+
+    add_reference(inputs)
+
+    return redirect("/")
+
+@app.route("/add_reference_with_doi", methods=["GET", "POST"])
+def add_reference_with_doi():
+    if request.method == "GET":
+        return render_template("add_ref_with_doi.html")
+    doi = request.form["doi"]
+    ref_info = get_ref_info_with_doi(doi)
+
+    authors_str = [author.strip() for author in ref_info.get("author").split("and")]
+
+    inputs = create_input_dictionary()
+    inputs["ref_type"] = "article"
+    inputs["title"] = ref_info.get("title")
+    inputs["authors"] = authors_str
+    inputs["year"] = ref_info.get("year")
+    inputs["journal"] = ref_info.get("journal")
+    inputs["volume"] = ref_info.get("volume")
+    inputs["number"] = ref_info.get("number")
+    inputs["page"] = ref_info.get("page")
+    inputs["month"] = ref_info.get("month")
+    inputs["note"] = ref_info.get("note")
+
+    inputs["ref_key"] = "temp"
+
+
+
 
     add_reference(inputs)
 

@@ -1,6 +1,7 @@
 from sqlalchemy import text
 from bibtexparser.bibdatabase import BibDatabase
 import bibtexparser
+from doi2bib.crossref import get_bib
 from config import db
 
 #from entities.reference import Reference
@@ -43,6 +44,16 @@ def add_reference(inputs):
                          "special characters '-', '_' or ':'.") from exc
     else:
         raise ValueError("Reference key has to be unique. Try using another reference key")
+
+def get_ref_info_with_doi(doi):
+    _,bibtex_data = get_bib(doi)
+
+    parser = bibtexparser.bparser.BibTexParser()
+    bibdb = bibtexparser.loads(bibtex_data, parser)
+
+    entry = bibdb.entries[0]
+
+    return entry
 
 def create_input_dictionary():
     inputs = {}
