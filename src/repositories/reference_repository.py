@@ -3,41 +3,39 @@ from bibtexparser.bibdatabase import BibDatabase
 import bibtexparser
 from doi2bib.crossref import get_bib
 from config import db
+from entities.reference import Reference
 
-#from entities.reference import Reference
-#from entities.book import Book
+def add_reference(reference: Reference):
 
-def add_reference(inputs):
+    reference.authors = format_multiple_values(reference.authors, "authors")
+    reference.editors= format_multiple_values(reference.editors, "editors")
+    reference.keywords = format_multiple_values(reference.keywords, "keywords")
 
-    inputs["authors"] = format_multiple_values(inputs["authors"], "authors")
-    inputs["editors"] = format_multiple_values(inputs["editors"], "editors")
-    inputs["keywords"] = format_multiple_values(inputs["keywords"], "keywords")
-
-    if check_unique_reference_key(inputs["ref_key"]):
+    if check_unique_reference_key(reference.reference_key):
         try:
-            sql = text("INSERT INTO reference (title, year, author, publisher, editor, booktitle, "
-                       "reference_type, journal, volume, page, number, month, howpublished, note, "
-                       "reference_key, keywords) VALUES (:title, :year, "
-                       ":author, :publisher, :editor, :booktitle, :reference_type, "
+            sql = text("INSERT INTO reference (title, year, authors, publisher, editors, "
+                       "booktitle, reference_type, journal, volume, page, number, month, "
+                       "howpublished, note, reference_key, keywords) VALUES (:title, :year, "
+                       ":authors, :publisher, :editors, :booktitle, :reference_type, "
                        ":journal, :volume, :page, :number, :month, :howpublished, :note, "
                        ":reference_key, :keywords)")
-            db.session.execute(sql, {"title": inputs["title"],
-                                     "year": inputs["year"],
-                                     "author": inputs["authors"],
-                                     "publisher": inputs["publisher"],
-                                     "editor": inputs["editors"],
-                                     "booktitle": inputs["booktitle"],
-                                     "reference_type": inputs["ref_type"],
-                                     "journal": inputs["journal"],
-                                     "volume": inputs["volume"],
-                                     "page": inputs["page"],
-                                     "number": inputs["number"],
-                                     "month": inputs["month"],
-                                     "howpublished": inputs["howpublished"],
-                                     "note": inputs["note"],
+            db.session.execute(sql, {"title": reference.title,
+                                     "year": reference.year,
+                                     "authors": reference.authors,
+                                     "publisher": reference.publisher,
+                                     "editors": reference.editors,
+                                     "booktitle":reference.booktitle,
+                                     "reference_type": reference.reference_type,
+                                     "journal": reference.journal,
+                                     "volume": reference.volume,
+                                     "page": reference.page,
+                                     "number": reference.number,
+                                     "month": reference.month,
+                                     "howpublished": reference.howpublished,
+                                     "note": reference.note,
 
-                                     "reference_key": inputs["ref_key"], 
-                                     "keywords": inputs["keywords"]})
+                                     "reference_key": reference.reference_key, 
+                                     "keywords": reference.keywords})
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
@@ -57,7 +55,7 @@ def get_ref_info_with_doi(doi):
 
 def create_input_dictionary():
     inputs = {}
-    inputs["ref_type"] = ""
+    inputs["reference_type"] = ""
     inputs["title"] = ""
     inputs["year"] = ""
     inputs["authors"] = ""
@@ -71,17 +69,19 @@ def create_input_dictionary():
     inputs["month"] = ""
     inputs["howpublished"] = ""
     inputs["note"] = ""
-    inputs["ref_key"] = ""
+    inputs["reference_key"] = ""
     inputs["keywords"] = ""
     return inputs
 
 def fetch_references():
-    fetch = db.session.execute(text("SELECT id, title, year, author, publisher, editor, journal, "
+    fetch = db.session.execute(text("SELECT id, title, year, authors, publisher, editors, journal, "
                                     "booktitle, page, volume, number, month, howpublished, "
                                     "note, reference_type, reference_key, keywords FROM reference"))
+
     fetched_references = fetch.fetchall()
     bibtex_string_list = []
     readable_string_list = []
+
     for i in fetched_references:
         bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
         readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
@@ -99,13 +99,15 @@ def create_bibtex_instance(current_reference):
         "ENTRYTYPE" : str(current_reference.reference_type),
         "ID"        : str(current_reference.reference_key)
     }
-    reference_values = ["title","author","year","publisher","editor",
+    reference_values = ["title","authors","year","publisher","editors",
                         "journal","booktitle","page","volume","number",
                         "month","howpublished","note","keywords"]
     for value in reference_values:
         if getattr(current_reference, value):
             bibtex_dict[value] = str(getattr(current_reference, value))
-    #print(bibtex_dict["author"])
+
+    bibtex_dict = correct_bibtex_type_keys(bibtex_dict)
+
     bibtex_dict = bibtex_seperate_multiple(bibtex_dict)
     return bibtex_dict
 
@@ -128,10 +130,10 @@ def create_bibtex_string(current_reference):
 
 def create_readable_string(reference):
     ref_data = {'title': reference.title,
-                'author': reference.author,
-                'year': reference.year,
+                'author': reference.authors,
+                'year': str(reference.year),
                 'publisher': reference.publisher,
-                'editor': reference.editor,
+                'editor': reference.editors,
                 'booktitle': reference.booktitle,
                 'journal': reference.journal,
                 'volume': reference.volume,
@@ -149,9 +151,8 @@ def create_readable_string(reference):
             string += f", {value}"
     return string
 
-
 def fetch_one_reference(ref_id: int):
-    sql = text("SELECT id, title, year, author, publisher, editor, journal, "
+    sql = text("SELECT id, title, year, authors, publisher, editors, journal, "
                "booktitle, page, volume, number, month, howpublished, "
                "note, reference_type, reference_key, keywords "
                "FROM reference WHERE id = :id LIMIT 1")
@@ -170,21 +171,21 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
     editors_str = " and ".join(editor for editor in inputs["editors"])
 
     try:
-        sql = text("UPDATE reference SET title = :title, year = :year, author = :author, "
-                "publisher = :publisher, editor = :editor, booktitle = :booktitle, month = :month, "
-                "howpublished = :howpublished, note = :note, reference_key = :reference_key, "
-                "keywords = :keywords WHERE id = :id")
+        sql = text("UPDATE reference SET title = :title, year = :year, authors = :authors, "
+                "publisher = :publisher, editors = :editors, booktitle = :booktitle, "
+                "month = :month, howpublished = :howpublished, note = :note, "
+                "reference_key = :reference_key, keywords = :keywords WHERE id = :id")
         db.session.execute(sql, {"title": inputs["title"],
                                 "year": inputs["year"],
-                                "author": author_str,
+                                "authors": author_str,
                                 "publisher": inputs["publisher"],
-                                "editor": editors_str,
+                                "editors": editors_str,
                                 "booktitle": inputs["booktitle"],
                                 "month": inputs["month"],
                                 "howpublished": inputs["howpublished"],
                                 "note": inputs["note"],
-                                "reference_type": inputs["ref_type"],
-                                "reference_key": inputs["ref_key"],
+                                "reference_type": inputs["reference_type"],
+                                "reference_key": inputs["reference_key"],
                                 "keywords": keywords_str,
                                 "id": ref_id})
         db.session.commit()
@@ -213,3 +214,13 @@ def format_multiple_values(string: str, column: str):
         new_separator = ", "
 
     return string.replace(separator, new_separator)
+
+def correct_bibtex_type_keys(bibtex_dict: dict):
+
+    if "authors" in bibtex_dict:
+        bibtex_dict["author"] = bibtex_dict.pop("authors")
+
+    if "editors" in bibtex_dict:
+        bibtex_dict["editor"] = bibtex_dict.pop("editors")
+
+    return bibtex_dict

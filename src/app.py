@@ -1,6 +1,7 @@
 from io import BytesIO
 from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
+from entities.reference import Reference
 from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
     fetch_one_reference, edit_reference, create_input_dictionary,
@@ -17,18 +18,14 @@ def index():
 def render_selector():
     return render_template("selector.html")
 
-@app.route("/add_reference", methods=["GET", "POST"])
+@app.route("/add_reference", methods=["POST"])
 def add_any_reference():
-    if request.method == "GET":
-        return render_template("new_book_reference.html", ref_keys=fetch_reference_keys())
-    # if request.method == "POST":
-
-    inputs = create_input_dictionary()
+    reference = Reference()
 
     for key, value in request.form.items():
-        inputs[key] = value
+        setattr(reference, key, value)
 
-    add_reference(inputs)
+    add_reference(reference)
 
     return redirect("/")
 
@@ -38,67 +35,15 @@ def add_book_reference():
 
 @app.route("/add_inbook_reference", methods=["GET", "POST"])
 def add_inbook_reference():
-    if request.method == "GET":
-        return render_template("new_inbook_reference.html", ref_keys=fetch_reference_keys())
-    # if request.method == "POST":
-    inputs = create_input_dictionary()
-    inputs["ref_type"] = "inbook"
-    inputs["title"] = request.form["title"]
-    inputs["booktitle"] = request.form["booktitle"]
-    inputs["year"] = request.form["year"]
-    inputs["publisher"] = request.form["publisher"]
-    inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
-    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-    inputs["ref_key"] = request.form["reference_key"]
-    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
-
-    add_reference(inputs)
-
-    return redirect("/")
+    return render_template("new_inbook_reference.html", ref_keys=fetch_reference_keys())
 
 @app.route("/add_article_reference", methods=["GET", "POST"])
 def add_article_reference():
-    if request.method == "GET":
-        return render_template("new_article_reference.html", ref_keys=fetch_reference_keys())
-    # if request.method == "POST":
-    inputs = create_input_dictionary()
-    inputs["ref_type"] = "article"
-    inputs["title"] = request.form["title"]
-    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-    inputs["journal"] = request.form["journal"]
-    inputs["year"] = request.form["year"]
-    inputs["volume"] = request.form["volume"]
-    inputs["number"] = request.form["number"]
-    inputs["page"] = request.form["pages"]
-    inputs["month"] = request.form["month"]
-    inputs["note"] = request.form["note"]
-
-    inputs["ref_key"] = request.form["reference_key"]
-    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
-
-    add_reference(inputs)
-
-    return redirect("/")
+    return render_template("new_article_reference.html", ref_keys=fetch_reference_keys())
 
 @app.route("/add_misc_reference", methods=["GET", "POST"])
 def add_misc_reference():
-    if request.method == "GET":
-        return render_template("new_misc_reference.html", ref_keys=fetch_reference_keys())
-    # if request.method == "POST":
-    inputs = create_input_dictionary()
-    inputs["ref_type"] = "misc"
-    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-    inputs["title"] = request.form["title"]
-    inputs["howpublished"] = request.form["howpublished"]
-    inputs["month"] = request.form["month"]
-    inputs["year"] = request.form["year"]
-    inputs["note"] = request.form["note"]
-    inputs["ref_key"] = request.form["reference_key"]
-    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
-
-    add_reference(inputs)
-
-    return redirect("/")
+    return render_template("new_misc_reference.html", ref_keys=fetch_reference_keys())
 
 @app.route("/add_reference_with_doi", methods=["GET", "POST"])
 def add_reference_with_doi():
@@ -136,7 +81,6 @@ def display_list_of_references():
     state = request.form["state"]
     return render_template("list_of_references.html", references=reference_data[1], toggle=state)
 
-
 @app.route("/delete", methods=["POST"])
 def delete():
     ref_id = request.form["id"]
@@ -155,34 +99,32 @@ def edit():
     confirmed: bool = request.form["confirmed"] == "1"
     reference = fetch_one_reference(ref_id)
     if confirmed:
-        ref_type = reference.reference_type
+        reference_type = reference.reference_type
         inputs = create_input_dictionary()
 
-        if ref_type == "book":
-            inputs["ref_type"] = "book"
+        inputs["reference_type"]= reference.reference_type
+
+        if reference_type == "book":
             inputs["year"] = request.form["year"]
             inputs["publisher"] = request.form["publisher"]
-            inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
+            inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
 
-        elif ref_type == "inbook":
-            inputs["ref_type"] = "inbook"
+        elif reference_type == "inbook":
             inputs["booktitle"] = request.form["booktitle"]
             inputs["year"] = request.form["year"]
             inputs["publisher"] = request.form["publisher"]
             inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
 
-        elif ref_type == "misc":
-            inputs["ref_type"] = "misc"
+        elif reference_type == "misc":
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
             inputs["note"] = request.form["note"]
 
-        elif ref_type == "article":
-            inputs["ref_type"] = "article"
+        elif reference_type == "article":
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["journal"] = request.form["journal"]
             inputs["year"] = request.form["year"]
@@ -192,19 +134,19 @@ def edit():
             inputs["month"] = request.form["month"]
             inputs["note"] = request.form["note"]
 
-        elif ref_type == "miscellaneous":
-            inputs["ref_type"] ="miscellaneous"
+        elif reference_type == "misc":
+            inputs["reference_type"] ="misc"
             inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
             inputs["howpublished"] = request.form["howpublished"]
             inputs["month"] = request.form["month"]
             inputs["year"] = request.form["year"]
             inputs["note"] = request.form["note"]
-            inputs["ref_key"] = request.form["reference_key"]
+            inputs["reference_key"] = request.form["reference_key"]
             inputs["keywords"] = [keyword.strip() for
                                   keyword in request.form["keywords"].split(";")]
 
         inputs["title"] = request.form["title"]
-        inputs["ref_key"] = request.form["reference_key"]
+        inputs["reference_key"] = request.form["reference_key"]
         inputs["keywords"] = [keyword.strip() for
                                 keyword in request.form["keywords"].split(";")]
 
@@ -212,8 +154,8 @@ def edit():
         return redirect("/list_of_references")
     #else:
     reference = fetch_one_reference(ref_id)
-    authors: str = ";".join(reference.author.split(" and "))
-    editors: str = ";".join(reference.editor.split(" and "))
+    authors: str = ";".join(reference.authors.split(" and "))
+    editors: str = ";".join(reference.editors.split(" and "))
     return render_template("edit.html", reference=reference, authors=authors, editors=editors,
                            ref_keys=fetch_reference_keys())
 

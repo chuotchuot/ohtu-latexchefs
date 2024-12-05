@@ -6,17 +6,23 @@ class TestReference(unittest.TestCase):
 
     def setUp(self):
 
-        self.test_book = Reference(
-            "Testikirja",
-            "book",
-            "PyUnitTest-24",
-            "2024",
-            "Jukka Heikkinen and Arto Kuokkanen",
-            "Otava",
-            "Marko Mäkinen"
-        )
+        book_dict = {
+            "title": "Testikirja",
+            "reference_type": "book",
+            "reference_key": "PyUnitTest-24",
+            "year": "2024",
+            "authors": "Jukka Heikkinen and Arto Kuokkanen",
+            "publisher": "Otava",
+            "editors": "Marko Mäkinen"
+        }
+
+        self.test_book = Reference()
+
+        for key, value in book_dict.items():
+            setattr(self.test_book, key, value)
 
         self.test_authors = "Jukka Heikkinen;Arto Kuokkanen"
+        self.test_keywords = "Development;Testing;Python"
 
     def test_creating_empty_reference_dictionary(self):
 
@@ -39,5 +45,13 @@ class TestReference(unittest.TestCase):
         correct_str = "Jukka Heikkinen and Arto Kuokkanen"
 
         formatted_str= reference_repository.format_multiple_values(self.test_authors, "authors")
+
+        self.assertEqual(correct_str, formatted_str)
+
+    def test_formatting_multiple_keywords(self):
+
+        correct_str = "Development, Testing, Python"
+
+        formatted_str = reference_repository.format_multiple_values(self.test_keywords, "keywords")
 
         self.assertEqual(correct_str, formatted_str)
