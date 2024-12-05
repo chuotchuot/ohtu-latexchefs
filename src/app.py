@@ -17,24 +17,24 @@ def index():
 def render_selector():
     return render_template("selector.html")
 
-@app.route("/add_book_reference", methods=["GET", "POST"])
-def add_book_reference():
+@app.route("/add_reference", methods=["GET", "POST"])
+def add_any_reference():
     if request.method == "GET":
         return render_template("new_book_reference.html", ref_keys=fetch_reference_keys())
     # if request.method == "POST":
+
     inputs = create_input_dictionary()
-    inputs["ref_type"] = "book"
-    inputs["title"] = request.form["title"]
-    inputs["year"] = request.form["year"]
-    inputs["publisher"] = request.form["publisher"]
-    inputs["editors"] = [editor.strip() for editor in request.form["editor"].split(";")]
-    inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-    inputs["ref_key"] = request.form["reference_key"]
-    inputs["keywords"] = [keyword.strip() for keyword in request.form["keywords"].split(";")]
+
+    for key, value in request.form.items():
+        inputs[key] = value
 
     add_reference(inputs)
 
     return redirect("/")
+
+@app.route("/add_book_reference")
+def add_book_reference():
+    return render_template("new_book_reference.html", ref_keys=fetch_reference_keys())
 
 @app.route("/add_inbook_reference", methods=["GET", "POST"])
 def add_inbook_reference():

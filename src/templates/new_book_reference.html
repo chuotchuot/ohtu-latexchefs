@@ -13,7 +13,7 @@ Add a new book reference | References
 
 <h2>Add a new book reference</h2>
 
-<form action="/add_book_reference" method="POST">
+<form action="/add_reference" method="POST">
     <p>Author(s):<br>
         <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
     </p>
@@ -27,14 +27,15 @@ Add a new book reference | References
         <input type="text" name="publisher" class="inputfield" placeholder="Enter publisher name" required>
     </p>
     <p>Editor(s):<br>
-        <input type="text" name="editor" class="inputfield" placeholder="Enter editor(s), separate editors by semicolons (;)" required>
+        <input type="text" name="editors" class="inputfield" placeholder="Enter editor(s), separate editors by semicolons (;)" required>
     </p>
     <p>Reference key:<br>
-        <input type="text" name="reference_key" class="inputfield" placeholder="Enter a unique reference key" required>
+        <input type="text" name="ref_key" class="inputfield" placeholder="Enter a unique reference key" required>
     </p>
     <p>Keyword(s):<br>
         <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by semicolons (;)"></textarea>
     </p>
+    <input type="hidden" name="ref_type" value="book">
     <input type="submit" class="button" value="Submit">
 </form>
 

@@ -11,7 +11,7 @@ Submitting Valid Form Redirects To Front Page
     Input Text  name=booktitle  Test BookTitle
     Input Text  name=year  2000
     Input Text  name=publisher  Test Publisher
-    Input Text  name=reference_key  TestRefKey12-_
+    Input Text  name=ref_key  TestRefKey12-_
     Click Button  Submit
     Front Page Should Be Open
 

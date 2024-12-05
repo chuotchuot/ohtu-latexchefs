@@ -37,8 +37,8 @@ Submit Valid Filled Out Book Form
     Input Text  name=title  ${title}
     Input Text  name=year  ${year}
     Input Text  name=publisher  ${publisher}
-    Input Text  name=editor  ${editor}
-    Input Text  name=reference_key  ${reference_key}
+    Input Text  name=editors  ${editor}
+    Input Text  name=ref_key  ${reference_key}
     Click Button  Submit
     Go To List Of References Page
 

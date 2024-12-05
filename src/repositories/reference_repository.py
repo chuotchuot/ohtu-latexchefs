@@ -8,10 +8,10 @@ from config import db
 #from entities.book import Book
 
 def add_reference(inputs):
-    author_str = " and ".join(author for author in inputs["authors"])
-    keywords_str = ", ".join(keyword for keyword in inputs["keywords"])
-    editors_str = " and ".join(editor for editor in inputs["editors"])
 
+    inputs["authors"] = format_multiple_values(inputs["authors"], "authors")
+    inputs["editors"] = format_multiple_values(inputs["editors"], "editors")
+    inputs["keywords"] = format_multiple_values(inputs["keywords"], "keywords")
 
     if check_unique_reference_key(inputs["ref_key"]):
         try:
@@ -23,9 +23,9 @@ def add_reference(inputs):
                        ":reference_key, :keywords)")
             db.session.execute(sql, {"title": inputs["title"],
                                      "year": inputs["year"],
-                                     "author": author_str,
+                                     "author": inputs["authors"],
                                      "publisher": inputs["publisher"],
-                                     "editor": editors_str,
+                                     "editor": inputs["editors"],
                                      "booktitle": inputs["booktitle"],
                                      "reference_type": inputs["ref_type"],
                                      "journal": inputs["journal"],
@@ -37,7 +37,7 @@ def add_reference(inputs):
                                      "note": inputs["note"],
 
                                      "reference_key": inputs["ref_key"], 
-                                     "keywords": keywords_str})
+                                     "keywords": inputs["keywords"]})
             db.session.commit()
         except Exception as exc:
             raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
@@ -202,3 +202,14 @@ def check_unique_reference_key(reference_key):
     db.session.commit()
 
     return result.unique
+
+def format_multiple_values(string: str, column: str):
+
+    separator = ";"
+
+    if column in ("authors", "editors"):
+        new_separator = " and "
+    else:
+        new_separator = ", "
+
+    return string.replace(separator, new_separator)

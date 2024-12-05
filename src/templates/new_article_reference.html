@@ -13,7 +13,7 @@ Add a new article reference | References
 
 <h2>Add a new article reference</h2>
 
-<form action="/add_article_reference" method="POST">
+<form action="/add_reference" method="POST">
     <p>Author(s):<br>
         <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
     </p>
@@ -27,7 +27,7 @@ Add a new article reference | References
         <input type="number" name="year" class="inputfield" placeholder="Enter publication year" required>
     </p>
     <p>Reference key:<br>
-        <input type="text" name="reference_key" class="inputfield" pattern="[a-zA-Z0-9\-_:]+" placeholder="Enter a unique reference key" required>
+        <input type="text" name="ref_key" class="inputfield" pattern="[a-zA-Z0-9\-_:]+" placeholder="Enter a unique reference key" required>
     </p>
     <p>Volume:<br>
         <input type="number" name="volume" class="inputfield" placeholder="(Optional) Enter the volume number of the journal"></textarea>
@@ -47,6 +47,7 @@ Add a new article reference | References
     <p>Keyword(s):<br>
         <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by semicolons (;)"></textarea>
     </p>
+    <input type="hidden" name="ref_type" value="article">
     <input type="submit" class="button" value="Submit">
 </form>
 
