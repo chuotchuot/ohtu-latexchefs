@@ -127,7 +127,7 @@ def create_bibtex_string(current_reference):
     return string
 
 def create_readable_string(reference):
-    temp = {    'title': reference.title,
+    ref_data = {'title': reference.title,
                 'author': reference.author,
                 'year': reference.year,
                 'publisher': reference.publisher,
@@ -142,11 +142,11 @@ def create_readable_string(reference):
                 'note': reference.note,
                 }
     string = ""
-    for i in temp.values():
-        if i and string == "":
-            string += i
-        elif i:
-            string += f", {i}"
+    for value in ref_data.values():
+        if value and string == "":
+            string += value
+        elif value:
+            string += f", {value}"
     return string
 
 
