@@ -3,8 +3,8 @@ from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
-    fetch_reference, edit_reference, create_input_dictionary,
-    fetch_reference_keys, create_bibtex_string,
+    fetch_one_reference, edit_reference, create_input_dictionary,
+    fetch_reference_keys, create_bibtex_string, create_readable_string,
     get_ref_info_with_doi
     )
 from db_helper import reset_db
@@ -149,14 +149,15 @@ def delete():
         delete_reference(ref_id)
         return redirect("/list_of_references")
     #else:
-    reference = fetch_reference(ref_id)
-    return render_template("delete.html", reference=reference)
+    reference = fetch_one_reference(ref_id)
+    string = create_readable_string(reference)
+    return render_template("delete.html", reference=string)
 
 @app.route("/edit", methods=["POST"])
 def edit():
     ref_id = request.form["id"]
     confirmed: bool = request.form["confirmed"] == "1"
-    reference = fetch_reference(ref_id)
+    reference = fetch_one_reference(ref_id)
     if confirmed:
         ref_type = reference.reference_type
         inputs = create_input_dictionary()
@@ -214,7 +215,7 @@ def edit():
         edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
     #else:
-    reference = fetch_reference(ref_id)
+    reference = fetch_one_reference(ref_id)
     authors: str = ";".join(reference.author.split(" and "))
     editors: str = ";".join(reference.editor.split(" and "))
     return render_template("edit.html", reference=reference, authors=authors, editors=editors,
@@ -222,7 +223,7 @@ def edit():
 
 @app.route("/download/<int:ref_id>.bib", methods=["GET"])
 def download_reference(ref_id: int):
-    reference = fetch_reference(ref_id)
+    reference = fetch_one_reference(ref_id)
     if reference is None:
         redirect("/")
     bibtex: str = create_bibtex_string(reference)

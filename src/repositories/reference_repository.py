@@ -129,7 +129,7 @@ def create_bibtex_string(current_reference):
 def create_readable_string(reference):
     temp = {    'title': reference.title,
                 'author': reference.author,
-                'year': str(reference.year),
+                'year': reference.year,
                 'publisher': reference.publisher,
                 'editor': reference.editor,
                 'booktitle': reference.booktitle,
@@ -150,7 +150,7 @@ def create_readable_string(reference):
     return string
 
 
-def fetch_reference(ref_id: int):
+def fetch_one_reference(ref_id: int):
     sql = text("SELECT id, title, year, author, publisher, editor, journal, "
                "booktitle, page, volume, number, month, howpublished, "
                "note, reference_type, reference_key, keywords "
