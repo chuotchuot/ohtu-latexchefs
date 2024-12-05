@@ -13,13 +13,9 @@ from db_helper import reset_db
 def index():
     return render_template("index.html")
 
-@app.route("/selector", methods=["GET", "POST"])
+@app.route("/selector", methods=["GET"])
 def render_selector():
-    if request.method == "GET":
-        return render_template("selector.html")
-    #if request.method == "POST":
-    reftype = request.form["reftype"]
-    return redirect(f"{reftype}")
+    return render_template("selector.html")
 
 @app.route("/add_book_reference", methods=["GET", "POST"])
 def add_book_reference():
