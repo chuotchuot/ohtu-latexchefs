@@ -127,9 +127,6 @@ def add_reference_with_doi():
 
     inputs["ref_key"] = "temp"
 
-
-
-
     add_reference(inputs)
 
     return redirect("/")
