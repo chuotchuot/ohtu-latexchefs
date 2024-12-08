@@ -6,23 +6,35 @@ class TestReference(unittest.TestCase):
 
     def setUp(self):
 
-        book_dict = {
-            "title": "Testikirja",
+        input_book_dict = {
+            "title": "Java Unit Testing with JUnit 5 : Test Driven Development with JUnit 5",
             "reference_type": "book",
-            "reference_key": "PyUnitTest-24",
-            "year": "2024",
-            "authors": "Jukka Heikkinen and Arto Kuokkanen",
-            "publisher": "Otava",
-            "editors": "Marko Mäkinen"
+            "reference_key": "JavaUT-17",
+            "year": "2017",
+            "authors": "Shekhar Gulati;Rahul Sharma",
+            "publisher": "Berkeley, CA : Apress : Imprint: Apress",
+            "editors": "Shekhar Gulati;Rahul Sharma",
+            "keywords": "Testing;Java;Development"
         }
 
-        self.test_book = Reference()
+        queried_book_dict = {
+            "title": "Java Unit Testing with JUnit 5 : Test Driven Development with JUnit 5",
+            "reference_type": "book",
+            "reference_key": "JavaUT-17",
+            "year": "2017",
+            "authors": "Shekhar Gulati and Rahul Sharma",
+            "publisher": "Berkeley, CA : Apress : Imprint: Apress",
+            "editors": "Shekhar Gulati and Rahul Sharma"
+        }
 
-        for key, value in book_dict.items():
-            setattr(self.test_book, key, value)
+        self.test_input_book = Reference()
+        self.test_output_book = Reference()
 
-        self.test_authors = "Jukka Heikkinen;Arto Kuokkanen"
-        self.test_keywords = "Development;Testing;Python"
+        for key, value in input_book_dict.items():
+            setattr(self.test_input_book, key, value)
+
+        for key, value in queried_book_dict.items():
+            setattr(self.test_output_book, key, value)
 
     def test_creating_empty_reference_dictionary(self):
 
@@ -34,24 +46,28 @@ class TestReference(unittest.TestCase):
 
     def test_creating_readable_string(self):
 
-        correct_str = "Testikirja, Jukka Heikkinen and Arto Kuokkanen, 2024, Otava, Marko Mäkinen"
+        correct_str = ("Java Unit Testing with JUnit 5 : Test Driven Development with JUnit 5, "
+                       "Shekhar Gulati and Rahul Sharma, "
+                       "2017, "
+                       "Berkeley, CA : Apress : Imprint: Apress, "
+                       "Shekhar Gulati and Rahul Sharma")
 
-        readable_str= reference_repository.create_readable_string(self.test_book)
+        readable_str= reference_repository.create_readable_string(self.test_output_book)
 
         self.assertEqual(correct_str, readable_str)
 
     def test_formatting_multiple_authors(self):
 
-        correct_str = "Jukka Heikkinen and Arto Kuokkanen"
+        correct_str = "Shekhar Gulati and Rahul Sharma"
 
-        formatted_str= reference_repository.format_multiple_values(self.test_authors, "authors")
+        self.test_input_book.format_fields_with_multiple_values()
 
-        self.assertEqual(correct_str, formatted_str)
+        self.assertEqual(correct_str, self.test_input_book.authors)
 
     def test_formatting_multiple_keywords(self):
 
-        correct_str = "Development, Testing, Python"
+        correct_str = "Testing, Java, Development"
 
-        formatted_str = reference_repository.format_multiple_values(self.test_keywords, "keywords")
+        self.test_input_book.format_fields_with_multiple_values()
 
-        self.assertEqual(correct_str, formatted_str)
+        self.assertEqual(correct_str, self.test_input_book.keywords)

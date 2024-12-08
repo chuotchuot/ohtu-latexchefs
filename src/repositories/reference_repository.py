@@ -7,9 +7,7 @@ from entities.reference import Reference
 
 def add_reference(reference: Reference):
 
-    reference.authors = format_multiple_values(reference.authors, "authors")
-    reference.editors= format_multiple_values(reference.editors, "editors")
-    reference.keywords = format_multiple_values(reference.keywords, "keywords")
+    reference.format_fields_with_multiple_values()
 
     if check_unique_reference_key(reference.reference_key):
         try:
@@ -203,17 +201,6 @@ def check_unique_reference_key(reference_key):
     db.session.commit()
 
     return result.unique
-
-def format_multiple_values(string: str, column: str):
-
-    separator = ";"
-
-    if column in ("authors", "editors"):
-        new_separator = " and "
-    else:
-        new_separator = ", "
-
-    return string.replace(separator, new_separator)
 
 def correct_bibtex_type_keys(bibtex_dict: dict):
 

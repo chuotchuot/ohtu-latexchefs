@@ -4,7 +4,8 @@ omit = src/index.py, src/unit_tests/**, src/app.py, __init__.py, src/db_helper.p
 [report]
 exclude_also = 
     def add_reference
-    def fetch_reference
+    def fetch_references
+    def fetch_one_reference
     def fetch_reference_keys
     def delete_reference
     def edit_reference

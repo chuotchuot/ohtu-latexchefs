@@ -18,9 +18,10 @@ class Reference:
         self.reference_key = ""
         self.keywords = ""
 
-    def handle_empty_value(self, value):
+    def format_fields_with_multiple_values(self):
 
-        if value is None:
-            return ""
+        separator = ";"
 
-        return value
+        self.authors = self.authors.replace(separator, " and ")
+        self.editors = self.editors.replace(separator, " and ")
+        self.keywords = self.keywords.replace(separator, ", ")

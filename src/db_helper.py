@@ -47,7 +47,7 @@ def setup_db():
         "       CONSTRAINT valid_ref_key CHECK (reference_key ~ '^[a-zA-Z0-9_:-]*$'),"
         "   keywords TEXT,"
         "   CONSTRAINT type_constraint CHECK"
-            "(" 
+            "("
             "(reference_type = 'book' "
                 "AND year IS NOT NULL "
                 "AND publisher IS NOT NULL "
