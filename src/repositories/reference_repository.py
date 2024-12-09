@@ -255,6 +255,6 @@ def generate_reference_key(reference: Reference) -> str:
     reference_key = re.sub(regex, "", reference_key)
 
     while not check_unique_reference_key(reference_key):
-        reference_key += random.randint(0,9)
+        reference_key += str(random.randint(0,9))
 
     return reference_key
