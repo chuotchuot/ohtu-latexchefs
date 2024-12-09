@@ -1,5 +1,5 @@
 from io import BytesIO
-from flask import redirect, render_template, request, jsonify, send_file
+from flask import redirect, render_template, request, jsonify, send_file, session
 from config import app, test_env
 from entities.reference import Reference
 from entities.output import Output
@@ -51,7 +51,11 @@ def add_reference_with_doi():
 
 @app.route("/list_of_references", methods=["GET", "POST"])
 def display_list_of_references():
-    reference_data = fetch_references()
+    filtered_data = session.get("filtered_data")
+    if filtered_data:
+        reference_data = filtered_data
+    else:
+        reference_data = fetch_references()
     if request.method == "GET" or request.form["state"] == "off" :
         return render_template("list_of_references.html", references=reference_data[0],toggle="off")
     # if request.method == "POST":
@@ -60,9 +64,19 @@ def display_list_of_references():
 
 @app.route("/filter_references", methods=['GET', 'POST'])
 def filter_list_of_references():
+    session.pop("filtered_data",None)
+    if request.form.get("clear_filters"):
+        session.pop("filtered_data",None)
+        return redirect("/list_of_references")
     query = request.form["query"]
     filtered_data = fetch_filtered_references(query)
+    session["filtered_data"] = filtered_data
     return render_template("list_of_references.html", references=filtered_data[0],toggle="off")
+
+@app.before_request
+def clear_filter_on_url():
+    if not "/list_of_references" in request.path:
+        session.pop("filtered_data",None)
 
 @app.route("/delete", methods=["POST"])
 def delete():
