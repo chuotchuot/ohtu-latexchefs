@@ -83,6 +83,11 @@ def display_list_of_references():
     state = request.form["state"]
     return render_template("list_of_references.html", references=reference_data[1], toggle=state)
 
+@app.route("/list_of_references", methods=["GET", "POST"])
+def display_filtered_list_of_references():
+    # not working yet
+    pass
+
 @app.route("/delete", methods=["POST"])
 def delete():
     ref_id = request.form["id"]
