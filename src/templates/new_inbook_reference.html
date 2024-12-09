@@ -32,9 +32,6 @@ Add a new inbook reference | References
     <p>Editor:<br>
         <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)"></textarea>
     </p>
-    <p>Reference key:<br>
-        <input type="text" name="reference_key" class="inputfield" pattern="[a-zA-Z0-9\-_:]+" placeholder="Enter a unique reference key" required>
-    </p>
     <p>Keyword(s):<br>
         <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by semicolons (;)"></textarea>
     </p>
@@ -42,39 +39,6 @@ Add a new inbook reference | References
     <input type="submit" class="button" value="Submit">
 </form>
 
-<a class="button" href="/">Go to front page</a>
-
-<script>
-    const regex = /^[a-zA-Z0-9\-:_]*$/;
-    let originalRefKey = document.querySelector('input[name="reference_key"]').value;
-    const referenceKeys = {{ ref_keys | tojson }} //ignore the error
-
-    document.querySelector("body > form").addEventListener('submit', function(event) {
-        let refKey = document.querySelector('input[name="reference_key"]').value;
-        if(!regex.test(refKey)){
-            showWarning("Invalid reference key format. Only letters (a-z, A-Z), numbers (0-9), and special characters ':', '-' and '_' are allowed.");
-            event.preventDefault();
-            return false;
-        }
-        else if(originalRefKey != refKey && referenceKeys.includes(refKey)){
-            showWarning("Reference key already used! Please choose a different one.");
-            event.preventDefault();
-            return false;
-        }
-
-        return true;
-    });
-    let inputField = document.querySelector('input[name="reference_key"]');
-    let originalColor = inputField.style.backgroundColor;
-    inputField.addEventListener('input', function(event) {
-        let refKey = event.target.value;
-        if(!regex.test(refKey) && refKey != ""){
-            inputField.style.backgroundColor = "rgb(255, 80, 80)"
-        }
-        else{
-            inputField.style.backgroundColor = originalColor;
-        }
-    });
-</script>
+<a class="button" href="/selector">Go back</a>
 
 {% endblock %}

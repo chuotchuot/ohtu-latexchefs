@@ -92,7 +92,6 @@ Add New Book Reference
     Input Text  name=year  2000
     Input Text  name=publisher  Test Publisher
     Input Text  name=editors  Test Editor
-    Input Text  name=reference_key  TestRefKey12-_
     Input text  name=keywords  Test Keywords
     Click Button    Submit
     Front Page Should Be Open
@@ -102,7 +101,6 @@ Add New Misc Reference
     Input Text  name=authors  Test Authors
     Input Text  name=title  Test Title
     Input Text    name=howpublished    Test Published
-    Input Text  name=reference_key  TestRefKey12-_
     Click Button    Submit
     Front Page Should Be Open
 
@@ -113,6 +111,5 @@ Add New Inbook Reference
     Input Text  name=booktitle  Test Book Title
     Input Text  name=year  2000
     Input Text  name=publisher  Test Publisher
-    Input Text  name=reference_key  TestRefKey12-_
     Click Button  Submit
     Front Page Should Be Open

@@ -38,7 +38,6 @@ Add New Reference
     Input Text  name=year  2000
     Input Text  name=publisher  Test Publisher
     Input Text  name=editors  Test Editor
-    Input Text  name=reference_key  TestRefKey12-_
     Input text  name=keywords  Test Keywords
     Click Button    Submit
     Front Page Should Be Open

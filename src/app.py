@@ -6,7 +6,7 @@ from repositories.reference_repository import (
     add_reference, fetch_references, delete_reference,
     fetch_one_reference, edit_reference, create_input_dictionary,
     fetch_reference_keys, create_bibtex_string, create_readable_string,
-    get_ref_info_with_doi
+    get_ref_info_with_doi, generate_reference_key
     )
 from db_helper import reset_db
 
@@ -24,6 +24,8 @@ def add_any_reference():
 
     for key, value in request.form.items():
         setattr(reference, key, value)
+
+    reference.reference_key = generate_reference_key(reference)
 
     add_reference(reference)
 

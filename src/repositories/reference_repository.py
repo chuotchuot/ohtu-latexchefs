@@ -1,3 +1,5 @@
+import re
+import random
 from sqlalchemy import text
 from bibtexparser.bibdatabase import BibDatabase
 import bibtexparser
@@ -191,8 +193,9 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
                         "special characters '-', '_' or ':'.") from exc
 
-def check_unique_reference_key(reference_key):
-
+def check_unique_reference_key(reference_key: str) -> bool:
+    if reference_key == "":
+        return False
     sql = text("SELECT NOT EXISTS ("
                "    SELECT 1 FROM reference"
                "    WHERE reference_key = :reference_key"
@@ -211,3 +214,47 @@ def correct_bibtex_type_keys(bibtex_dict: dict):
         bibtex_dict["editor"] = bibtex_dict.pop("editors")
 
     return bibtex_dict
+
+
+def generate_reference_key(reference: Reference) -> str:
+    regex: str = r"[^a-zA-Z0-9\-:_]"
+
+    reference_key: str = ""
+
+    if reference.title != "":
+        reference_key += reference.title
+    elif reference.booktitle != "":
+        reference_key += reference.booktitle
+
+    if reference.year != "":
+        reference_key += f"-{reference.year}"
+
+    reference_key = re.sub(regex, "", reference_key)
+
+    if check_unique_reference_key(reference_key):
+        return reference_key
+
+    additional: list[str] = []
+
+    if reference.journal != "":
+        additional.append(reference.journal)
+
+    if reference.authors != "":
+        authors: list[str] =  [re.sub(regex, "", author) for author in reference.authors.split(";")]
+        for author in authors:
+            additional.append(author)
+
+    if reference.publisher != "":
+        additional.append(reference.publisher)
+
+    for addition in additional:
+        reference_key += f"-{addition}"
+        if check_unique_reference_key(reference_key):
+            break
+
+    reference_key = re.sub(regex, "", reference_key)
+
+    while not check_unique_reference_key(reference_key):
+        reference_key += random.randint(0,9)
+
+    return reference_key
