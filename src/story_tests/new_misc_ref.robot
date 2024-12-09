@@ -42,9 +42,9 @@ Submits Correctly Filled Out Form And Redirects To Front Page
     Click Button  Submit
     Front Page Should Be Open
 
-Clicking Go To Front Page Redirects To Front Page
-    Click Link  Go to front page
-    Front Page Should Be Open
+Clicking Go Back Redirects To Selector
+    Click Link  Go back
+    Selector Page Should Be Open
 
 *** Keywords ***
 Reset Application And Go To Add New Misc Reference Page
