@@ -25,3 +25,10 @@ class Reference:
         self.authors = self.authors.replace(separator, " and ")
         self.editors = self.editors.replace(separator, " and ")
         self.keywords = self.keywords.replace(separator, ", ")
+
+    def add_values(self, items):
+        for key, value in items:
+            setattr(self, key, value)
+
+    def set_reference_key(self, key):
+        self.reference_key = key

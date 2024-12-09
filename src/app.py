@@ -22,10 +22,9 @@ def render_selector():
 def add_any_reference():
     reference = Reference()
 
-    for key, value in request.form.items():
-        setattr(reference, key, value)
+    reference.add_values(request.form.items())
 
-    reference.reference_key = generate_reference_key(reference)
+    reference.set_reference_key(generate_reference_key(reference))
 
     add_reference(reference)
 
