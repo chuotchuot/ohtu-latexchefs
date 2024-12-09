@@ -144,7 +144,7 @@ def delete():
     if confirmed:
         delete_reference(ref_id)
         return redirect("/list_of_references")
-    #else:
+
     reference = fetch_one_reference(ref_id)
     readable_string = {"id":reference.id,"text":create_readable_string(reference)}
     return render_template("delete.html", reference=readable_string)
