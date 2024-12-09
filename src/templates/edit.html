@@ -37,14 +37,14 @@ Edit Reference | References
         <p>Title:<br>
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
         </p>
-        <p>Book title:<br>
-            <input type="text" name="booktitle" rows="2" cols="30" class="inputfield" value="{{reference.booktitle}}" placeholder="Enter book title" required>
-        </p>
         <p>Year of Publication:<br>
             <input type="number" name="year" class="inputfield" value="{{reference.year}}" placeholder="Enter publication year" required>
         </p>
         <p>Publisher:<br>
             <input type="text" name="publisher" class="inputfield" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
+        </p>
+        <p>Book title:<br>
+            <input type="text" name="booktitle" rows="2" cols="30" class="inputfield" value="{{reference.booktitle}}" placeholder="(Optional) Enter book title">
         </p>
         <p>Editor:<br>
             <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)">{{editors}}</textarea>
@@ -57,7 +57,7 @@ Edit Reference | References
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
         </p>
         <p>How Published:<br>
-            <input type="text" name="howpublished" class="inputfield" value="{{reference.howpublished}}" placeholder="Enter how published" required>
+            <input type="text" name="howpublished" class="inputfield" value="{{reference.howpublished}}" placeholder="(Optional) Enter how published">
         </p>
         <p>Month of Publication:<br>
             <input type="text" name="month" class="inputfield" value="{{reference.month}}" placeholder="(Optional) Enter publication month">
@@ -94,7 +94,7 @@ Edit Reference | References
             <input type="text" name="month" rows="2" cols="30" class="inputfield" value="{{reference.month}}" placeholder="(Optional) Enter the month of publication.">
         </p>
         <p>Note:<br>
-            <textarea name="note" rows="5" cols="30" class="inputfield" placeholder="Miscellaneous information">{{reference.note}}</textarea>
+            <textarea name="note" rows="5" cols="30" class="inputfield" placeholder="(Optional) Miscellaneous information">{{reference.note}}</textarea>
         </p>
     {% endif %}
     <p>Reference key:<br>

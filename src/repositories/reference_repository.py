@@ -172,15 +172,20 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
 
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, authors = :authors, "
-                "publisher = :publisher, editors = :editors, booktitle = :booktitle, "
-                "month = :month, howpublished = :howpublished, note = :note, "
-                "reference_key = :reference_key, keywords = :keywords WHERE id = :id")
+                "publisher = :publisher, editors = :editors, booktitle = :booktitle, page = :page, "
+                "journal = :journal, number = :number, howpublished = :howpublished,"
+                "month = :month, note = :note, reference_key = :reference_key, "
+                "keywords = :keywords WHERE id = :id")
+
         db.session.execute(sql, {"title": inputs["title"],
                                 "year": inputs["year"],
                                 "authors": author_str,
                                 "publisher": inputs["publisher"],
                                 "editors": editors_str,
                                 "booktitle": inputs["booktitle"],
+                                "journal": inputs["journal"],
+                                "page": inputs["page"],
+                                "number": inputs["number"],
                                 "month": inputs["month"],
                                 "howpublished": inputs["howpublished"],
                                 "note": inputs["note"],
@@ -188,6 +193,7 @@ def edit_reference(ref_id: int, inputs: dict) -> None:
                                 "reference_key": inputs["reference_key"],
                                 "keywords": keywords_str,
                                 "id": ref_id})
+
         db.session.commit()
     except Exception as exc:
         raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
