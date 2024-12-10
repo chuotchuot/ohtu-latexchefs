@@ -42,6 +42,7 @@ Copying BibTeX Properly Copies BibTeX
     Toggle BibTeX Format
     Copy BibTeX
     Go To Add New Book Reference Page
+    Add New Book Reference Page Should Be Open
     Paste Copied Text And Compare
 
 *** Keywords ***

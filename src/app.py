@@ -3,7 +3,7 @@ from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
-    add_reference, fetch_references, delete_reference,
+    add_reference, fetch_references,fetch_filtered_references, delete_reference,
     fetch_one_reference, edit_reference, create_input_dictionary,
     fetch_reference_keys, create_bibtex_string, create_readable_string,
     get_ref_info_with_doi, generate_reference_key
@@ -69,10 +69,11 @@ def display_list_of_references():
     state = request.form["state"]
     return render_template("list_of_references.html", references=reference_data[1], toggle=state)
 
-@app.route("/list_of_references", methods=["GET", "POST"])
-def display_filtered_list_of_references():
-    # not working yet
-    pass
+@app.route("/filter_references", methods=['GET', 'POST'])
+def filter_list_of_references():
+    query = request.form["query"]
+    filtered_data = fetch_filtered_references(query)
+    return render_template("list_of_references.html", references=filtered_data[0],toggle="off")
 
 @app.route("/delete", methods=["POST"])
 def delete():
