@@ -3,8 +3,8 @@ from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
-    save_reference, fetch_references, fetch_filtered_references, delete_reference,
-    fetch_one_reference, edit_reference, create_input_dictionary,
+    save_reference, fetch_references, fetch_filtered_references,
+    delete_reference,  fetch_one_reference, edit_reference,
     fetch_reference_keys, create_bibtex_string, create_readable_string,
     get_ref_info_with_doi, generate_reference_key
     )
@@ -78,68 +78,25 @@ def delete():
 
 @app.route("/edit", methods=["POST"])
 def edit():
-    ref_id = request.form["id"]
+    reference_id = request.form["id"]
     confirmed: bool = request.form["confirmed"] == "1"
-    reference = fetch_one_reference(ref_id)
+    reference = fetch_one_reference(reference_id)
+
+    print(f"{reference.authors}test")
+
     if confirmed:
-        reference_type = reference.reference_type
-        inputs = create_input_dictionary()
 
-        inputs["reference_type"]= reference.reference_type
+        reference = Reference()
 
-        if reference_type == "book":
-            inputs["year"] = request.form["year"]
-            inputs["publisher"] = request.form["publisher"]
-            inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
-            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+        for field, value in request.form.items():
+            setattr(reference, field, value)
 
-        elif reference_type == "inbook":
-            inputs["booktitle"] = request.form["booktitle"]
-            inputs["year"] = request.form["year"]
-            inputs["publisher"] = request.form["publisher"]
-            inputs["editors"] = [editor.strip() for editor in request.form["editors"].split(";")]
-            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
+        edit_reference(reference_id, reference)
 
-        elif reference_type == "misc":
-            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["howpublished"] = request.form["howpublished"]
-            inputs["month"] = request.form["month"]
-            inputs["year"] = request.form["year"]
-            inputs["note"] = request.form["note"]
-
-        elif reference_type == "article":
-            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["journal"] = request.form["journal"]
-            inputs["year"] = request.form["year"]
-            inputs["volume"] = request.form["volume"]
-            inputs["number"] = request.form["number"]
-            inputs["page"] = request.form["pages"]
-            inputs["month"] = request.form["month"]
-            inputs["note"] = request.form["note"]
-
-        elif reference_type == "misc":
-            inputs["reference_type"] ="misc"
-            inputs["authors"] = [author.strip() for author in request.form["authors"].split(";")]
-            inputs["howpublished"] = request.form["howpublished"]
-            inputs["month"] = request.form["month"]
-            inputs["year"] = request.form["year"]
-            inputs["note"] = request.form["note"]
-            inputs["reference_key"] = request.form["reference_key"]
-            inputs["keywords"] = [keyword.strip() for
-                                  keyword in request.form["keywords"].split(";")]
-
-        inputs["title"] = request.form["title"]
-        inputs["reference_key"] = request.form["reference_key"]
-        inputs["keywords"] = [keyword.strip() for
-                                keyword in request.form["keywords"].split(";")]
-
-        edit_reference(ref_id, inputs)
         return redirect("/list_of_references")
     #else:
-    reference = fetch_one_reference(ref_id)
-    authors: str = ";".join(reference.authors.split(" and "))
-    editors: str = ";".join(reference.editors.split(" and "))
-    return render_template("edit.html", reference=reference, authors=authors, editors=editors,
+
+    return render_template("edit.html", reference=reference,
                            ref_keys=fetch_reference_keys())
 
 @app.route("/download/<int:ref_id>.bib", methods=["GET"])

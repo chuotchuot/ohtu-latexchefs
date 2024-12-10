@@ -53,26 +53,6 @@ def get_ref_info_with_doi(doi):
 
     return entry
 
-def create_input_dictionary():
-    inputs = {}
-    inputs["reference_type"] = ""
-    inputs["title"] = ""
-    inputs["year"] = ""
-    inputs["authors"] = ""
-    inputs["publisher"] = ""
-    inputs["editors"] = ""
-    inputs["booktitle"] = ""
-    inputs["journal"] = ""
-    inputs["volume"] = ""
-    inputs["page"] = ""
-    inputs["number"] = ""
-    inputs["month"] = ""
-    inputs["howpublished"] = ""
-    inputs["note"] = ""
-    inputs["reference_key"] = ""
-    inputs["keywords"] = ""
-    return inputs
-
 def fetch_references():
     fetch = db.session.execute(text("SELECT id, title, year, authors, publisher, editors, journal, "
                                     "booktitle, page, volume, number, month, howpublished, "
@@ -160,8 +140,8 @@ def create_bibtex_string(current_reference):
 
 def create_readable_string(reference):
     ref_data = {'title': reference.title,
-                'author': reference.authors,
-                'year': str(reference.year),
+                'authors': reference.authors,
+                'year': reference.year,
                 'publisher': reference.publisher,
                 'editor': reference.editors,
                 'booktitle': reference.booktitle,
@@ -195,39 +175,31 @@ def delete_reference(ref_id: int) -> None:
     db.session.execute(sql, {"id": ref_id})
     db.session.commit()
 
-def edit_reference(ref_id: int, inputs: dict) -> None:
-    author_str = " and ".join(author for author in inputs["authors"])
-    keywords_str = ", ".join(keyword for keyword in inputs["keywords"])
-    editors_str = " and ".join(editor for editor in inputs["editors"])
-
+def edit_reference(reference_id, reference: Reference) -> None:
+    reference.format_fields_with_multiple_values()
     try:
         sql = text("UPDATE reference SET title = :title, year = :year, authors = :authors, "
                 "publisher = :publisher, editors = :editors, booktitle = :booktitle, page = :page, "
                 "journal = :journal, number = :number, howpublished = :howpublished,"
-                "month = :month, note = :note, reference_key = :reference_key, "
-                "keywords = :keywords WHERE id = :id")
+                "month = :month, note = :note, keywords = :keywords WHERE id = :id")
 
-        db.session.execute(sql, {"title": inputs["title"],
-                                "year": inputs["year"],
-                                "authors": author_str,
-                                "publisher": inputs["publisher"],
-                                "editors": editors_str,
-                                "booktitle": inputs["booktitle"],
-                                "journal": inputs["journal"],
-                                "page": inputs["page"],
-                                "number": inputs["number"],
-                                "month": inputs["month"],
-                                "howpublished": inputs["howpublished"],
-                                "note": inputs["note"],
-                                "reference_type": inputs["reference_type"],
-                                "reference_key": inputs["reference_key"],
-                                "keywords": keywords_str,
-                                "id": ref_id})
-
+        db.session.execute(sql, {"title": reference.title,
+                                "year": reference.year,
+                                "authors": reference.authors,
+                                "publisher": reference.publisher,
+                                "editors": reference.editors,
+                                "booktitle": reference.booktitle,
+                                "journal": reference.journal,
+                                "page": reference.page,
+                                "number": reference.number,
+                                "month": reference.month,
+                                "howpublished": reference.howpublished,
+                                "note": reference.note,
+                                "keywords": reference.keywords,
+                                "id": reference_id})
         db.session.commit()
     except Exception as exc:
-        raise ValueError("Reference key can only contain letters a-z, numbers 0-9 and "
-                        "special characters '-', '_' or ':'.") from exc
+        raise ValueError("There was an issue with updating reference values") from exc
 
 def check_unique_reference_key(reference_key: str) -> bool:
     if reference_key == "":

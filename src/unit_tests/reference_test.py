@@ -36,14 +36,6 @@ class TestReference(unittest.TestCase):
         for key, value in queried_book_dict.items():
             setattr(self.test_output_book, key, value)
 
-    def test_creating_empty_reference_dictionary(self):
-
-        test_dict = reference_repository.create_input_dictionary()
-
-        for key, value in test_dict.items():
-            self.assertEqual(value, "")
-            self.assertIsInstance(key, str)
-
     def test_creating_readable_string(self):
 
         correct_str = ("Java Unit Testing with JUnit 5 : Test Driven Development with JUnit 5, "
