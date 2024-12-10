@@ -54,23 +54,22 @@ def add_reference_with_doi():
     doi = request.form["doi"]
     ref_info = get_ref_info_with_doi(doi)
 
-    authors_str = [author.strip() for author in ref_info.get("author").split("and")]
+    reference = Reference()
 
-    inputs = create_input_dictionary()
-    inputs["ref_type"] = "article"
-    inputs["title"] = ref_info.get("title")
-    inputs["authors"] = authors_str
-    inputs["year"] = ref_info.get("year")
-    inputs["journal"] = ref_info.get("journal")
-    inputs["volume"] = ref_info.get("volume")
-    inputs["number"] = ref_info.get("number")
-    inputs["page"] = ref_info.get("page")
-    inputs["month"] = ref_info.get("month")
-    inputs["note"] = ref_info.get("note")
+    reference.reference_type = "article"
+    reference.title = ref_info.get("title")
+    reference.authors = ref_info.get("author").replace(" and ", ";")
+    reference.year = ref_info.get("year")
+    reference.journal = ref_info.get("journal")
+    reference.volume = ref_info.get("volume")
+    reference.number = ref_info.get("number")
+    reference.page = ref_info.get("page")
+    reference.month = ref_info.get("month")
+    reference.note = ref_info.get("note")
 
-    inputs["ref_key"] = "temp"
+    reference.reference_key = generate_reference_key(reference)
 
-    add_reference(inputs)
+    add_reference(reference)
 
     return redirect("/")
 
