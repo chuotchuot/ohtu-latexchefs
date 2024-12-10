@@ -30,46 +30,17 @@ class Reference:
         for key, value in items:
             setattr(self, key, value)
 
-    def add_values_from_database(self, data):
-        self.title = data.title
-        self.authors = data.authors
-        self.year = data.year
-        self.publisher = data.publisher
-        self.editors = data.editors
-        self.journal = data.journal
-        self.booktitle = data.booktitle
-        self.page = data.page
-        self.volume = data.volume
-        self.number = data.number
-        self.month = data.month
-        self.howpublished = data.howpublished
-        self.note = data.note
-        self.reference_type = data.reference_type
-        self.reference_key = data.reference_key
-        self.keywords = data.keywords
+    def add_values_from_doi(self, data):
+        self.reference_type = "article"
+        self.title = data.get("title")
+        self.authors = data.get("author")
+        self.year = data.get("year")
+        self.journal = data.get("journal")
+        self.volume = data.get("volume")
+        self.number = data.get("number")
+        self.page = data.get("page")
+        self.month = data.get("month")
+        self.note = data.get("note")
 
     def set_reference_key(self, key):
         self.reference_key = key
-
-    def create_readable_string(self):
-        ref_data = {'title': self.title,
-                    'author': self.authors,
-                    'year': self.year,
-                    'publisher': self.publisher,
-                    'editor': self.editors,
-                    'booktitle': self.booktitle,
-                    'journal': self.journal,
-                    'volume': self.volume,
-                    'page': self.page,
-                    'number': self.number,
-                    'month': self.month,
-                    'howpublished': self.howpublished,
-                    'note': self.note,
-                    }
-        string = ""
-        for value in ref_data.values():
-            if value and string == "":
-                string += value
-            elif value:
-                string += f", {value}"
-        return string

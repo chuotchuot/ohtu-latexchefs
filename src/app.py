@@ -23,7 +23,6 @@ def add_any_reference():
     reference = Reference()
 
     reference.add_values_from_dictionary(request.form.items())
-
     reference.set_reference_key(generate_reference_key(reference))
 
     add_reference(reference)
@@ -51,22 +50,11 @@ def add_reference_with_doi():
     if request.method == "GET":
         return render_template("add_ref_with_doi.html")
     doi = request.form["doi"]
-    ref_info = get_ref_info_with_doi(doi)
-
     reference = Reference()
+    data = get_ref_info_with_doi(doi)
 
-    reference.reference_type = "article"
-    reference.title = ref_info.get("title")
-    reference.authors = ref_info.get("author").replace(" and ", ";")
-    reference.year = ref_info.get("year")
-    reference.journal = ref_info.get("journal")
-    reference.volume = ref_info.get("volume")
-    reference.number = ref_info.get("number")
-    reference.page = ref_info.get("page")
-    reference.month = ref_info.get("month")
-    reference.note = ref_info.get("note")
-
-    reference.reference_key = generate_reference_key(reference)
+    reference.add_values_from_doi(data)
+    reference.set_reference_key(generate_reference_key(reference))
 
     add_reference(reference)
 
