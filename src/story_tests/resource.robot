@@ -43,8 +43,8 @@ Add New Book Reference Page Should Be Open
     Title Should Be  Add a new book reference | References
 
 Add New Misc Reference Page Should Be Open
-    Wait Until Page Contains  Add a new miscellaneous reference | References
-    Title Should Be  Add a new miscellaneous reference | References
+    Wait Until Page Contains  Add a new misc reference | References
+    Title Should Be  Add a new misc reference | References
 
 Add New Inbook Reference Page Should Be Open
     Wait Until Page Contains  Add a new inbook reference | References
@@ -69,16 +69,19 @@ Go To Selector Page
     Go To  ${SELECTOR_URL}
 
 Go To Add New Book Reference Page
-    Go To  ${BOOK_REF_URL}
+    Go To Selector Page
+    Click Link  Book
 
 Go To Add New Misc Reference Page
-    Go To  ${MISC_REF_URL}
+    Go To Selector Page
+    Click Link  Miscellaneous
 
 Go To List Of References Page
-    Go To  ${REF_LIST_URL}
+    Go To  ${REF_LIST_URL} 
 
 Go To Add New Inbook Reference Page
-    Go To  ${INBOOK_REF_URL}
+    Go To Selector Page
+    Click Link  Inbook
 
 Reset Database
     Go To  ${RESET_URL}

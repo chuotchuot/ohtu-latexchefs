@@ -3,7 +3,7 @@ from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from entities.reference import Reference
 from repositories.reference_repository import (
-    add_reference, fetch_references,fetch_filtered_references, delete_reference,
+    save_reference, fetch_references, fetch_filtered_references, delete_reference,
     fetch_one_reference, edit_reference, create_input_dictionary,
     fetch_reference_keys, create_bibtex_string, create_readable_string,
     get_ref_info_with_doi, generate_reference_key
@@ -18,32 +18,21 @@ def index():
 def render_selector():
     return render_template("selector.html")
 
-@app.route("/add_reference", methods=["POST"])
-def add_any_reference():
+@app.route("/add_reference", methods=["GET", "POST"])
+def add_reference():
+    if request.method == "GET":
+        reference_type = request.args.get('reference_type')
+
+        return render_template("new_reference.html", reference_type=reference_type)
+
     reference = Reference()
 
     reference.add_values_from_dictionary(request.form.items())
     reference.set_reference_key(generate_reference_key(reference))
 
-    add_reference(reference)
+    save_reference(reference)
 
     return redirect("/")
-
-@app.route("/add_book_reference")
-def add_book_reference():
-    return render_template("new_book_reference.html", ref_keys=fetch_reference_keys())
-
-@app.route("/add_inbook_reference", methods=["GET", "POST"])
-def add_inbook_reference():
-    return render_template("new_inbook_reference.html", ref_keys=fetch_reference_keys())
-
-@app.route("/add_article_reference", methods=["GET", "POST"])
-def add_article_reference():
-    return render_template("new_article_reference.html", ref_keys=fetch_reference_keys())
-
-@app.route("/add_misc_reference", methods=["GET", "POST"])
-def add_misc_reference():
-    return render_template("new_misc_reference.html", ref_keys=fetch_reference_keys())
 
 @app.route("/add_reference_with_doi", methods=["GET", "POST"])
 def add_reference_with_doi():
@@ -56,7 +45,7 @@ def add_reference_with_doi():
     reference.add_values_from_doi(data)
     reference.set_reference_key(generate_reference_key(reference))
 
-    add_reference(reference)
+    save_reference(reference)
 
     return redirect("/")
 

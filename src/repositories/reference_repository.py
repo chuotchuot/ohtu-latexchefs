@@ -7,7 +7,7 @@ from doi2bib.crossref import get_bib
 from config import db
 from entities.reference import Reference
 
-def add_reference(reference: Reference):
+def save_reference(reference: Reference):
 
     reference.format_fields_with_multiple_values()
 

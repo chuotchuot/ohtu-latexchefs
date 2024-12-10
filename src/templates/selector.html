@@ -13,16 +13,16 @@ Select reference type | References
 <h2>Select reference type</h2>
 
 <p>
-    <a class="button reftype" href={{url_for("add_book_reference") }}> Book </a>
+    <a class="button reftype" href={{url_for("add_reference", reference_type="book")}}> Book </a>
 </p>
 <p>
-    <a class="button reftype" href={{url_for("add_article_reference") }}> Article </a>
+    <a class="button reftype" href={{url_for("add_reference", reference_type="article")}}> Article </a>
 </p>
 <p>   
-    <a class="button reftype" href={{url_for("add_inbook_reference") }}> Inbook </a>
+    <a class="button reftype" href={{url_for("add_reference", reference_type="inbook")}}> Inbook </a>
 </p>
 <p>
-    <a class="button reftype" href={{url_for("add_misc_reference") }}> Miscellaneous </a>
+    <a class="button reftype" href={{url_for("add_reference", reference_type="misc") }}> Miscellaneous </a>
 </p>
 <p>
     <a class="button reftype" href={{url_for("add_reference_with_doi") }}> Add a reference using DOI </a>
