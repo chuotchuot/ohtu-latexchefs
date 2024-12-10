@@ -16,6 +16,11 @@ List of references | References
 {% if references %}
 <span id="references">
 
+<form action="/filter_references" method="POST">
+    <input type="text" name="query">
+    <input type="submit" class="button" value="search">
+</form>
+
 <!-- Copy all references button from here -->
 {% if toggle == "on" %}
 <div id="all-references-in-bibtex" style="display: none; white-space: pre;">
@@ -73,6 +78,7 @@ List of references | References
 <p>
     <a href="/" class="button home">Go to front page</a>
 </p>
+
 <form action="/list_of_references" method="POST">
     {% if toggle == "on" %}
     <input type="hidden" name="state" value="off">

@@ -88,6 +88,36 @@ def fetch_references():
 
     return readable_string_list, bibtex_string_list
 
+def fetch_filtered_references(query):
+    sql = text("""SELECT * FROM reference WHERE
+                title LIKE :query
+                OR title LIKE :query
+                OR year LIKE :query
+                OR authors LIKE :query
+                OR publisher LIKE :query
+                OR editors LIKE :query
+                OR journal LIKE :query
+                OR booktitle LIKE :query
+                OR page LIKE :query
+                OR volume LIKE :query
+                OR number LIKE :query
+                OR month LIKE :query
+                OR howpublished LIKE :query
+                OR note LIKE :query
+                OR reference_type LIKE :query
+                OR reference_key LIKE :query
+                OR keywords LIKE :query""")
+    fetch = db.session.execute(sql,{"query":"%"+query+"%"})
+    fetched_references = fetch.fetchall()
+    bibtex_string_list = []
+    readable_string_list = []
+
+    for i in fetched_references:
+        bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
+        readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
+
+    return readable_string_list, bibtex_string_list
+
 def fetch_reference_keys():
     fetch = db.session.execute(text("SELECT reference_key FROM reference"))
     fetched_keys = fetch.scalars().all()
