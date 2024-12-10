@@ -82,8 +82,6 @@ def edit():
     confirmed: bool = request.form["confirmed"] == "1"
     reference = fetch_one_reference(reference_id)
 
-    print(f"{reference.authors}test")
-
     if confirmed:
 
         reference = Reference()
