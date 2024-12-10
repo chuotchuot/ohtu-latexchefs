@@ -12,6 +12,7 @@ ${BOOK_REF_URL}      http://${SERVER}/add_book_reference
 ${INBOOK_REF_URL}    http://${SERVER}/add_inbook_reference
 ${MISC_REF_URL}      http://${SERVER}/add_misc_reference
 ${REF_LIST_URL}      http://${SERVER}/list_of_references
+${DOI_REF_URL}       http://${SERVER}/add_reference_with_doi
 ${BROWSER}           chrome
 ${HEADLESS}          false
 
@@ -50,6 +51,10 @@ Add New Inbook Reference Page Should Be Open
     Wait Until Page Contains  Add a new inbook reference | References
     Title Should Be  Add a new inbook reference | References
 
+Add Reference With Doi Page Should Be Open
+    Wait Until Page Contains  Add a reference with DOI | References
+    Title Should Be  Add a reference with DOI | References
+
 List Of References Page Should Be Open
     Wait Until Page Contains  List of references | References
     Title Should Be  List of references | References
@@ -82,6 +87,9 @@ Go To List Of References Page
 Go To Add New Inbook Reference Page
     Go To Selector Page
     Click Link  Inbook
+
+Go To Add Reference With Doi Page
+    Go To  ${DOI_REF_URL}
 
 Reset Database
     Go To  ${RESET_URL}
