@@ -13,13 +13,15 @@ List of references | References
 
 <h2>List of references</h2>
 
-{% if references %}
-<span id="references">
 
 <form action="/filter_references" method="POST">
     <input type="text" name="query">
-    <input type="submit" class="button" value="search">
+    <input type="submit" class="button" value="Search">
+    <input type="submit" class="button" value="Clear filters">
 </form>
+{% if references %}
+<span id="references">
+
 
 <!-- Copy all references button from here -->
 {% if toggle == "on" %}
