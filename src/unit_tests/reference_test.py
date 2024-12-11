@@ -48,10 +48,10 @@ class TestReference(unittest.TestCase):
                        "Shekhar Gulati and Rahul Sharma")
 
         readable_str = self.test_output.create_readable_string()["text"]
-        id = self.test_output.create_readable_string()["id"]
+        ref_id = self.test_output.create_readable_string()["id"]
 
         self.assertEqual(correct_str, readable_str)
-        self.assertEqual(1, id)
+        self.assertEqual(1, ref_id)
 
     def test_formatting_multiple_authors(self):
 

@@ -21,8 +21,8 @@ class Output:
         self.reference_key = data.reference_key
         self.keywords = data.keywords
 
-    def set_id(self, id):
-        self.id = id
+    def set_id(self, ref_id):
+        self.id = ref_id
 
     def create_readable_string(self):
         ref_data = [self.title,

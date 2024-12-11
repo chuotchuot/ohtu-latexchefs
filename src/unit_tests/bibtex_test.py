@@ -47,10 +47,10 @@ class TestReferenceInput(unittest.TestCase):
 """
 
         bibtex_string = self.test_output.create_bibtex_string()["text"]
-        id = self.test_output.create_bibtex_string()["id"]
+        ref_id = self.test_output.create_bibtex_string()["id"]
 
         self.assertEqual(bibtex_string, test_string)
-        self.assertEqual(1, id)
+        self.assertEqual(1, ref_id)
 
     def test_creating_bibtex_instance(self):
 

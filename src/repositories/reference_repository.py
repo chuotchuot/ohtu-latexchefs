@@ -1,7 +1,6 @@
 import re
 import random
 from sqlalchemy import text
-from bibtexparser.bibdatabase import BibDatabase
 import bibtexparser
 from doi2bib.crossref import get_bib
 from config import db
@@ -108,64 +107,6 @@ def fetch_reference_keys():
     fetched_keys = fetch.scalars().all()
     return fetched_keys
 
-
-def create_bibtex_instance(current_reference):
-    bibtex_dict = {
-        "ENTRYTYPE" : str(current_reference.reference_type),
-        "ID"        : str(current_reference.reference_key)
-    }
-    reference_values = ["title","authors","year","publisher","editors",
-                        "journal","booktitle","page","volume","number",
-                        "month","howpublished","note","keywords"]
-    for value in reference_values:
-        if getattr(current_reference, value):
-            bibtex_dict[value] = str(getattr(current_reference, value))
-
-    bibtex_dict = correct_bibtex_type_keys(bibtex_dict)
-
-    bibtex_dict = bibtex_seperate_multiple(bibtex_dict)
-    return bibtex_dict
-
-def bibtex_seperate_multiple(bibtex_dict):
-    if "author" in bibtex_dict:
-        bibtex_dict["author"] = bibtex_dict["author"].replace(" and "," and \n          ")
-        #menee rikki jos authorina " and "
-    if "keywords" in bibtex_dict:
-        bibtex_dict["keywords"] = bibtex_dict["keywords"].replace(", ",",\n             " )
-        #menee rikki jos keywordina ", "
-        #vois muuttaa databasee ettei voi mennä rikki
-    return bibtex_dict
-
-def create_bibtex_string(current_reference):
-    bibdb = BibDatabase()
-    bibdb.entries = []
-    bibdb.entries.append(create_bibtex_instance(current_reference))
-    string = bibtexparser.dumps(bibdb)
-    return string
-
-def create_readable_string(reference):
-    ref_data = {'title': reference.title,
-                'authors': reference.authors,
-                'year': reference.year,
-                'publisher': reference.publisher,
-                'editor': reference.editors,
-                'booktitle': reference.booktitle,
-                'journal': reference.journal,
-                'volume': reference.volume,
-                'page': reference.page,
-                'number': reference.number,
-                'month': reference.month,
-                'howpublished': reference.howpublished,
-                'note': reference.note,
-                }
-    string = ""
-    for value in ref_data.values():
-        if value and string == "":
-            string += value
-        elif value:
-            string += f", {value}"
-    return string
-
 def fetch_one_reference(ref_id: int):
     sql = text("SELECT id, title, year, authors, publisher, editors, journal, "
                "booktitle, page, volume, number, month, howpublished, "
@@ -217,17 +158,6 @@ def check_unique_reference_key(reference_key: str) -> bool:
     db.session.commit()
 
     return result.unique
-
-def correct_bibtex_type_keys(bibtex_dict: dict):
-
-    if "authors" in bibtex_dict:
-        bibtex_dict["author"] = bibtex_dict.pop("authors")
-
-    if "editors" in bibtex_dict:
-        bibtex_dict["editor"] = bibtex_dict.pop("editors")
-
-    return bibtex_dict
-
 
 def generate_reference_key(reference: Reference) -> str:
     regex: str = r"[^a-zA-Z0-9\-:_]"
