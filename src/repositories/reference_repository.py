@@ -163,11 +163,23 @@ def generate_reference_key(reference: Reference) -> str:
     regex: str = r"[^a-zA-Z0-9\-:_]"
 
     reference_key: str = ""
-
+    title: str = ""
     if reference.title != "":
-        reference_key += reference.title
+        title = reference.title
     elif reference.booktitle != "":
-        reference_key += reference.booktitle
+        title = reference.booktitle
+
+    if title != "":
+        titleStr: str = ""
+        array: list[str] = reference.title.split(" ")
+        wordCount: int = min(len(array), 3)
+        for i in range(wordCount):
+            if array[i].lower() == "the" and i == 0:
+                continue
+            titleStr += array[i]
+            if i + 1 != wordCount:
+                titleStr += "-"
+        reference_key += titleStr
 
     if reference.year != "":
         reference_key += f"-{reference.year}"

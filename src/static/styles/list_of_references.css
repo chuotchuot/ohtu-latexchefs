@@ -58,9 +58,6 @@ form{
     gap: 5px;
 }
 
-.refButton{
-    min-width: 55px;
-}
 
 .topButtons{
     margin: auto;
@@ -102,13 +99,28 @@ form{
     transform: scale(0.975);
 }
 
+
 .delete{
     border: 1px solid hsl(0 100 66); 
 }
 
 .delete:hover{
     background-color: hsl(0 100 66);
+    fill: black;
     color: white;
+}
+.refButton:hover img{
+    filter: invert(100%);
+}
+.refButton:active img{
+    filter: invert(100%);
+}
+
+.delete:hover img{
+    filter: invert(0%);
+}
+.delete:active img{
+    filter: invert(0%);
 }
 
 .delete:active{

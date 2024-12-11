@@ -12,7 +12,7 @@ Download Bib File For A Single Reference
     Submit Valid Filled Out Book Form     Test Authors    Test Title    2000    Test Publisher  Test Editor
     Toggle BibTeX format
     Wait Until Element Is Visible  class:bibtex-container
-    Click Link  Download
+    Click Button  Download
     Wait Until File Exists  ~/Downloads/TestTitle-2000.bib
     File Should Exist  ~/Downloads/TestTitle-2000.bib
 

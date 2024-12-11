@@ -40,18 +40,26 @@ List of references | References
     <div class="reference">
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
-            <a href="/download/{{i.id}}.bib" class="button refbutton" download="reference.bib">Download</a>
-            <button id="copy_button" class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">Copy</button>
+            <button href="/download/{{i.id}}.bib" class="button refbutton" title="Download" value="Download" download="reference.bib">
+                <img src="/static/google_download.svg" height="16"/>
+            </button>
+            <button id="copy_button" class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">
+                <img src="/static/google_copy.svg" height="16"/>
+            </button>
             {% endif %}
             <form action="/edit" method="POST">
                 <input type="hidden" name="id" value="{{i.id}}">
                 <input type="hidden" name="confirmed" value="0">
-                <input type="submit" class="button refButton" title="Edit" value="Edit">
+                <button class="button refButton" title="Edit" value="Edit" type="submit">
+                    <img src="/static/google_edit.svg" height="16"/>
+                </button>
             </form>
             <form action="/delete" method="POST">
                 <input type="hidden" name="id" value="{{i.id}}">
                 <input type="hidden" name="confirmed" value="0">
-                <input type="submit" class="delete button refButton" title="Delete" value="Delete">
+                <button class="delete button refButton" title="Delete" value="Delete" type="submit">
+                    <img src="/static/google_delete.svg" height="16"/>
+                </button>
             </form>
         </div>
         {% if toggle == "on" %}
