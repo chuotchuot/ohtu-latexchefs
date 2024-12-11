@@ -11,7 +11,7 @@ One Reference With Searched Word Is Displayed
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2000
-    Click Button    search
+    Click Button    Search
     Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
 
 No References With Searched Word Is Displayed
@@ -20,7 +20,7 @@ No References With Searched Word Is Displayed
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2010
-    Click Button    search
+    Click Button    Search
     Page Should Contain  No references found
 
 *** Keywords ***
