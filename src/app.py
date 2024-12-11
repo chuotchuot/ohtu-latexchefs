@@ -2,11 +2,11 @@ from io import BytesIO
 from flask import redirect, render_template, request, jsonify, send_file
 from config import app, test_env
 from entities.reference import Reference
+from entities.output import Output
 from repositories.reference_repository import (
     save_reference, fetch_references, fetch_filtered_references,
     delete_reference,  fetch_one_reference, edit_reference,
-    fetch_reference_keys, create_bibtex_string, create_readable_string,
-    get_ref_info_with_doi, generate_reference_key
+    fetch_reference_keys, get_ref_info_with_doi, generate_reference_key
     )
 from db_helper import reset_db
 
@@ -72,8 +72,8 @@ def delete():
         delete_reference(ref_id)
         return redirect("/list_of_references")
     #else:
-    reference = fetch_one_reference(ref_id)
-    readable_string = {"id":reference.id,"text":create_readable_string(reference)}
+    output = Output(fetch_one_reference(ref_id))
+    readable_string = output.create_readable_string()
     return render_template("delete.html", reference=readable_string)
 
 @app.route("/edit", methods=["POST"])
@@ -102,7 +102,8 @@ def download_reference(ref_id: int):
     reference = fetch_one_reference(ref_id)
     if reference is None:
         redirect("/")
-    bibtex: str = create_bibtex_string(reference)
+    output = Output(reference)
+    bibtex: str = output.create_bibtex_string()["text"]
     return send_file(BytesIO(bibtex.encode()), download_name=f"{reference.reference_key}.bib")
 
 @app.route("/download/allreferences.bib", methods=["GET"])

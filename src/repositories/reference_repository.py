@@ -66,7 +66,6 @@ def fetch_references():
     for reference in fetched_references:
         output = Output(reference)
         bibtex_string_list.append(output.create_bibtex_string())
-        #bibtex_string_list.append({"id":reference.id,"text":create_bibtex_string(reference)})
         readable_string_list.append(output.create_readable_string())
 
     return readable_string_list, bibtex_string_list
@@ -95,9 +94,10 @@ def fetch_filtered_references(query):
     bibtex_string_list = []
     readable_string_list = []
 
-    for i in fetched_references:
-        bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
-        readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
+    for reference in fetched_references:
+        output = Output(reference)
+        bibtex_string_list.append(output.create_bibtex_string())
+        readable_string_list.append(output.create_readable_string())
 
     return readable_string_list, bibtex_string_list
 
