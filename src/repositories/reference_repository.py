@@ -170,16 +170,16 @@ def generate_reference_key(reference: Reference) -> str:
         title = reference.booktitle
 
     if title != "":
-        titleStr: str = ""
-        array: list[str] = reference.title.split(" ")
-        wordCount: int = min(len(array), 3)
-        for i in range(wordCount):
+        title_str: str = ""
+        array: list[str] = title.split(" ")
+        word_count: int = min(len(array), 3)
+        for i in range(word_count):
             if array[i].lower() == "the" and i == 0:
                 continue
-            titleStr += array[i]
-            if i + 1 != wordCount:
-                titleStr += "-"
-        reference_key += titleStr
+            title_str += array[i]
+            if i + 1 != word_count:
+                title_str += "-"
+        reference_key += title_str
 
     if reference.year != "":
         reference_key += f"-{reference.year}"

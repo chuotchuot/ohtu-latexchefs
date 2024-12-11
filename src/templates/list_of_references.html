@@ -42,9 +42,9 @@ List of references | References
     <div class="reference">
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
-            <button href="/download/{{i.id}}.bib" class="button refbutton" title="Download" value="Download" download="reference.bib">
+            <a href="/download/{{i.id}}.bib" class="button refbutton" title="Download" value="Download" download="reference.bib">
                 <img src="/static/google_download.svg" height="16"/>
-            </button>
+            </a>
             <button id="copy_button" class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">
                 <img src="/static/google_copy.svg" height="16"/>
             </button>
