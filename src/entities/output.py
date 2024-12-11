@@ -3,7 +3,7 @@ import bibtexparser
 
 class Output:
     def __init__(self, data):
-        self.id = data.id
+        self.id = ""
         self.title = data.title
         self.author = data.authors
         self.year = data.year
@@ -20,6 +20,9 @@ class Output:
         self.reference_type = data.reference_type
         self.reference_key = data.reference_key
         self.keywords = data.keywords
+
+    def set_id(self, id):
+        self.id = id
 
     def create_readable_string(self):
         ref_data = [self.title,
@@ -43,7 +46,7 @@ class Output:
             elif value:
                 string += f", {value}"
         return {"id":self.id,"text":string}
-    
+
     def create_bibtex_string(self):
         bibdb = BibDatabase()
         bibdb.entries = []
@@ -62,10 +65,10 @@ class Output:
         for attribute in reference_attributes:
             if getattr(self, attribute):
                 bibtex_dict[attribute] = str(getattr(self, attribute))
-    
+
         bibtex_dict = self.bibtex_seperate_multiple(bibtex_dict)
         return bibtex_dict
-    
+
     def bibtex_seperate_multiple(self, bibtex_dict):
         if "author" in bibtex_dict:
             bibtex_dict["author"] = bibtex_dict["author"].replace(" and "," and \n          ")

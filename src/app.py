@@ -73,6 +73,7 @@ def delete():
         return redirect("/list_of_references")
     #else:
     output = Output(fetch_one_reference(ref_id))
+    output.set_id(ref_id)
     readable_string = output.create_readable_string()
     return render_template("delete.html", reference=readable_string)
 

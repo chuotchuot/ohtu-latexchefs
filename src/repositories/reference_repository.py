@@ -65,6 +65,7 @@ def fetch_references():
 
     for reference in fetched_references:
         output = Output(reference)
+        output.set_id(reference.id)
         bibtex_string_list.append(output.create_bibtex_string())
         readable_string_list.append(output.create_readable_string())
 
@@ -96,6 +97,7 @@ def fetch_filtered_references(query):
 
     for reference in fetched_references:
         output = Output(reference)
+        output.set_id(reference.id)
         bibtex_string_list.append(output.create_bibtex_string())
         readable_string_list.append(output.create_readable_string())
 

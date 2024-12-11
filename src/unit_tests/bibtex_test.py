@@ -1,6 +1,6 @@
 import unittest
 from entities.reference import Reference
-from repositories import reference_repository
+from entities.output import Output
 
 class TestReferenceInput(unittest.TestCase):
 
@@ -32,6 +32,9 @@ class TestReferenceInput(unittest.TestCase):
         for key, value in self.test_book_dict.items():
             setattr(self.test_book, key, value)
 
+        self.test_output = Output(self.test_book)
+        self.test_output.set_id(1)
+
     def test_creating_bibtex_string(self):
         # Fix weird formatting without breaking the test
         test_string = """@book{PyUnitTest-17,
@@ -43,9 +46,11 @@ class TestReferenceInput(unittest.TestCase):
 }
 """
 
-        bibtex_string = reference_repository.create_bibtex_string(self.test_book)
+        bibtex_string = self.test_output.create_bibtex_string()["text"]
+        id = self.test_output.create_bibtex_string()["id"]
 
         self.assertEqual(bibtex_string, test_string)
+        self.assertEqual(1, id)
 
     def test_creating_bibtex_instance(self):
 
@@ -59,7 +64,7 @@ class TestReferenceInput(unittest.TestCase):
             "editor": "No known editor"
         }
 
-        bibtex_instance = reference_repository.create_bibtex_instance(self.test_book)
+        bibtex_instance = self.test_output.create_bibtex_instance()
 
         self.assertDictEqual(bibtex_instance, test_dict)
 
@@ -67,7 +72,7 @@ class TestReferenceInput(unittest.TestCase):
 
         correct_format_authors = "Ashwin Pajankar and \n          Pashwin Ajankar"
 
-        bibtex = reference_repository.bibtex_seperate_multiple(self.test_author_and_keyword_dict)
+        bibtex = self.test_output.bibtex_seperate_multiple(self.test_author_and_keyword_dict)
 
         self.assertEqual(bibtex["author"], correct_format_authors)
 
@@ -75,34 +80,6 @@ class TestReferenceInput(unittest.TestCase):
 
         correct_format_keywords = "Testing,\n             Automation"
 
-        bibtex = reference_repository.bibtex_seperate_multiple(self.test_author_and_keyword_dict)
+        bibtex = self.test_output.bibtex_seperate_multiple(self.test_author_and_keyword_dict)
 
         self.assertEqual(bibtex["keywords"], correct_format_keywords)
-
-    def test_correcting_bibtex_dictionary_key_for_authors(self):
-
-        correct_bibtex_dict = {
-            "author": "Ashwin Pajankar and Pashwin Ajankar"
-        }
-
-        test_bibtex_dict = {
-            "authors": "Ashwin Pajankar and Pashwin Ajankar",
-        }
-
-        test_bibtex_dict = reference_repository.correct_bibtex_type_keys(test_bibtex_dict)
-
-        self.assertDictEqual(correct_bibtex_dict, test_bibtex_dict)
-
-    def test_correcting_bibtex_dictionary_key_for_editors(self):
-
-        correct_bibtex_dict = {
-            "editor": "Pajawin Ashankar"
-        }
-
-        test_bibtex_dict = {
-            "editors": "Pajawin Ashankar"
-        }
-
-        test_bibtex_dict = reference_repository.correct_bibtex_type_keys(test_bibtex_dict)
-
-        self.assertDictEqual(correct_bibtex_dict, test_bibtex_dict)
