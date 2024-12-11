@@ -6,6 +6,7 @@ import bibtexparser
 from doi2bib.crossref import get_bib
 from config import db
 from entities.reference import Reference
+from entities.output import Output
 
 def save_reference(reference: Reference):
 
@@ -62,9 +63,11 @@ def fetch_references():
     bibtex_string_list = []
     readable_string_list = []
 
-    for i in fetched_references:
-        bibtex_string_list.append({"id":i.id,"text":create_bibtex_string(i)})
-        readable_string_list.append({"id":i.id,"text":create_readable_string(i)})
+    for reference in fetched_references:
+        output = Output(reference)
+        bibtex_string_list.append(output.create_bibtex_string())
+        #bibtex_string_list.append({"id":reference.id,"text":create_bibtex_string(reference)})
+        readable_string_list.append(output.create_readable_string())
 
     return readable_string_list, bibtex_string_list
 
