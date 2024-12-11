@@ -14,5 +14,3 @@ if __name__ == "__main__":
         reference1.publisher = "Publisher"
         reference1.reference_key = generate_reference_key(reference1)
         save_reference(reference1)
-
-    
