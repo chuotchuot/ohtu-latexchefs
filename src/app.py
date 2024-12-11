@@ -75,7 +75,7 @@ def filter_list_of_references():
 
 @app.before_request
 def clear_filter_on_url():
-    if not "/list_of_references" in request.path:
+    if not "/list_of_references" in request.path and not "/static" in request.path:
         session.pop("filtered_data",None)
 
 @app.route("/delete", methods=["POST"])
