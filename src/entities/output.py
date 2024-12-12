@@ -72,9 +72,6 @@ class Output:
     def bibtex_seperate_multiple(self, bibtex_dict):
         if "author" in bibtex_dict:
             bibtex_dict["author"] = bibtex_dict["author"].replace(" and "," and \n          ")
-            #menee rikki jos authorina " and "
         if "keywords" in bibtex_dict:
             bibtex_dict["keywords"] = bibtex_dict["keywords"].replace(", ",",\n             " )
-            #menee rikki jos keywordina ", "
-            #vois muuttaa databasee ettei voi mennä rikki
         return bibtex_dict

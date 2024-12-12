@@ -23,7 +23,6 @@ List of references | References
 <span id="references">
 
 
-<!-- Copy all references button from here -->
 {% if toggle == "on" %}
 <div id="all-references-in-bibtex" style="display: none; white-space: pre;">
     {% for i in references %}
@@ -37,7 +36,6 @@ List of references | References
 </div>
 
 {% endif %}
-<!-- to here -->
 
 {% for i in references %}
     <div class="reference">
@@ -66,14 +64,10 @@ List of references | References
             </form>
         </div>
         {% if toggle == "on" %}
-        <!-- Copy button code from here -->
         <div id="bibtex-{{ i.id }}" class="bibtex-container">
-            <!-- to here -->
         <pre>{{i.text}}</pre>
-        <!-- Copy button code from here -->
     </div>
     <br/>
-    <!-- to here -->
         {% else %}
         <div id="bibtex-{{ i.id }}">
             {{i.text}}

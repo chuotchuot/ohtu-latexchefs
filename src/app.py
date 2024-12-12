@@ -58,7 +58,6 @@ def display_list_of_references():
         reference_data = fetch_references()
     if request.method == "GET" or request.form["state"] == "off" :
         return render_template("list_of_references.html", references=reference_data[0],toggle="off")
-    # if request.method == "POST":
     state = request.form["state"]
     return render_template("list_of_references.html", references=reference_data[1], toggle=state)
 
@@ -85,7 +84,6 @@ def delete():
     if confirmed:
         delete_reference(ref_id)
         return redirect("/list_of_references")
-    #else:
     output = Output(fetch_one_reference(ref_id))
     output.set_id(ref_id)
     readable_string = output.create_readable_string()
@@ -107,7 +105,6 @@ def edit():
         edit_reference(reference_id, reference)
 
         return redirect("/list_of_references")
-    #else:
 
     return render_template("edit.html", reference=reference,
                            ref_keys=fetch_reference_keys())
