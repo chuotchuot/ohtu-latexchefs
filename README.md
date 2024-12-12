@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/chuotchuot/ohtu-latexchefs/graph/badge.svg?token=XKV2NWUEKH)](https://codecov.io/gh/chuotchuot/ohtu-latexchefs)
 
 [Backlog](https://helsinkifi-my.sharepoint.com/:x:/g/personal/janteero_ad_helsinki_fi/EZOTEPWAgVVJnm4PhNXM8-YBn665Mru4h2k-IxQ7mwoASQ?e=rFcqFA)
+[Raportti](https://helsinkifi-my.sharepoint.com/:w:/g/personal/jukaveka_ad_helsinki_fi/EeEk6pX64XlGrvsd94C9UWEBMwR8j85hcpGLZ8a3U2G9qA)
+
 
 ### Definition of done
 
