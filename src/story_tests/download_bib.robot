@@ -12,9 +12,9 @@ Download Bib File For A Single Reference
     Submit Valid Filled Out Book Form     Test Authors    Test Title    2000    Test Publisher  Test Editor
     Toggle BibTeX format
     Wait Until Element Is Visible  class:bibtex-container
-    Click Link  Download
-    Wait Until File Exists  ~/Downloads/TestTitle-2000.bib
-    File Should Exist  ~/Downloads/TestTitle-2000.bib
+    Click Element  //a[@class='button refbutton' and @title='Download']
+    Wait Until File Exists  ~/Downloads/Test-Title-2000.bib
+    File Should Exist  ~/Downloads/Test-Title-2000.bib
 
 Download Bib File For All References
     Submit Valid Filled Out Book Form     Test Authors    Test Title    2000    Test Publisher  Test Editor

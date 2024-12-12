@@ -16,7 +16,7 @@ Edit Reference | References
 <form action="/edit" method="POST">
     {% if reference.reference_type == "book" %}
         <p>Author(s):<br>
-            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{reference.authors}}</textarea>
         </p>
         <p>Title:<br>
             <input type="text" name="title" class="inputfield" value="{{reference.title}}" placeholder="Enter title" required>
@@ -28,17 +28,14 @@ Edit Reference | References
             <input type="text" name="publisher" class="inputfield" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
         </p>
         <p>Editor(s):<br>
-            <input type="text" name="editors" class="inputfield" value="{{editors}}" placeholder="Enter editor(s)" required>
+            <input type="text" name="editors" class="inputfield" value="{{reference.editors}}" placeholder="Enter editor(s)">
         </p>
     {% elif reference.reference_type == "inbook" %}
         <p>Author(s):<br>
-            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{reference.authors}}</textarea>
         </p>
         <p>Title:<br>
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
-        </p>
-        <p>Book title:<br>
-            <input type="text" name="booktitle" rows="2" cols="30" class="inputfield" value="{{reference.booktitle}}" placeholder="Enter book title" required>
         </p>
         <p>Year of Publication:<br>
             <input type="number" name="year" class="inputfield" value="{{reference.year}}" placeholder="Enter publication year" required>
@@ -46,18 +43,21 @@ Edit Reference | References
         <p>Publisher:<br>
             <input type="text" name="publisher" class="inputfield" value="{{reference.publisher}}" placeholder="Enter publisher name" required>
         </p>
+        <p>Book title:<br>
+            <input type="text" name="booktitle" rows="2" cols="30" class="inputfield" value="{{reference.booktitle}}" placeholder="(Optional) Enter book title">
+        </p>
         <p>Editor:<br>
-            <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)">{{editors}}</textarea>
+            <textarea name="editors" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter editor(s), separate editors by semicolons (;)">{{reference.editors}}</textarea>
         </p>
     {% elif reference.reference_type == "misc" %}
         <p>Author(s):<br>
-            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)" required>{{authors}} </textarea>
+            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="(Optional) Enter author(s), separate authors by semicolons (;)" required>{{reference.authors}}</textarea>
         </p>
         <p>Title:<br>
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
         </p>
         <p>How Published:<br>
-            <input type="text" name="howpublished" class="inputfield" value="{{reference.howpublished}}" placeholder="Enter how published" required>
+            <input type="text" name="howpublished" class="inputfield" value="{{reference.howpublished}}" placeholder="(Optional) Enter how published">
         </p>
         <p>Month of Publication:<br>
             <input type="text" name="month" class="inputfield" value="{{reference.month}}" placeholder="(Optional) Enter publication month">
@@ -70,7 +70,7 @@ Edit Reference | References
         </p>
     {% elif reference.reference_type == "article" %}
         <p>Author(s):<br>
-            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{authors}}</textarea>
+            <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required>{{reference.authors}}</textarea>
         </p>
         <p>Title:<br>
             <input type="text" name="title" rows="2" cols="30" class="inputfield" value="{{reference.title}}" placeholder="Enter title of the chapter or section" required>
@@ -94,12 +94,9 @@ Edit Reference | References
             <input type="text" name="month" rows="2" cols="30" class="inputfield" value="{{reference.month}}" placeholder="(Optional) Enter the month of publication.">
         </p>
         <p>Note:<br>
-            <textarea name="note" rows="5" cols="30" class="inputfield" placeholder="Miscellaneous information">{{reference.note}}</textarea>
+            <textarea name="note" rows="5" cols="30" class="inputfield" placeholder="(Optional) Miscellaneous information">{{reference.note}}</textarea>
         </p>
     {% endif %}
-    <p>Reference key:<br>
-        <input type="text" class="inputfield" name="reference_key" value="{{reference.reference_key}}" placeholder="Enter reference key" required>
-    </p>
     <p>Keyword(s):<br>
         <textarea rows="4" cols="30" class="inputfield" type="text" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by commas (,)">{{reference.keywords}}</textarea>
     </p>

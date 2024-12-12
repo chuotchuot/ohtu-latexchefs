@@ -25,16 +25,6 @@ Can't Submit Form When Title Empty
     Click Button  Submit
     Add New Misc Reference Page Should Be Open
 
-Can't Submit Form When How Published Empty
-    Input Text  name=authors  Test Authors
-    Input Text  name=title  Test Title
-    Input Text  name=month  12
-    Input Text  name=year  2000
-    Input Text  name=note  Test Note
-    Input text  name=keywords  Test Keywords
-    Click Button  Submit
-    Add New Misc Reference Page Should Be Open
-
 Submits Correctly Filled Out Form And Redirects To Front Page
     Input Text  name=authors  Test Authors
     Input Text  name=title  Test Title

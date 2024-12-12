@@ -12,7 +12,8 @@ disable=missing-module-docstring,
 
 
 [REFACTORING]
-max-nested-blocks=2
+max-nested-blocks=3
+max-branches=15
 
 [DESIGN]
 max-positional-arguments=20

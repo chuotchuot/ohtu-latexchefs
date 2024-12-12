@@ -25,3 +25,22 @@ class Reference:
         self.authors = self.authors.replace(separator, " and ")
         self.editors = self.editors.replace(separator, " and ")
         self.keywords = self.keywords.replace(separator, ", ")
+
+    def add_values_from_dictionary(self, items):
+        for key, value in items:
+            setattr(self, key, value)
+
+    def add_values_from_doi(self, data):
+        self.reference_type = "article"
+        self.title = data.get("title")
+        self.authors = data.get("author")
+        self.year = data.get("year")
+        self.journal = data.get("journal")
+        self.volume = data.get("volume")
+        self.number = data.get("number")
+        self.page = data.get("page")
+        self.month = data.get("month")
+        self.note = data.get("note")
+
+    def set_reference_key(self, key):
+        self.reference_key = key

@@ -1,6 +1,6 @@
 import unittest
 from entities.reference import Reference
-from repositories import reference_repository
+from entities.output import Output
 
 class TestReference(unittest.TestCase):
 
@@ -36,13 +36,8 @@ class TestReference(unittest.TestCase):
         for key, value in queried_book_dict.items():
             setattr(self.test_output_book, key, value)
 
-    def test_creating_empty_reference_dictionary(self):
-
-        test_dict = reference_repository.create_input_dictionary()
-
-        for key, value in test_dict.items():
-            self.assertEqual(value, "")
-            self.assertIsInstance(key, str)
+        self.test_output = Output(self.test_output_book)
+        self.test_output.set_id(1)
 
     def test_creating_readable_string(self):
 
@@ -52,9 +47,11 @@ class TestReference(unittest.TestCase):
                        "Berkeley, CA : Apress : Imprint: Apress, "
                        "Shekhar Gulati and Rahul Sharma")
 
-        readable_str= reference_repository.create_readable_string(self.test_output_book)
+        readable_str = self.test_output.create_readable_string()["text"]
+        ref_id = self.test_output.create_readable_string()["id"]
 
         self.assertEqual(correct_str, readable_str)
+        self.assertEqual(1, ref_id)
 
     def test_formatting_multiple_authors(self):
 
