@@ -1,6 +1,7 @@
 import unittest
 from entities.reference import Reference
 from entities.output import Output
+from repositories.reference_repository import get_ref_info_with_doi
 
 class TestReference(unittest.TestCase):
 
@@ -124,3 +125,31 @@ class TestReference(unittest.TestCase):
         reference.set_reference_key(test_ref_key)
 
         self.assertEqual(test_ref_key, reference.reference_key)
+
+
+class TestReferenceRepository(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_get_ref_info_with_doi(self):
+        doi = "10.1145/267580.267590"
+        data = {
+            "title": "Software unit test coverage and adequacy",
+            "author": "Zhu, Hong and Hall, Patrick A. V. and May, John H. R.",
+            "year": "1997",
+            "journal": "ACM Computing Surveys",
+            "volume": "29",
+            "number": "4",
+            "month": "December",
+        }
+
+        data_with_doi = get_ref_info_with_doi(doi)
+
+        self.assertEqual(data_with_doi.get("title"), data.get("title"))
+        self.assertEqual(data_with_doi.get("author"), data.get("author"))
+        self.assertEqual(data_with_doi.get("year"), data.get("year"))
+        self.assertEqual(data_with_doi.get("journal"), data.get("journal"))
+        self.assertEqual(data_with_doi.get("volume"), data.get("volume"))
+        self.assertEqual(data_with_doi.get("number"), data.get("number"))
+        self.assertEqual(data_with_doi.get("page"), data.get("page"))
+        self.assertEqual(data_with_doi.get("month"), data.get("month"))
