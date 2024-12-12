@@ -36,7 +36,6 @@ class TestReferenceInput(unittest.TestCase):
         self.test_output.set_id(1)
 
     def test_creating_bibtex_string(self):
-        # Fix weird formatting without breaking the test
         test_string = """@book{PyUnitTest-17,
  author = {Ashwin Pajankar},
  editor = {No known editor},
