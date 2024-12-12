@@ -10,3 +10,5 @@ exclude_also =
     def delete_reference
     def edit_reference
     def check_unique_reference_key
+    def fetch_filtered_references
+    def generate_reference_key
