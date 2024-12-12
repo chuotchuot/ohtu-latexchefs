@@ -112,7 +112,7 @@ Edit Reference | References
 <script>
     const regex = /^[a-zA-Z0-9\-:_]*$/;
     let originalRefKey = document.querySelector('input[name="reference_key"]').value;
-    const referenceKeys = {{ ref_keys | tojson }} //ignore the error
+    const referenceKeys = {{ ref_keys | tojson }}
 
     document.querySelector("body > form").addEventListener('submit', function(event) {
         let refKey = document.querySelector('input[name="reference_key"]').value;
