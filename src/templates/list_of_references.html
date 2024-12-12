@@ -15,7 +15,7 @@ List of references | References
 
 
 <form action="/filter_references" method="POST">
-    <input type="text" name="query">
+    <input type="text" class="inputfield" name="query">
     <input type="submit" class="button" value="Search">
     <input type="submit" class="button" value="Clear filters">
 </form>
@@ -30,6 +30,7 @@ List of references | References
 {{ i.text.strip() }}
     {% endfor %}
 </div>
+
 <div class="topButtons">
     <button class="button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
     <a href="/download/allreferences.bib" class="button" download="allreferences.bib">Download All References</a>
@@ -43,24 +44,24 @@ List of references | References
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
             <a href="/download/{{i.id}}.bib" class="button refbutton" title="Download" value="Download" download="reference.bib">
-                <img src="/static/google_download.svg" height="16"/>
+                <img src="/static/icons/google_download.svg" height="16"/>
             </a>
-            <button id="copy_button" class="copy-button button refButton" onclick="copyToClipboard('bibtex-{{ i.id }}')">
-                <img src="/static/google_copy.svg" height="16"/>
+            <button id="copy_button" class="copy-button button refButton" title="Copy" onclick="copyToClipboard('bibtex-{{ i.id }}')">
+                <img src="/static/icons/google_copy.svg" height="16"/>
             </button>
             {% endif %}
             <form action="/edit" method="POST">
                 <input type="hidden" name="id" value="{{i.id}}">
                 <input type="hidden" name="confirmed" value="0">
                 <button class="button refButton" title="Edit" value="Edit" type="submit">
-                    <img src="/static/google_edit.svg" height="16"/>
+                    <img src="/static/icons/google_edit.svg" height="16"/>
                 </button>
             </form>
             <form action="/delete" method="POST">
                 <input type="hidden" name="id" value="{{i.id}}">
                 <input type="hidden" name="confirmed" value="0">
                 <button class="delete button refButton" title="Delete" value="Delete" type="submit">
-                    <img src="/static/google_delete.svg" height="16"/>
+                    <img src="/static/icons/google_delete.svg" height="16"/>
                 </button>
             </form>
         </div>
