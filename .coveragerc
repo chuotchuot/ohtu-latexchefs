@@ -1,6 +1,6 @@
 [run]
 source = src
-omit = src/index.py, src/unit_tests/**, src/app.py, __init__.py, src/db_helper.py, src/config.py
+omit = src/index.py, src/unit_tests/**, src/app.py, __init__.py, src/db_helper.py, src/config.py, src/demo_setup.py
 [report]
 exclude_also = 
     def save_reference

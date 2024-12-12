@@ -7,16 +7,6 @@ if __name__ == "__main__":
     with app.app_context():
         setup_db()
 
-        '''print("Setting test book reference")
-        book_reference: Reference = Reference()
-        book_reference.title = "Unit Test Frameworks: Tools for High-Quality Software Development"
-        book_reference.authors = "Paul Hamill"
-        book_reference.year = "2004"
-        book_reference.reference_type = "book"
-        book_reference.publisher = "O'Reilly Media, Inc."
-        book_reference.reference_key = generate_reference_key(book_reference)
-        save_reference(book_reference)'''
-
         print("Setting test inbook reference")
         inbook_reference: Reference = Reference()
         inbook_reference.title = "Python Unit Test Automation"
