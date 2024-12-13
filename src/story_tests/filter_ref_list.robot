@@ -6,8 +6,7 @@ Test Setup      Reset Application And Go To List Of References Page
 
 *** Test Cases ***
 One Reference With Searched Word Is Displayed
-    Submit Valid Filled Out Form  Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2004    O'Reilly Media, inc.
-    Submit Valid Filled Out Form  Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2000    O'Reilly Media, inc.
+    Add Two Valid Filled Out Forms
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2000
@@ -15,8 +14,7 @@ One Reference With Searched Word Is Displayed
     Page Should Contain  Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2000, O'Reilly Media, inc.
 
 No References With Searched Word Is Displayed
-    Submit Valid Filled Out Form  Paul Hamill  Unit Test Frameworks: Tools for High-Quality Software Development  2004  O'Reilly Media, inc.
-    Submit Valid Filled Out Form  Paul Hamill  Unit Test Frameworks: Tools for High-Quality Software Development  2000  O'Reilly Media, inc.
+    Add Two Valid Filled Out Forms
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2010
@@ -27,24 +25,24 @@ Toggling Bibtex Doesnt Reset Filter
     Add Two Valid Filled Out Forms
     Go To List Of References Page
     List Of References Page Should Be Open
-    Input And Search Query  2000
+    Input And Search Query  2004
     Click Button    Toggle BibTeX format
     Click Button    Toggle BibTeX format
-    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
-    Page Should Not Contain    Test Title, Test Authors, 2001, Test Publisher
+    Page Should Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2004, O'Reilly Media, inc.
+    Page Should Not Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2000, O'Reilly Media, inc.
 
 Clear Filter Button Clears Filters
     Add Two Valid Filled Out Forms
     Go To List Of References Page
     List Of References Page Should Be Open
-    Input And Search Query  2000
+    Input And Search Query  2004
     Click Button    Toggle BibTeX format
     Click Button    Toggle BibTeX format
-    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
-    Page Should Not Contain    Test Title, Test Authors, 2001, Test Publisher
+    Page Should Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2004, O'Reilly Media, inc.
+    Page Should Not Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2000, O'Reilly Media, inc.
     Click Button  Clear filters
-    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
-    Page Should Contain    Test Title, Test Authors, 2001, Test Publisher
+    Page Should Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2004, O'Reilly Media, inc.
+    Page Should Contain    Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2000, O'Reilly Media, inc.
 
 Download Bib File For All References
     Add Two Valid Filled Out Forms
@@ -59,9 +57,10 @@ Input And Search Query
     [Arguments]  ${query}
     Input Text  query  ${query}
     Click Button    Search
+
 Add Two Valid Filled Out Forms
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Editor
-    Submit Valid Filled Out Form    Test Authors    Test Title    2001    Test Publisher  Test Editor
+    Submit Valid Filled Out Form    Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2004    O'Reilly Media, inc.
+    Submit Valid Filled Out Form    Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2000    O'Reilly Media, inc.
 
 Reset Application And Go To List Of References Page
     Reset Database
