@@ -41,9 +41,6 @@ Submit Valid Filled Out Book Form
     Click Button  Submit
     Go To List Of References Page
 
-Toggle BibTeX format
-    Click Button    Toggle BibTeX format
-
 Wait Until File Exists
     [Arguments]    ${path}    ${timeout}=10
     Wait Until Keyword Succeeds    ${timeout}    1s

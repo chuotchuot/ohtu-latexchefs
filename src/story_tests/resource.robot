@@ -93,3 +93,6 @@ Go To Add Reference With Doi Page
 
 Reset Database
     Go To  ${RESET_URL}
+
+Toggle BibTeX Format
+    Click Button    Toggle BibTeX format
