@@ -54,7 +54,25 @@ Download Bib File For All References
     Wait Until File Exists  ~/Downloads/allreferences.bib
     File Should Exist  ~/Downloads/allreferences.bib
 
+Copy All Filtered References Works
+    Add Two Valid Filled Out Forms
+    Submit Valid Filled Out Form    Test Authors    Test Title    1999    Test Publisher  Test Editor
+    Input And Search Query  200
+    Click Button    Toggle BibTeX format
+    Wait Until Element Is Visible  id=copy_all_button
+    Click Button  Copy All References
+    Go To Add New Book Reference Page
+    Add New Book Reference Page Should Be Open
+    Paste Copied Text And Compare
+
 *** Keywords ***
+Paste Copied Text And Compare
+    Press Keys  name=authors  \CTRL+v
+    ${value}=  Get Value  name=authors
+    Should Contain  ${value}      @book{Test-Title-2000,\n author = {Test Authors},\n editor = {Test Editor},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2000}\n}\n
+    Should Contain  ${value}      @book{Test-Title-2001,\n author = {Test Authors},\n editor = {Test Editor},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {2001}\n}\n
+    Should Not Contain  ${value}      @book{Test-Title-1999,\n author = {Test Authors},\n editor = {Test Editor},\n publisher = {Test Publisher},\n title = {Test Title},\n year = {1999}\n}\n
+
 Input And Search Query
     [Arguments]  ${query}
     Input Text  query  ${query}
