@@ -6,17 +6,17 @@ Test Setup      Reset Application And Go To List Of References Page
 
 *** Test Cases ***
 One Reference With Searched Word Is Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Editor
-    Submit Valid Filled Out Form    Test Authors    Test Title    2001    Test Publisher  Test Editor
+    Submit Valid Filled Out Form  Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2004    O'Reilly Media, inc.
+    Submit Valid Filled Out Form  Paul Hamill    Unit Test Frameworks: Tools for High-Quality Software Development    2000    O'Reilly Media, inc.
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2000
     Click Button    Search
-    Page Should Contain    Test Title, Test Authors, 2000, Test Publisher
+    Page Should Contain  Unit Test Frameworks: Tools for High-Quality Software Development, Paul Hamill, 2000, O'Reilly Media, inc.
 
 No References With Searched Word Is Displayed
-    Submit Valid Filled Out Form    Test Authors    Test Title    2000    Test Publisher  Test Editor
-    Submit Valid Filled Out Form    Test Authors    Test Title    2001    Test Publisher  Test Editor
+    Submit Valid Filled Out Form  Paul Hamill  Unit Test Frameworks: Tools for High-Quality Software Development  2004  O'Reilly Media, inc.
+    Submit Valid Filled Out Form  Paul Hamill  Unit Test Frameworks: Tools for High-Quality Software Development  2000  O'Reilly Media, inc.
     Go To List Of References Page
     List Of References Page Should Be Open
     Input Text    query    2010
@@ -68,13 +68,12 @@ Reset Application And Go To List Of References Page
     Go To List Of References Page
 
 Submit Valid Filled Out Form
-    [Arguments]  ${authors}  ${title}  ${year}  ${publisher}  ${editor}
+    [Arguments]  ${authors}  ${title}  ${year}  ${publisher}
     Go To Add New Book Reference Page
     Input Text  name=authors  ${authors}
     Input Text  name=title  ${title}
     Input Text  name=year  ${year}
     Input Text  name=publisher  ${publisher}
-    Input Text  name=editors  ${editor}
     Click Button  Submit
     Go To List Of References Page
 

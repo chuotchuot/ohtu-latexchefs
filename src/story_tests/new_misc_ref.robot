@@ -6,29 +6,34 @@ Test Setup      Reset Application And Go To Add New Misc Reference Page
 
 *** Test Cases ***
 Can't Submit Form When Authors Empty
-    Input Text  name=title  Test Title
-    Input Text  name=howpublished  Test Way Of Publishing
-    Input Text  name=month  12
-    Input Text  name=year  2000
-    Input Text  name=note  Test Note
-    Input text  name=keywords  Test Keywords
+    Input Text  name=title  Lean Testing: Or Why Unit Tests Are Worse Than You Think
+    Input Text  name=howpublished  WebPage Medium.com
+    Input Text  name=year  2018
+    Input Text    name=keywords    lean
     Click Button  Submit
     Add New Misc Reference Page Should Be Open
 
 Can't Submit Form When Title Empty
-    Input Text  name=authors  Test Authors
-    Input Text  name=howpublished  Test Way Of Publishing
-    Input Text  name=month  12
-    Input Text  name=year  2000
-    Input Text  name=note  Test Note
-    Input text  name=keywords  Test Keywords
+    Input Text  name=authors  Eugen Kiss
+    Input Text  name=howpublished  WebPage Medium.com
+    Input Text  name=year  2018
+    Input Text    name=keywords    lean
+    Click Button  Submit
+    Add New Misc Reference Page Should Be Open
+
+Can't Submit Form When HowPublished Empty
+    Input Text  name=authors  Eugen Kiss
+    Input Text  name=year  2018
+    Input Text    name=keywords    lean
     Click Button  Submit
     Add New Misc Reference Page Should Be Open
 
 Submits Correctly Filled Out Form And Redirects To Front Page
-    Input Text  name=authors  Test Authors
-    Input Text  name=title  Test Title
-    Input Text  name=howpublished  Test Way Of Publishing
+    Input Text  name=authors  Eugen Kiss
+    Input Text  name=title  Lean Testing: Or Why Unit Tests Are Worse Than You Think
+    Input Text  name=howpublished  WebPage Medium.com
+    Input Text  name=year  2018
+    Input Text    name=keywords    lean
     Click Button  Submit
     Front Page Should Be Open
 
