@@ -31,14 +31,14 @@ List of references | References
 </div>
 
 <div class="topButtons">
-    <button class="button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
+    <button class="button" id="copy_all_button" onclick="copyAllReferences('all-references-in-bibtex')">Copy All References</button>
     <a href="/download/allreferences.bib" class="button" download="allreferences.bib">Download All References</a>
 </div>
 
 {% endif %}
 
 {% for i in references %}
-    <div class="reference">
+<div class="reference">
         <div class="{{'buttons' if toggle == 'off' else 'buttonsBibtex'}}">
             {% if toggle == "on" %}
             <a href="/download/{{i.id}}.bib" class="button refbutton" title="Download" value="Download" download="reference.bib">
