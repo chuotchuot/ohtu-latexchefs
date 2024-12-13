@@ -4,7 +4,7 @@ Library  OperatingSystem
 
 *** Variables ***
 ${SERVER}            localhost:5001
-${DELAY}             0.05 seconds
+${DELAY}             0.5 seconds
 ${HOME_URL}          http://${SERVER}
 ${SELECTOR_URL}      http://${SERVER}/selector
 ${RESET_URL}         http://${SERVER}/reset_db
