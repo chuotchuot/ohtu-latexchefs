@@ -1,5 +1,6 @@
 # ohtu-latexchefs
 
+
 [![GHA workflow badge](https://github.com/chuotchuot/ohtu-latexchefs/workflows/CI/badge.svg)](https://github.com/chuotchuot/ohtu-latexchefs/actions)
 [![codecov](https://codecov.io/gh/chuotchuot/ohtu-latexchefs/graph/badge.svg?token=XKV2NWUEKH)](https://codecov.io/gh/chuotchuot/ohtu-latexchefs)
 
