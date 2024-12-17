@@ -1,0 +1,82 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_book_reference.css') }}">'
+    <script src="{{url_for('static', filename='scripts/warning.js')}}"></script>
+</head>
+
+{% extends "layout.html" %}
+
+{% block title %}
+Add a new {{ reference_type }} reference | References
+{% endblock %}
+
+{% block body %}
+
+<h2>Add a new {{ reference_type }} reference</h2>
+
+<form action="/add_reference" method="POST">
+    <p>Author(s):<br>
+        <textarea name="authors" rows="5" cols="30" class="inputfield" placeholder="Enter author(s), separate authors by semicolons (;)" required></textarea>
+    </p>
+    <p>Title:<br>
+        <input type="text" name="title" class="inputfield" placeholder="Enter title" required>
+    </p>
+    {% if reference_type == "article" %}
+    <p>Year of Publication:<br>
+        <input type="number" name="year" class="inputfield" placeholder="Enter publication year" required>
+    </p>
+    <p>Volume:<br>
+        <input type="number" name="volume" class="inputfield" placeholder="(Optional) Enter the volume number of the journal"></textarea>
+    </p>
+    <p>Number:<br>
+        <input type="number" name="number" class="inputfield" placeholder="(Optional) Enter the issue number of the journal">
+    </p>
+    <p>Pages:<br>
+        <input type="text" name="pages" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter the page numbers on which the article appears.">
+    </p>
+    <p>Month:<br>
+        <input type="text" name="month" rows="2" cols="30" class="inputfield" placeholder="(Optional) Enter the month of publication.">
+    </p>
+    <p>Note:<br>
+        <textarea name="note" rows="5" cols="30" class="inputfield" placeholder="(Optional) Miscellaneous information"></textarea>
+    </p>
+    {% endif %}
+    {% if reference_type in ("book", "inbook") %}
+    {% if reference_type == "inbook" %}
+    <p>Book title:<br>
+        <input type="text" name="booktitle" rows="2" cols="30" class="inputfield" placeholder="Enter book title" required>
+    </p>
+    {% endif %}
+    <p>Year of Publication:<br>
+        <input type="number" name="year" class="inputfield" placeholder="Enter publication year" required>
+    </p>
+    <p>Publisher:<br>
+        <input type="text" name="publisher" class="inputfield" placeholder="Enter publisher name" required>
+    </p>
+    <p>Editor(s):<br>
+        <input type="text" name="editors" class="inputfield" placeholder="Enter editor(s), separate editors by semicolons (;)">
+    </p>
+    {% endif %}
+    {% if reference_type == "misc" %}
+    <p>How Published:<br>
+        <input type="text" name="howpublished" class="inputfield" placeholder="Enter how published" required>
+    </p>
+    <p>Month of Publication:<br>
+        <input type="text" name="month" class="inputfield" placeholder="(Optional) Enter publication month">
+    </p>
+    <p>Year of Publication:<br>
+        <input type="text" name="year" class="inputfield" placeholder="(Optional) Enter publication year">
+    </p>
+    <p>Note:<br>
+        <input type="text" name="note" class="inputfield" placeholder="(Optional) Enter note">
+    </p>
+    {% endif %}
+    <p>Keyword(s):<br>
+        <textarea rows="4" cols="30" type="text" class="inputfield" name="keywords" placeholder="(Optional) Enter keyword(s), separate keywords by semicolons (;)"></textarea>
+    </p>
+    <input type="hidden" name="reference_type" value={{reference_type}}>
+    <input type="submit" class="button" value="Submit">
+</form>
+
+<a class="button" href="/selector">Go back</a>
+
+{% endblock %}

@@ -12,6 +12,7 @@ ${BOOK_REF_URL}      http://${SERVER}/add_book_reference
 ${INBOOK_REF_URL}    http://${SERVER}/add_inbook_reference
 ${MISC_REF_URL}      http://${SERVER}/add_misc_reference
 ${REF_LIST_URL}      http://${SERVER}/list_of_references
+${DOI_REF_URL}       http://${SERVER}/add_reference_with_doi
 ${BROWSER}           chrome
 ${HEADLESS}          false
 
@@ -43,12 +44,16 @@ Add New Book Reference Page Should Be Open
     Title Should Be  Add a new book reference | References
 
 Add New Misc Reference Page Should Be Open
-    Wait Until Page Contains  Add a new miscellaneous reference | References
-    Title Should Be  Add a new miscellaneous reference | References
+    Wait Until Page Contains  Add a new misc reference | References
+    Title Should Be  Add a new misc reference | References
 
 Add New Inbook Reference Page Should Be Open
     Wait Until Page Contains  Add a new inbook reference | References
     Title Should Be  Add a new inbook reference | References
+
+Add Reference With Doi Page Should Be Open
+    Wait Until Page Contains  Add a reference with DOI | References
+    Title Should Be  Add a reference with DOI | References
 
 List Of References Page Should Be Open
     Wait Until Page Contains  List of references | References
@@ -69,16 +74,25 @@ Go To Selector Page
     Go To  ${SELECTOR_URL}
 
 Go To Add New Book Reference Page
-    Go To  ${BOOK_REF_URL}
+    Go To Selector Page
+    Click Link  Book
 
 Go To Add New Misc Reference Page
-    Go To  ${MISC_REF_URL}
+    Go To Selector Page
+    Click Link  Miscellaneous
 
 Go To List Of References Page
-    Go To  ${REF_LIST_URL}
+    Go To  ${REF_LIST_URL} 
 
 Go To Add New Inbook Reference Page
-    Go To  ${INBOOK_REF_URL}
+    Go To Selector Page
+    Click Link  Inbook
+
+Go To Add Reference With Doi Page
+    Go To  ${DOI_REF_URL}
 
 Reset Database
     Go To  ${RESET_URL}
+
+Toggle BibTeX Format
+    Click Button    Toggle BibTeX format

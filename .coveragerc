@@ -1,11 +1,14 @@
 [run]
 source = src
-omit = src/index.py, src/unit_tests/**, src/app.py, __init__.py, src/db_helper.py, src/config.py
+omit = src/index.py, src/unit_tests/**, src/app.py, __init__.py, src/db_helper.py, src/config.py, src/demo_setup.py
 [report]
 exclude_also = 
-    def add_reference
-    def fetch_reference
+    def save_reference
+    def fetch_references
+    def fetch_one_reference
     def fetch_reference_keys
     def delete_reference
     def edit_reference
     def check_unique_reference_key
+    def fetch_filtered_references
+    def generate_reference_key

@@ -35,6 +35,7 @@ pre{
     flex-direction: column;
     align-items: left; 
     vertical-align: middle;
+    margin-top: 10px;
 }
 
 form{
@@ -58,9 +59,6 @@ form{
     gap: 5px;
 }
 
-.refButton{
-    min-width: 55px;
-}
 
 .topButtons{
     margin: auto;
@@ -86,7 +84,7 @@ form{
     background-color: hsl(256 22 13);
     border: 1px solid hsl(256 22 95);
     border-radius: 10px;
-    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s, filter 0.2s;
     font-size: 14px;
 }
 
@@ -102,13 +100,38 @@ form{
     transform: scale(0.975);
 }
 
+.inputfield{
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid rgb(255,255,255);
+    padding: 10px 10px 10px 10px;
+    height: 29px;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(30, 26, 41);
+}
+
 .delete{
     border: 1px solid hsl(0 100 66); 
 }
 
 .delete:hover{
     background-color: hsl(0 100 66);
+    fill: black;
     color: white;
+}
+.refButton:hover img{
+    filter: invert(100%);
+}
+.refButton:active img{
+    filter: invert(100%);
+}
+
+.delete:hover img{
+    filter: invert(0%);
+}
+.delete:active img{
+    filter: invert(0%);
 }
 
 .delete:active{
